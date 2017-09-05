@@ -31,6 +31,9 @@ Plug 'honza/vim-snippets'
 " Linter
 Plug 'w0rp/ale'
 
+" Tags
+Plug 'ludovicchabant/vim-gutentags'
+
 " Work with parentheses, quotes, etc
 Plug 'tpope/vim-surround'
 
@@ -96,3 +99,6 @@ let g:vimtex_view_general_viewer = 'SumatraPDF'
 let g:vimtex_view_general_options
 	\ = '@pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
+
+
+""""""""""""""""
