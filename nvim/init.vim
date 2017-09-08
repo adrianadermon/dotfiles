@@ -1,7 +1,7 @@
 set termguicolors
 
-let g:python_host_prog = 'C:/Users/adria/Anaconda3/envs/py27/python.exe'
-let g:python3_host_prog = 'C:/Users/adria/Anaconda3/python.exe'
+let g:python_host_prog = $HOME . '/Anaconda3/envs/py27/python.exe'
+let g:python3_host_prog = $HOME . '/Anaconda3/python.exe'
 
 " vim-plug
 call plug#begin('~/AppData/Local/nvim/plugged')
