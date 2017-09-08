@@ -18,6 +18,9 @@ Plug 'itchyny/lightline.vim'
 " Base16 themes for statusline
 Plug 'felixjung/vim-base16-lightline'
 
+" Rainbow parentheses
+Plug 'junegunn/rainbow_parentheses.vim'
+
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -36,6 +39,9 @@ Plug 'ludovicchabant/vim-gutentags'
 
 " Work with parentheses, quotes, etc
 Plug 'tpope/vim-surround'
+
+" Align
+Plug 'junegunn/vim-easy-align'
 
 " Git integration
 Plug 'tpope/vim-fugitive'
@@ -60,6 +66,11 @@ Plug 'JuliaEditorSupport/julia-vim'
 
 call plug#end()
 
+" Indent and tab settings
+set expandtab
+set shiftwidth=4
+set softtabstop=4
+
 " Set theme
 colorscheme base16-oceanicnext
 " colorscheme seoul256
@@ -73,6 +84,12 @@ let g:deoplete#enable_at_startup = 1
 
 " Set private snippets directory
 let g:UltiSnipsSnippetsDir = "~/AppData/Local/nvim/UltiSnips"
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " R
 """""""""""""""""""""""""""""""""""""""""""""""""
