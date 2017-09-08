@@ -126,6 +126,11 @@ if !exists('g:deoplete#omni#input_patterns')
 endif
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 
+" Latexmk options
+let g:vimtex_compiler_latexmk = {
+    \ 'continuous' : 0,
+    \}
+
 " Use SumatraPDF as viewer with vimtex
 let g:vimtex_view_general_viewer = 'SumatraPDF'
 "let g:vimtex_view_general_options
