@@ -71,6 +71,23 @@ set expandtab
 set shiftwidth=4
 set softtabstop=4
 
+" Hybrid line numbers
+set number
+set relativenumber
+
+" Smart search case
+set ignorecase
+set smartcase
+
+" Don't split words when soft wrapping
+set linebreak
+
+" Move by display line
+nnoremap <expr> j v:count ? 'j' : 'gj'
+nnoremap <expr> k v:count ? 'k' : 'gk'
+vnoremap <expr> j v:count ? 'j' : 'gj'
+vnoremap <expr> k v:count ? 'k' : 'gk'
+
 " Set theme
 colorscheme base16-oceanicnext
 " colorscheme seoul256
