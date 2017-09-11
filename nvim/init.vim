@@ -43,6 +43,9 @@ Plug 'tpope/vim-surround'
 " Align
 Plug 'junegunn/vim-easy-align'
 
+" Comment
+Plug 'tpope/vim-commentary'
+
 " Git integration
 Plug 'tpope/vim-fugitive'
 
@@ -81,6 +84,9 @@ set smartcase
 
 " Don't split words when soft wrapping
 set linebreak
+
+" Set fold character to blank
+set fillchars="vert:|,fold:\"
 
 " Move by display line
 nnoremap <expr> j v:count ? 'j' : 'gj'
@@ -130,6 +136,9 @@ let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 let g:vimtex_compiler_latexmk = {
     \ 'continuous' : 0,
     \}
+
+" Folding
+let g:vimtex_fold_enabled = 1
 
 " Use SumatraPDF as viewer with vimtex
 let g:vimtex_view_general_viewer = 'SumatraPDF'
