@@ -46,6 +46,9 @@ Plug 'junegunn/vim-easy-align'
 " Comment
 Plug 'tpope/vim-commentary'
 
+" Faster folding
+Plug 'Konfekt/FastFold'
+
 " Git integration
 Plug 'tpope/vim-fugitive'
 
