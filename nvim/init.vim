@@ -67,6 +67,9 @@ Plug 'lervag/vimtex'
 " Julia support
 Plug 'JuliaEditorSupport/julia-vim'
 
+" REPL
+Plug 'kassio/neoterm'
+
 call plug#end()
 
 " Indent and tab settings
