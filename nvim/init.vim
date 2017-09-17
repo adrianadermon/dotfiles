@@ -27,6 +27,9 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 " Fuzzy finder
 Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 
+" History support for finder
+Plug 'Shougo/neomru.vim'
+
 " Snippets
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -119,6 +122,36 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Denite setup
+"""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Ripgrep for file_rec
+call denite#custom#var('file_rec', 'command',
+    \ ['rg', '--files', '--glob', '!.git', ''])
+
+" Navigate list with Ctrl-j and Ctrl-k
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-j>',
+      \ '<denite:move_to_next_line>',
+      \ 'noremap'
+      \)
+call denite#custom#map(
+      \ 'insert',
+      \ '<C-k>',
+      \ '<denite:move_to_previous_line>',
+      \ 'noremap'
+      \)
+
+" Ripgrep command on grep source
+call denite#custom#var('grep', 'command', ['rg'])
+call denite#custom#var('grep', 'default_opts',
+                \ ['--vimgrep', '--no-heading'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
 
 " R
 """""""""""""""""""""""""""""""""""""""""""""""""
