@@ -103,6 +103,10 @@ nnoremap <expr> k v:count ? 'k' : 'gk'
 vnoremap <expr> j v:count ? 'j' : 'gj'
 vnoremap <expr> k v:count ? 'k' : 'gk'
 
+" Search with ripgrep
+set grepprg=rg\ --vimgrep
+set grepformat^=%f:%l:%c:%m
+
 " Set theme
 colorscheme base16-oceanicnext
 " colorscheme seoul256
