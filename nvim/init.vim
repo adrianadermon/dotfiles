@@ -12,6 +12,9 @@ Plug 'chriskempson/base16-vim'
 " Seoul 256 color theme
 Plug 'junegunn/seoul256.vim'
 
+" Start screen
+Plug 'mhinz/vim-startify'
+
 " Statusline
 Plug 'itchyny/lightline.vim'
 
@@ -114,6 +117,9 @@ colorscheme base16-oceanicnext
 " Set lightline theme
 let g:lightline = {}
 let g:lightline.colorscheme = 'base16_oceanicnext'
+
+" Remove start screen header
+let g:startify_custom_header = []
 
 " Use deoplete
 let g:deoplete#enable_at_startup = 1
