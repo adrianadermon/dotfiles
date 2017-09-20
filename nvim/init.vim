@@ -94,6 +94,9 @@ set relativenumber
 set ignorecase
 set smartcase
 
+" Preview substitions
+set inccommand=split
+
 " Don't split words when soft wrapping
 set linebreak
 
