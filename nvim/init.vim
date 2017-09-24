@@ -192,6 +192,9 @@ let Rtools_path = "C:\\Rtools3.3"
 " Use color scheme for R output
 let rout_follow_colorscheme = 1
 
+" Enable folding
+let r_syntax_folding = 1
+
 " Latex
 """""""""""""""""""""""""""""""""""""""""""""""""
 
