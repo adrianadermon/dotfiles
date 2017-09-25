@@ -21,6 +21,9 @@ Plug 'itchyny/lightline.vim'
 " Base16 themes for statusline
 Plug 'felixjung/vim-base16-lightline'
 
+" Change directory
+Plug 'airblade/vim-rooter'
+
 " Rainbow parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 
@@ -123,6 +126,10 @@ let g:lightline.colorscheme = 'base16_oceanicnext'
 
 " Remove start screen header
 let g:startify_custom_header = []
+
+" Vim-rooter settings
+let g:rooter_change_directory_for_non_project_files = 'current'
+let g:rooter_manual_only = 1
 
 " Use deoplete
 let g:deoplete#enable_at_startup = 1
