@@ -124,8 +124,18 @@ colorscheme base16-oceanicnext
 let g:lightline = {}
 let g:lightline.colorscheme = 'base16_oceanicnext'
 
-" Remove start screen header
-let g:startify_custom_header = []
+" Start screen header
+let g:startify_custom_header = [
+    \ '__/\\\________/\\\__/\\\\\\\\\\\__/\\\\____________/\\\\_        ',
+    \ ' _\/\\\_______\/\\\_\/////\\\///__\/\\\\\\________/\\\\\\_       ',
+    \ '  _\//\\\______/\\\______\/\\\_____\/\\\//\\\____/\\\//\\\_      ',
+    \ '   __\//\\\____/\\\_______\/\\\_____\/\\\\///\\\/\\\/_\/\\\_     ',
+    \ '    ___\//\\\__/\\\________\/\\\_____\/\\\__\///\\\/___\/\\\_    ',
+    \ '     ____\//\\\/\\\_________\/\\\_____\/\\\____\///_____\/\\\_   ',
+    \ '      _____\//\\\\\__________\/\\\_____\/\\\_____________\/\\\_  ',
+    \ '       ______\//\\\________/\\\\\\\\\\\_\/\\\_____________\/\\\_ ',
+    \ '        _______\///________\///////////__\///______________\///__',
+    \ ]
 
 " Vim-rooter settings
 let g:rooter_change_directory_for_non_project_files = 'current'
@@ -142,6 +152,9 @@ xmap ga <Plug>(EasyAlign)
 
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+" Neoterm setup
+let g:neoterm_autoscroll=1
 
 " Denite setup
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -176,11 +189,18 @@ call denite#custom#var('grep', 'final_opts', [])
 " R
 """""""""""""""""""""""""""""""""""""""""""""""""
 
+" Run lines and selections with Ctrl-Enter
+nmap <C-Enter> <Plug>RDSendLine
+vmap <C-Enter> <Plug>RDSendSelection
+
 " Use older Rtools for Nvim-R plugin
 let Rtools_path = "C:\\Rtools3.3"
 
 " Use color scheme for R output
 let rout_follow_colorscheme = 1
+
+" Enable folding
+let r_syntax_folding = 1
 
 " Latex
 """""""""""""""""""""""""""""""""""""""""""""""""
