@@ -119,6 +119,9 @@ set grepformat^=%f:%l:%c:%m
 " Clear search highlight
 nnoremap <C-l> :nohlsearch<CR><C-l>
 
+" Space as leader
+map <space> <leader>
+
 " Set theme
 colorscheme base16-oceanicnext
 " colorscheme seoul256
@@ -196,9 +199,8 @@ call denite#custom#var('grep', 'final_opts', [])
 nmap <C-Enter> <Plug>RDSendLine
 vmap <C-Enter> <Plug>RDSendSelection
 
-" Rstudio-like shortcuts
+" Disable assignment mapping
 let R_assign = 0
-" let R_assign_map = "<M-->"
 
 " Use older Rtools for Nvim-R plugin
 let Rtools_path = "C:\\Rtools3.3"
