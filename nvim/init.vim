@@ -116,6 +116,9 @@ vnoremap <expr> k v:count ? 'k' : 'gk'
 set grepprg=rg\ --vimgrep
 set grepformat^=%f:%l:%c:%m
 
+" Clear search highlight
+nnoremap <C-l> :nohlsearch<CR><C-l>
+
 " Set theme
 colorscheme base16-oceanicnext
 " colorscheme seoul256
@@ -192,6 +195,10 @@ call denite#custom#var('grep', 'final_opts', [])
 " Run lines and selections with Ctrl-Enter
 nmap <C-Enter> <Plug>RDSendLine
 vmap <C-Enter> <Plug>RDSendSelection
+
+" Rstudio-like shortcuts
+let R_assign = 0
+" let R_assign_map = "<M-->"
 
 " Use older Rtools for Nvim-R plugin
 let Rtools_path = "C:\\Rtools3.3"
