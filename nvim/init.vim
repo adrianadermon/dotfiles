@@ -27,6 +27,12 @@ Plug 'airblade/vim-rooter'
 " Rainbow parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 
+" Additional mappings
+Plug 'tpope/vim-unimpaired'
+
+" Additional targets
+Plug 'wellle/targets.vim'
+
 " Autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
