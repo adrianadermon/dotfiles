@@ -217,6 +217,9 @@ let rout_follow_colorscheme = 1
 " Enable folding
 let r_syntax_folding = 1
 
+" Close R when quitting Vim
+autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
+
 " Latex
 """""""""""""""""""""""""""""""""""""""""""""""""
 
