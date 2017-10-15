@@ -1,3 +1,7 @@
+" Indent and tab settings
+set shiftwidth=2
+set softtabstop=2
+
 " Insert spaces around operator only if needed
 function! RSmartSpace(string)
     " Get previous character
