@@ -73,6 +73,10 @@ Plug 'airblade/vim-gitgutter'
 " Distraction-free writing
 Plug 'junegunn/goyo.vim'
 
+" Pandoc support
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
 " Communicate with R
 Plug 'jalvesaq/Nvim-R'
 
