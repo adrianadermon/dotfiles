@@ -112,6 +112,9 @@ set linebreak
 " Set fold character to blank
 set fillchars="vert:|,fold:\"
 
+" Enable syntax highlighting of fenced code blocks in markdown
+let g:markdown_fenced_languages= ['r', 'python', 'julia', 'stata']
+
 " Move by display line
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
