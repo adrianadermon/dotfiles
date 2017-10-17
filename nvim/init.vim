@@ -58,6 +58,9 @@ Plug 'w0rp/ale'
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 
+" Directory viewer
+Plug 'justinmk/vim-dirvish'
+
 " Work with parentheses, quotes, etc
 Plug 'tpope/vim-surround'
 
@@ -111,6 +114,10 @@ set relativenumber
 " Smart search case
 set ignorecase
 set smartcase
+
+" Better window splitting
+set splitright
+set splitbelow
 
 " Preview substitions
 set inccommand=split
