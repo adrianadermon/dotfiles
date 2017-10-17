@@ -218,6 +218,10 @@ call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
+" Search
+nnoremap <leader>b :<C-u>Denite buffer<CR>
+nnoremap <leader>f :<C-u>Denite file_rec<CR>
+
 " R
 """""""""""""""""""""""""""""""""""""""""""""""""
 
