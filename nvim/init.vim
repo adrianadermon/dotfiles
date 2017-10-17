@@ -24,6 +24,9 @@ Plug 'felixjung/vim-base16-lightline'
 " Change directory
 Plug 'airblade/vim-rooter'
 
+" Move around easily
+Plug 'justinmk/vim-sneak'
+
 " Rainbow parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 
