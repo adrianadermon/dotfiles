@@ -27,6 +27,9 @@ Plug 'airblade/vim-rooter'
 " Move around easily
 Plug 'justinmk/vim-sneak'
 
+" Switch to text objects
+Plug 'tommcdo/vim-exchange'
+
 " Rainbow parentheses
 Plug 'junegunn/rainbow_parentheses.vim'
 
@@ -57,6 +60,9 @@ Plug 'ludovicchabant/vim-gutentags'
 
 " Work with parentheses, quotes, etc
 Plug 'tpope/vim-surround'
+
+" Make plugin maps repeatable
+Plug 'tpope/vim-repeat'
 
 " Align
 Plug 'junegunn/vim-easy-align'
