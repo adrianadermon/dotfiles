@@ -78,6 +78,7 @@ Plug 'Konfekt/FastFold'
 
 " Git integration
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 " Show git diff in gutter
 Plug 'airblade/vim-gitgutter'
