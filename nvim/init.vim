@@ -40,13 +40,11 @@ Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 
 " Autocomplete
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-completion-manager'
 
 " Fuzzy finder
-Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-
-" History support for finder
-Plug 'Shougo/neomru.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Snippets
 Plug 'SirVer/ultisnips'
@@ -173,9 +171,6 @@ let g:startify_custom_header = [
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_manual_only = 1
 
-" Use deoplete
-let g:deoplete#enable_at_startup = 1
-
 " Set private snippets directory
 let g:UltiSnipsSnippetsDir = "~/AppData/Local/nvim/UltiSnips"
 
@@ -188,39 +183,12 @@ nmap ga <Plug>(EasyAlign)
 " Neoterm setup
 let g:neoterm_autoscroll=1
 
-" Denite setup
+" Fzf setup
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" Ripgrep for file_rec
-call denite#custom#var('file_rec', 'command',
-    \ ['rg', '--files', '--glob', '!.git', ''])
-
-" Navigate list with Ctrl-j and Ctrl-k
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-j>',
-      \ '<denite:move_to_next_line>',
-      \ 'noremap'
-      \)
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-k>',
-      \ '<denite:move_to_previous_line>',
-      \ 'noremap'
-      \)
-
-" Ripgrep command on grep source
-call denite#custom#var('grep', 'command', ['rg'])
-call denite#custom#var('grep', 'default_opts',
-                \ ['--vimgrep', '--no-heading'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-
 " Search
-nnoremap <leader>b :<C-u>Denite buffer<CR>
-nnoremap <leader>f :<C-u>Denite file_rec<CR>
+nnoremap <leader>b :<C-u>Buffer<CR>
+nnoremap <leader>f :<C-u>Files<CR>
 
 " R
 """""""""""""""""""""""""""""""""""""""""""""""""
@@ -247,11 +215,19 @@ autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "functio
 " Latex
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" Enable vimtex autocomplete with deoplete
-if !exists('g:deoplete#omni#input_patterns')
-	let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+" Enable vimtex autocomplete with NCM
+augroup my_cm_setup
+autocmd!
+autocmd User CmSetup call cm#register_source({
+      \ 'name' : 'vimtex',
+      \ 'priority': 8,
+      \ 'scoping': 1,
+      \ 'scopes': ['tex'],
+      \ 'abbreviation': 'tex',
+      \ 'cm_refresh_patterns': g:vimtex#re#ncm,
+      \ 'cm_refresh': {'omnifunc': 'vimtex#complete#omnifunc'},
+      \ })
+augroup END
 
 " Latexmk options
 let g:vimtex_compiler_latexmk = {
