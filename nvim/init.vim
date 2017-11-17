@@ -76,8 +76,20 @@ Plug 'tpope/vim-repeat'
 " Align
 Plug 'junegunn/vim-easy-align'
 
+" Create tables
+Plug 'dhruvasagar/vim-table-mode'
+
 " Comment
 Plug 'tpope/vim-commentary'
+
+" Wrap and unwrap argument lists
+Plug 'FooSoft/vim-argwrap'
+
+" Highlight yank
+Plug 'machakann/vim-highlightedyank'
+
+" Preview color codes
+Plug 'ap/vim-css-color'
 
 " Faster folding
 Plug 'Konfekt/FastFold'
@@ -188,6 +200,9 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+" Set yank highlight duration
+let g:highlightedyank_highlight_duration = 500
+
 " Neoterm setup
 let g:neoterm_autoscroll=1
 
@@ -219,6 +234,10 @@ command! -bang -nargs=* Rg
 
 " R
 """""""""""""""""""""""""""""""""""""""""""""""""
+
+" Start R with a script that changes the codepage so that
+" accented characters are interpreted correctly
+let R_app = "chcpR"
 
 " Run lines and selections with Ctrl-Enter
 nmap <C-Enter> <Plug>RDSendLine

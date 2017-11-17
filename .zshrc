@@ -69,3 +69,5 @@ zplug load --verbose
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+path+=$HOME/bin
