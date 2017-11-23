@@ -248,7 +248,7 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-nnoremap <leader>r :<C-u>Rg<CR>
+nnoremap <leader>s :<C-u>Rg<CR>
 
 " Latex
 """""""""""""""""""""""""""""""""""""""""""""""""
