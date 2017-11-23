@@ -145,6 +145,9 @@ set inccommand=split
 " Don't split words when soft wrapping
 set linebreak
 
+" Start with all folds open
+set nofoldenable
+
 " Set fold character to blank
 set fillchars="vert:|,fold:\"
 
