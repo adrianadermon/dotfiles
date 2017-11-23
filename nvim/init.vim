@@ -61,6 +61,9 @@ Plug 'honza/vim-snippets'
 " Linter
 Plug 'w0rp/ale'
 
+" Format lines
+Plug 'sbdchd/neoformat'
+
 " Tags
 Plug 'ludovicchabant/vim-gutentags'
 
