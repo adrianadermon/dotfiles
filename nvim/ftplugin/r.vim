@@ -2,6 +2,28 @@
 set shiftwidth=2
 set softtabstop=2
 
+" Start R with a script that changes the codepage so that
+" accented characters are interpreted correctly
+let R_app = "chcpR"
+
+" Disable assignment mapping
+let R_assign = 0
+
+" Use older Rtools for Nvim-R plugin
+let Rtools_path = "C:\\Rtools3.3"
+
+" Use color scheme for R output
+let rout_follow_colorscheme = 1
+
+" Enable folding
+let r_syntax_folding = 1
+
+" Start R in working directory
+let R_nvim_wd = 1
+
+" Close R when quitting Vim
+autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
+
 " Insert spaces around operator only if needed
 function! RSmartSpace(string)
     " Get previous character
@@ -35,3 +57,8 @@ inoremap <buffer><expr> <M-.> RSmartSpace("%>%")
 inoremap <buffer><expr> <M-,> RSmartSpace("%<>%")
 inoremap <buffer><expr> <M-4> RSmartSpace("%$%")
 inoremap <buffer><expr> <M-t> RSmartSpace("%T>%")
+
+" Run lines and selections with Ctrl-Enter
+nmap <C-Enter> <Plug>RDSendLine
+vmap <C-Enter> <Plug>RDSendSelection
+
