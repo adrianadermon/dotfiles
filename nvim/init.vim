@@ -103,6 +103,7 @@ Plug 'tpope/vim-rhubarb'
 
 " Show git diff in gutter
 Plug 'airblade/vim-gitgutter'
+" Plug 'mhinz/vim-signify'
 
 " Distraction-free writing
 Plug 'junegunn/goyo.vim'
@@ -147,6 +148,9 @@ set inccommand=split
 " Don't split words when soft wrapping
 set linebreak
 
+" Start with all folds open
+set nofoldenable
+
 " Set fold character to blank
 set fillchars="vert:|,fold:\"
 
@@ -188,6 +192,18 @@ let g:startify_custom_header = [
     \ '      _____\//\\\\\__________\/\\\_____\/\\\_____________\/\\\_  ',
     \ '       ______\//\\\________/\\\\\\\\\\\_\/\\\_____________\/\\\_ ',
     \ '        _______\///________\///////////__\///______________\///__',
+    \ ]
+
+" Hide help files from start screen
+let g:startify_skiplist = [
+    \ 'AppData\\Local\\nvim\\plugged\\.*\\doc\\.*.txt',
+    \ 'Neovim\\share\\nvim\\runtime\\doc\\.*.txt',
+    \ ]
+
+" Start screen bookmarks
+let g:startify_bookmarks = [ 
+    \ '~/dotfiles/nvim',
+    \ '~/dotfiles/nvim/init.vim',
     \ ]
 
 " Vim-rooter settings
@@ -235,34 +251,7 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-" R
-"""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Start R with a script that changes the codepage so that
-" accented characters are interpreted correctly
-let R_app = "chcpR"
-
-" Run lines and selections with Ctrl-Enter
-nmap <C-Enter> <Plug>RDSendLine
-vmap <C-Enter> <Plug>RDSendSelection
-
-" Disable assignment mapping
-let R_assign = 0
-
-" Use older Rtools for Nvim-R plugin
-let Rtools_path = "C:\\Rtools3.3"
-
-" Use color scheme for R output
-let rout_follow_colorscheme = 1
-
-" Enable folding
-let r_syntax_folding = 1
-
-" Start R in working directory
-let R_nvim_wd = 1
-
-" Close R when quitting Vim
-autocmd VimLeave * if exists("g:SendCmdToR") && string(g:SendCmdToR) != "function('SendCmdToR_fake')" | call RQuit("nosave") | endif
+nnoremap <leader>s :<C-u>Rg<CR>
 
 " Latex
 """""""""""""""""""""""""""""""""""""""""""""""""
