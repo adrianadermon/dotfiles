@@ -114,6 +114,10 @@ Plug 'jalvesaq/Nvim-R'
 " CSV files
 Plug 'chrisbra/csv.vim'
 
+" Markdown and padoc support
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
+
 " Latex editing
 Plug 'lervag/vimtex'
 
@@ -224,6 +228,11 @@ let g:highlightedyank_highlight_duration = 500
 
 " Neoterm setup
 let g:neoterm_autoscroll=1
+
+" Markdown setup
+""""""""""""""""
+
+let g:pandoc#spell#default_langs = ['en_us', 'sv_se']
 
 " Fzf setup
 """""""""""""""""""""""""""""""""""""""""""""""""
