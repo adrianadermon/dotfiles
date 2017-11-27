@@ -124,6 +124,9 @@ Plug 'lervag/vimtex'
 " Julia support
 Plug 'JuliaEditorSupport/julia-vim'
 
+" Javascript syntax
+Plug 'pangloss/vim-javascript'
+
 " REPL
 Plug 'kassio/neoterm'
 
