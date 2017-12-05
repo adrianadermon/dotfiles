@@ -2,8 +2,31 @@ snippet lm "OLS"
 lm(${1:y} ~ ${2:x}, data = ${3:data})
 endsnippet
 
+
 snippet point "ggplot scatter plot"
 ggplot(${1:data}, aes(x = ${2:x}, y = ${3:y}))
 	+ geom_point()
+endsnippet
+
+
+snippet wf "Write fst"
+write_fst(${1:dt}, "${2:filename}.fst", compress = 100)
+endsnippet
+
+snippet rf "Read fst"
+${1:dt} <- read_fst("${2:filename}", as.data.table = TRUE)
+endsnippet
+
+
+snippet dtab "Frequency table  with data.table"
+${2:dt}[, .N, by = ${1:variable}]
+endsnippet
+
+snippet dsum "Summary statistics with data.table"
+${2:dt}[, summary(${1:variable})]
+endsnippet
+
+snippet ddrop "Drop columns from data.table"
+${1:dt}[, c("${0:${VISUAL:/ /", "/g}}") := NULL]
 endsnippet
 

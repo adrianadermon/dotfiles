@@ -102,8 +102,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
 " Show git diff in gutter
-Plug 'airblade/vim-gitgutter'
-" Plug 'mhinz/vim-signify'
+" Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 
 " Distraction-free writing
 Plug 'junegunn/goyo.vim'
@@ -219,6 +219,7 @@ let g:rooter_manual_only = 1
 
 " Set private snippets directory
 let g:UltiSnipsSnippetsDir = "~/AppData/Local/nvim/UltiSnips"
+let g:UltiSnipsEditSplit = 'horizontal'
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
