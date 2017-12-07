@@ -180,10 +180,6 @@ nnoremap <C-l> :nohlsearch<CR><C-l>
 " Space as leader
 map <space> <leader>
 
-" Navigate linter warnings
-nmap <silent> <C-k> <Plug>(ale_previous)
-nmap <silent> <C-j> <Plug>(ale_next)
-
 " Set theme
 colorscheme base16-oceanicnext
 " colorscheme seoul256
