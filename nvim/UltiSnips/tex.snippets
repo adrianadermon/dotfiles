@@ -6,10 +6,22 @@ snippet cm "cmidrule"
 \cmidrule(${1:lr}){$2-$3}
 endsnippet
 
-snippet mr "midrule"
+snippet mr "midrule" b
 \midrule
 endsnippet
 
-snippet als "addlinespace"
+snippet als "addlinespace" b
 \addlinespace
+endsnippet
+
+snippet al "Aligned equations" b
+\begin{align}
+	$0
+\end{align}
+endsnippet
+
+snippet alnn "Aligned equations without number" b
+\begin{align*}
+	$0
+\end{align*}
 endsnippet
