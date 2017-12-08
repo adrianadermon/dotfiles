@@ -30,3 +30,7 @@ snippet ddrop "Drop columns from data.table"
 ${1:dt}[, c("${0:${VISUAL:/ /", "/g}}") := NULL]
 endsnippet
 
+snippet vec "Wrap terms in character vector"
+c("${0:${VISUAL:/ /", "/g}}")
+endsnippet
+
