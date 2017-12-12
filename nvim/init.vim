@@ -111,6 +111,9 @@ Plug 'junegunn/goyo.vim'
 " Communicate with R
 Plug 'jalvesaq/Nvim-R'
 
+" R autocompletion
+Plug 'gaalcaras/ncm-R'
+
 " CSV files
 Plug 'chrisbra/csv.vim'
 
