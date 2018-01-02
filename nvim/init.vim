@@ -50,6 +50,9 @@ Plug 'wellle/targets.vim'
 " Autocomplete
 Plug 'roxma/nvim-completion-manager'
 
+" Javascript Tern autocompletion source
+Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+
 " Fuzzy finder
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -235,6 +238,26 @@ let g:highlightedyank_highlight_duration = 500
 
 " Neoterm setup
 let g:neoterm_autoscroll=1
+
+" Linter setup
+""""""""""""""
+
+let g:ale_fixers = {
+\   'javascript': [
+\       'prettier',
+\       'trim_whitespace',
+\       'remove_trailing_lines',
+\   ],
+\   'css': [
+\       'prettier',
+\       'trim_whitespace',
+\       'remove_trailing_lines',
+\   ],
+\   'html': [
+\       'trim_whitespace',
+\       'remove_trailing_lines',
+\   ],
+\}
 
 " Markdown setup
 """"""""""""""""
