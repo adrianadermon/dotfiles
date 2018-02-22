@@ -136,6 +136,9 @@ Plug 'pangloss/vim-javascript'
 " REPL
 Plug 'kassio/neoterm'
 
+" Lilypond support
+Plug 'gisraptor/vim-lilypond-integrator'
+
 call plug#end()
 
 " Indent and tab settings
