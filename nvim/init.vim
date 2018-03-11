@@ -241,6 +241,7 @@ let g:highlightedyank_highlight_duration = 500
 
 " Neoterm setup
 let g:neoterm_autoscroll=1
+let g:neoterm_eof = "\<CR>"
 
 " Linter setup
 """"""""""""""
