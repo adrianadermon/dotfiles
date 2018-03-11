@@ -260,6 +260,11 @@ let g:ale_fixers = {
 \       'trim_whitespace',
 \       'remove_trailing_lines',
 \   ],
+\   'python': [
+\       'yapf',
+\       'trim_whitespace',
+\       'remove_trailing_lines',
+\   ],
 \}
 
 " Markdown setup
