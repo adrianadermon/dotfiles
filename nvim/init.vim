@@ -136,6 +136,9 @@ Plug 'pangloss/vim-javascript'
 " REPL
 Plug 'kassio/neoterm'
 
+" Lilypond support
+Plug 'gisraptor/vim-lilypond-integrator'
+
 call plug#end()
 
 " Indent and tab settings
@@ -238,6 +241,7 @@ let g:highlightedyank_highlight_duration = 500
 
 " Neoterm setup
 let g:neoterm_autoscroll=1
+let g:neoterm_eof = "\<CR>"
 
 " Linter setup
 """"""""""""""
@@ -254,6 +258,11 @@ let g:ale_fixers = {
 \       'remove_trailing_lines',
 \   ],
 \   'html': [
+\       'trim_whitespace',
+\       'remove_trailing_lines',
+\   ],
+\   'python': [
+\       'yapf',
 \       'trim_whitespace',
 \       'remove_trailing_lines',
 \   ],
