@@ -34,3 +34,17 @@ snippet vec "Wrap terms in character vector"
 c("${0:${VISUAL:/ /", "/g}}")
 endsnippet
 
+snippet dupdrop "Drop duplicates on variables"
+${1:dt} <- ${2:dt}[!duplicated($2, by = ${3:"id"}) &
+  !duplicated($2, by = $3, fromLast = TRUE)]
+endsnippet
+
+snippet dupdropvisual "Drop duplicates on selected variables"
+${1:dt} <- ${2:dt}[!duplicated($2, by = c("${0:${VISUAL:/ /", "/g}}")) &
+  !duplicated($2, by = c("$0"), fromLast = TRUE)]
+endsnippet
+
+snippet dupkeep "Keep only duplicates on variables"
+${1:dt} <- ${2:dt}[duplicated($2, by = ${3:"id"}) |
+  duplicated($2, by = $3, fromLast = TRUE)]
+endsnippet

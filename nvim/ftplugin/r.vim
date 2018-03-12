@@ -62,3 +62,5 @@ inoremap <buffer><expr> <M-t> RSmartSpace("%T>%")
 nmap <C-Enter> <Plug>RDSendLine
 vmap <C-Enter> <Plug>RDSendSelection
 
+" Map RSend
+nmap <LocalLeader>: :RSend 
