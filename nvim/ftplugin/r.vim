@@ -64,3 +64,6 @@ vmap <C-Enter> <Plug>RDSendSelection
 
 " Map RSend
 nmap <LocalLeader>: :RSend 
+
+" Enable syntax highlighting in Rmarkdown chunk headers
+let rmd_syn_hl_chunk = 1

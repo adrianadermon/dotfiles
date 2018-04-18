@@ -64,6 +64,9 @@ Plug 'honza/vim-snippets'
 " Linter
 Plug 'w0rp/ale'
 
+" Asynchronous make
+Plug 'tpope/vim-dispatch'
+
 " Format lines
 Plug 'sbdchd/neoformat'
 
