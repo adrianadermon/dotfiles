@@ -17,9 +17,6 @@ endif
 " Base16 color themes
 Plug 'chriskempson/base16-vim'
 
-" Seoul 256 color theme
-Plug 'junegunn/seoul256.vim'
-
 " Start screen
 Plug 'mhinz/vim-startify'
 
@@ -194,7 +191,6 @@ map <space> <leader>
 
 " Set theme
 colorscheme base16-oceanicnext
-" colorscheme seoul256
 
 " Set lightline theme
 let g:lightline = {}
