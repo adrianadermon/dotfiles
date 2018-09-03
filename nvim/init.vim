@@ -244,8 +244,8 @@ let g:highlightedyank_highlight_duration = 500
 
 " vimcmdline mappings
 let cmdline_map_start          = '<LocalLeader>s'
-let cmdline_map_send           = '<C-Enter>'
-let cmdline_map_send_and_stay  = '<LocalLeader><Space>'
+let cmdline_map_send           = '<LocalLeader>l'
+let cmdline_map_send_and_stay  = '<LocalLeader>k'
 let cmdline_map_source_fun     = '<LocalLeader>f'
 let cmdline_map_send_paragraph = '<LocalLeader>p'
 let cmdline_map_send_block     = '<LocalLeader>b'
