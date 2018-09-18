@@ -139,6 +139,9 @@ Plug 'jalvesaq/vimcmdline'
 " Lilypond support
 Plug 'gisraptor/vim-lilypond-integrator'
 
+" Graphviz support
+Plug 'wannesm/wmgraphviz.vim'
+
 call plug#end()
 
 " Indent and tab settings
