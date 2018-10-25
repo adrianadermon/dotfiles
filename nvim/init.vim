@@ -142,6 +142,9 @@ Plug 'gisraptor/vim-lilypond-integrator'
 " Graphviz support
 Plug 'wannesm/wmgraphviz.vim'
 
+" Haskell
+Plug 'neovimhaskell/haskell-vim'
+
 call plug#end()
 
 " Indent and tab settings
