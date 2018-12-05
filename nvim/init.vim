@@ -46,6 +46,7 @@ Plug 'wellle/targets.vim'
 
 " Autocomplete
 Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 
 " Javascript Tern autocompletion source
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
@@ -244,6 +245,14 @@ nmap ga <Plug>(EasyAlign)
 " Set yank highlight duration
 let g:highlightedyank_highlight_duration = 500
 
+
+" Autocompletion setup
+""""""""""""""""""""""
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+set completeopt=noinsert,menuone,noselect
 
 " REPL setup
 """"""""""""
