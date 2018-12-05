@@ -45,10 +45,10 @@ Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
 
 " Autocomplete
-Plug 'roxma/nvim-completion-manager'
+Plug 'ncm2/ncm2'
 
 " Javascript Tern autocompletion source
-Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'}
+Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 
 " Fuzzy finder
 Plug 'junegunn/fzf'
