@@ -277,6 +277,9 @@ let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)
 
 let cmdline_follow_colorscheme = 1
 
+let cmdline_app           = {}
+let cmdline_app['haskell'] = 'ghci'
+
 " Linter setup
 """"""""""""""
 
