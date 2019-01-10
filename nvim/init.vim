@@ -17,14 +17,16 @@ endif
 " Base16 color themes
 Plug 'chriskempson/base16-vim'
 
+Plug 'andreypopp/vim-colors-plain'
+
 " Start screen
 Plug 'mhinz/vim-startify'
 
 " Statusline
-Plug 'itchyny/lightline.vim'
+" Plug 'itchyny/lightline.vim'
 
 " Base16 themes for statusline
-Plug 'felixjung/vim-base16-lightline'
+" Plug 'felixjung/vim-base16-lightline'
 
 " Change directory
 Plug 'airblade/vim-rooter'
@@ -176,7 +178,7 @@ set linebreak
 set nofoldenable
 
 " Set fold character to blank
-set fillchars="vert:|,fold:\"
+set fillchars=vert:│,fold:\
 
 " Enable syntax highlighting of fenced code blocks in markdown
 let g:markdown_fenced_languages= ['r', 'python', 'julia', 'stata']
@@ -198,11 +200,56 @@ nnoremap <C-l> :nohlsearch<CR><C-l>
 map <space> <leader>
 
 " Set theme
-colorscheme base16-oceanicnext
+" colorscheme base16-oceanicnext
+set background=light
+colorscheme plain
+" Fix the background - should not be needed
+highlight Normal guibg=#F1F1F1
 
 " Set lightline theme
-let g:lightline = {}
-let g:lightline.colorscheme = 'base16_oceanicnext'
+" let g:lightline = {}
+" let g:lightline.colorscheme = 'base16_oceanicnext'
+
+" Configure statusline
+if has('statusline')
+    function! ALEWarnings() abort
+        let l:counts = ale#statusline#Count(bufnr(''))
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+        return l:counts.total == 0 ? '' : printf('  %dW ', all_non_errors)
+    endfunction
+
+    function! ALEErrors() abort
+        let l:counts = ale#statusline#Count(bufnr(''))
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+        return l:counts.total == 0 ? '' : printf(' %dE ', all_errors)
+    endfunction
+
+    function! ALEStatus() abort
+        let l:counts = ale#statusline#Count(bufnr(''))
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+        return l:counts.total == 0 ? ' ok ' : ''
+    endfunction
+
+    set laststatus=2
+    set statusline=%<%f
+    set statusline+=%w%h%m%r
+
+
+    set statusline+=\ %y
+
+    set statusline+=%=%-12.(%l,%c%V\ %p%%%)\ 
+
+    set statusline+=%-12.(%{(&fenc!=''?&fenc:&enc)}[%{&ff}]%)
+
+    set statusline+=%#StatusLineOk#%{ALEStatus()}
+    set statusline+=%#StatusLineError#%{ALEErrors()}
+    set statusline+=%#StatusLineWarning#%{ALEWarnings()}
+
+endif
+
 
 " Start screen header
 let g:startify_custom_header = [
@@ -282,6 +329,10 @@ let cmdline_app['haskell'] = 'ghci'
 
 " Linter setup
 """"""""""""""
+
+" Map movement through errors without wrapping.
+nmap <silent> <C-k> <Plug>(ale_previous)
+nmap <silent> <C-j> <Plug>(ale_next)
 
 let g:ale_fixers = {
 \   'javascript': [
