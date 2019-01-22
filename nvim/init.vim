@@ -54,6 +54,9 @@ Plug 'ncm2/ncm2-path'
 " Javascript Tern autocompletion source
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 
+" Python Jedi autocompletion source
+Plug 'ncm2/ncm2-jedi'
+
 " Fuzzy finder
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -325,7 +328,9 @@ let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)
 let cmdline_follow_colorscheme = 1
 
 let cmdline_app           = {}
+let cmdline_app['julia'] = 'julia --color=no'
 let cmdline_app['haskell'] = 'ghci'
+let cmdline_app['python'] = 'python'
 
 " Linter setup
 """"""""""""""
