@@ -46,6 +46,9 @@ Plug 'tpope/vim-unimpaired'
 " Additional targets
 Plug 'wellle/targets.vim'
 
+" Auto-pair parentheses etc
+Plug 'tmsvg/pear-tree'
+
 " Autocomplete
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
@@ -253,6 +256,11 @@ if has('statusline')
 
 endif
 
+
+" Enable smart pairs for pear-tree
+let g:pear_tree_smart_openers = 1
+let g:pear_tree_smart_closers = 1
+let g:pear_tree_smart_backspace = 1
 
 " Start screen header
 let g:startify_custom_header = [
