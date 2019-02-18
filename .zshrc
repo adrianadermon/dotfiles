@@ -6,8 +6,24 @@ promptinit
 
 setopt histignorealldups sharehistory
 
-# Use vim keybindings
+# Use vi keybindings
 bindkey -v
+export KEYTIMEOUT=1
+
+# Indicate vi mode with cursor
+function zle-keymap-select zle-line-init
+{
+	case $KEYMAP in
+		vicmd) echo -ne "\e[1 q";;
+		viins|main) echo -ne "\e[5 q";;
+	esac
+
+	zle reset-prompt
+	zle -R
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
@@ -52,9 +68,6 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 # z - jump around
 zplug "rupa/z", use:z.sh
-
-# A ZSH theme designed to disclose information contextually, with a powerline aesthetic
-# zplug "agnoster/agnoster-zsh-theme", from:github, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
