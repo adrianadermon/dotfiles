@@ -52,6 +52,12 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 #########
 # zplug #
 #########
@@ -65,6 +71,9 @@ zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 
 # Fish shell like syntax highlighting for Zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+# Fish-like fast/unobtrusive autosuggestions for zsh
+zplug "zsh-users/zsh-autosuggestions", defer:2
 
 # z - jump around
 zplug "rupa/z", use:z.sh
@@ -82,5 +91,3 @@ zplug load --verbose
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-path+=$HOME/bin
