@@ -72,6 +72,9 @@ zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 # Fish shell like syntax highlighting for Zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
+# Fish-like fast/unobtrusive autosuggestions for zsh
+zplug "zsh-users/zsh-autosuggestions", defer:2
+
 # z - jump around
 zplug "rupa/z", use:z.sh
 
