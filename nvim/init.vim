@@ -69,7 +69,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 " Linter
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 
 " Asynchronous make
 Plug 'tpope/vim-dispatch'
