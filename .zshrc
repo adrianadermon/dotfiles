@@ -6,8 +6,24 @@ promptinit
 
 setopt histignorealldups sharehistory
 
-# Use vim keybindings
+# Use vi keybindings
 bindkey -v
+export KEYTIMEOUT=1
+
+# Indicate vi mode with cursor
+function zle-keymap-select zle-line-init
+{
+	case $KEYMAP in
+		vicmd) echo -ne "\e[1 q";;
+		viins|main) echo -ne "\e[5 q";;
+	esac
+
+	zle reset-prompt
+	zle -R
+}
+
+zle -N zle-line-init
+zle -N zle-keymap-select
 
 # Change cursor shape when in insert mode
 zle-keymap-select() {
@@ -50,6 +66,12 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+# Base16 Shell
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
 #########
 # zplug #
 #########
@@ -64,11 +86,11 @@ zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 # Fish shell like syntax highlighting for Zsh
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
+# Fish-like fast/unobtrusive autosuggestions for zsh
+zplug "zsh-users/zsh-autosuggestions", defer:2
+
 # z - jump around
 zplug "rupa/z", use:z.sh
-
-# A ZSH theme designed to disclose information contextually, with a powerline aesthetic
-# zplug "agnoster/agnoster-zsh-theme", from:github, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -83,5 +105,3 @@ zplug load --verbose
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-path+=$HOME/bin
