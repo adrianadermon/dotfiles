@@ -25,19 +25,19 @@ function zle-keymap-select zle-line-init
 zle -N zle-line-init
 zle -N zle-keymap-select
 
-# Change cursor shape when in insert mode
-zle-keymap-select() {
-	if [ "$TERM" == "xterm-256color" ]; then
-		if [ $KEYMAP == vimcmd ];
-		then
-			# Normal mode
-			echo -ne "\e[2 q"
-		else
-			# Insert mode
-			echo -ne "\e[4 q"
-		fi
-	fi
-}
+# # Change cursor shape when in insert mode
+# zle-keymap-select() {
+# 	if [ "$TERM" == "xterm-256color" ]; then
+# 		if [ $KEYMAP == vimcmd ];
+# 		then
+# 			# Normal mode
+# 			echo -ne "\e[2 q"
+# 		else
+# 			# Insert mode
+# 			echo -ne "\e[4 q"
+# 		fi
+# 	fi
+# }
 
 # Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=1000
