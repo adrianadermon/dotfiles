@@ -57,6 +57,9 @@ Plug 'ncm2/ncm2-path'
 " Javascript Tern autocompletion source
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 
+" Jupyter console integration
+Plug 'jupyter-vim/jupyter-vim'
+
 " Python Jedi autocompletion source
 Plug 'ncm2/ncm2-jedi'
 
