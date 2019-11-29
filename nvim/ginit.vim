@@ -1,5 +1,5 @@
 " Guifont! Fira Code Retina:h11
-Guifont! Iosevka:h11
-" Guifont! Fantasque Sans Mono:h12
+" Guifont! Iosevka:h11
+Guifont! PragmataPro Liga:h11
 
 GuiPopupmenu 0
