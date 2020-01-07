@@ -2,15 +2,16 @@
 set shiftwidth=2
 set softtabstop=2
 
-" Start R with a script that changes the codepage so that
-" accented characters are interpreted correctly
-let R_app = "chcpR"
+if has('win32')
+    " Start R with a script that changes the codepage so that
+    " accented characters are interpreted correctly
+    let R_app = "chcpR"
+    " Use older Rtools for Nvim-R plugin
+    let Rtools_path = "C:\\Rtools3.3"
+endif
 
 " Disable assignment mapping
 let R_assign = 0
-
-" Use older Rtools for Nvim-R plugin
-let Rtools_path = "C:\\Rtools3.3"
 
 " Use color scheme for R output
 let rout_follow_colorscheme = 1
