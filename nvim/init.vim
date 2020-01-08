@@ -1,23 +1,5 @@
 set termguicolors
 
-" Ugly hack to get terminal colors right in WSL
-let g:terminal_color_0  = "#222222"
-let g:terminal_color_1  = "#C30771"
-let g:terminal_color_2  = "#10A778"
-let g:terminal_color_3  = "#A89C14"
-let g:terminal_color_4  = "#008EC4"
-let g:terminal_color_5  = "#523C79"
-let g:terminal_color_6  = "#20A5BA"
-let g:terminal_color_7  = "#F1F1F1"
-let g:terminal_color_8  = "#424242"
-let g:terminal_color_9  = "#E32791"
-let g:terminal_color_10 = "#5FD7A7"
-let g:terminal_color_11 = "#F3E430"
-let g:terminal_color_12 = "#008EC4"
-let g:terminal_color_13 = "#6855DE"
-let g:terminal_color_14 = "#4FB8CC"
-let g:terminal_color_15 = "#F1F1F1"
-
 if has('win32')
     let g:python_host_prog = $HOME . '/Anaconda3/envs/py27/python.exe'
     let g:python3_host_prog = $HOME . '/Anaconda3/python.exe'
@@ -33,8 +15,9 @@ if has('unix')
 endif
 
 " Base16 color themes
-Plug 'chriskempson/base16-vim'
+" Plug 'chriskempson/base16-vim'
 
+" Color theme
 Plug 'andreypopp/vim-colors-plain'
 
 " Start screen
