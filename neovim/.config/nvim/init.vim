@@ -59,7 +59,9 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 
 " Jupyter console integration
-Plug 'jupyter-vim/jupyter-vim'
+if has('win32')
+    Plug 'jupyter-vim/jupyter-vim'
+endif
 
 " Python Jedi autocompletion source
 Plug 'ncm2/ncm2-jedi'
@@ -287,8 +289,8 @@ let g:startify_skiplist = [
 
 " Start screen bookmarks
 let g:startify_bookmarks = [ 
-    \ '~/dotfiles/nvim',
-    \ '~/dotfiles/nvim/init.vim',
+    \ '~/dotfiles/neovim/.config/nvim',
+    \ '~/dotfiles/neovim/.config/nvim/init.vim',
     \ ]
 
 " Vim-rooter settings
