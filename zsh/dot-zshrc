@@ -101,6 +101,8 @@ alias ga='git add'
 alias gp='git push'
 alias gl='git pull'
 
+alias info='info --vi-keys'
+ 
 # Get weather report from wttr.in
 wttr() {
     if [ -n "$1" ] # or better, if [ -n "$1" ]
