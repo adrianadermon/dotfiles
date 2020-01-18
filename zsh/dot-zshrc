@@ -95,3 +95,18 @@ alias l='ls -CF'
 
 alias fd=fdfind
 
+alias gs='git status'
+alias gc='git commit'
+alias ga='git add'
+alias gp='git push'
+alias gl='git pull'
+
+# Get weather report from wttr.in
+wttr() {
+    if [ -n "$1" ] # or better, if [ -n "$1" ]
+        then
+            curl wttr.in/"$1"
+                else
+            curl wttr.in
+            fi
+}
