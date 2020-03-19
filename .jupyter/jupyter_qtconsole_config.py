@@ -150,7 +150,7 @@ c.JupyterQtConsoleApp.stylesheet = os.path.expanduser('~') + '/.jupyter/plain_th
 ## The font family to use for the console. On OSX this defaults to Monaco, on
 #  Windows the default is Consolas with fallback of Courier, and on other
 #  platforms the default is Monospace.
-c.ConsoleWidget.font_family = 'Iosevka'
+c.ConsoleWidget.font_family = 'PragmataPro Liga'
 
 ## The font size. If unconfigured, Qt will be entrusted with the size of the
 #  font.
