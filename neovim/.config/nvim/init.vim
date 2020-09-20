@@ -8,17 +8,23 @@ endif
 " vim-plug
 call plug#begin('~/AppData/Local/nvim/plugged')
 
-" fzf in linux
+" OS-specific plugins
 if has('unix')
+    " fzf
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plug 'junegunn/fzf.vim'
+    
+    " Color theme
+    " Plug 'chriskempson/base16-vim'
+    Plug 'embark-theme/vim', { 'as': 'embark' }
+    Plug 'bluz71/vim-nightfly-guicolors'
+    Plug 'drewtempelmeyer/palenight.vim'
+    Plug 'rakr/vim-one'
+else
+    " Color theme
+    Plug 'andreypopp/vim-colors-plain'
 endif
 
-" Base16 color themes
-" Plug 'chriskempson/base16-vim'
-
-" Color theme
-Plug 'andreypopp/vim-colors-plain'
 
 " Start screen
 Plug 'mhinz/vim-startify'
@@ -163,6 +169,19 @@ Plug 'neovimhaskell/haskell-vim'
 
 call plug#end()
 
+" OS-specific settings
+if has('unix')
+    " Color theme
+    colorscheme embark
+else
+    " Color theme
+    set background=light
+    colorscheme plain
+
+    " Fix the background - should not be needed
+    highlight Normal guibg=#F1F1F1
+endif
+
 " Indent and tab settings
 set expandtab
 set shiftwidth=4
@@ -211,16 +230,6 @@ nnoremap <C-l> :nohlsearch<CR><C-l>
 " Space as leader
 map <space> <leader>
 
-" Set theme
-" colorscheme base16-oceanicnext
-set background=light
-colorscheme plain
-" Fix the background - should not be needed
-highlight Normal guibg=#F1F1F1
-
-" Set lightline theme
-" let g:lightline = {}
-" let g:lightline.colorscheme = 'base16_oceanicnext'
 
 " Configure statusline
 if has('statusline')
@@ -484,5 +493,6 @@ let g:vimtex_view_general_options
 	\ = '-reuse-instance -forward-search @tex @line @pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 
+let g:tex_flavor = 'latex'
 
 """"""""""""""""
