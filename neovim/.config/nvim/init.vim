@@ -1,5 +1,7 @@
 set termguicolors
 
+set guifont=PragmataPro\ Mono:h11
+
 if has('win32')
     let g:python_host_prog = $HOME . '/Anaconda3/envs/py27/python.exe'
     let g:python3_host_prog = $HOME . '/Anaconda3/python.exe'
