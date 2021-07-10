@@ -11,4 +11,5 @@ export FZF_DEFAULT_OPTS='
   '
 
 typeset -U path
-path=(~/bin $path)
+path=(~/.local/bin $path)
+if [ -e /home/adrianadermon/.nix-profile/etc/profile.d/nix.sh ]; then . /home/adrianadermon/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
