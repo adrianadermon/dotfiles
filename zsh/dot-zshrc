@@ -1,8 +1,9 @@
-# Set up the prompt
+fpath=(~/.zsh/pure $fpath)
 
-autoload -Uz promptinit
+# Set up the prompt
+autoload -U promptinit
 promptinit
-#prompt adam1
+prompt pure
 
 setopt histignorealldups sharehistory
 
@@ -72,36 +73,44 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-#########
-# zplug #
-#########
-
-source ~/.zplug/init.zsh
-
-
-# Pretty, minimal and fast ZSH prompt
-zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-
 # Fish shell like syntax highlighting for Zsh
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Fish-like fast/unobtrusive autosuggestions for zsh
-zplug "zsh-users/zsh-autosuggestions", defer:2
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Bind accept to ctrl-space
+bindkey '^ ' autosuggest-accept
 
 # z - jump around
-zplug "rupa/z", use:z.sh
+source ~/.zsh/z/z.sh
 
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Source plugins and add commands to $PATH
-zplug load --verbose
-
-
+# fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
+
+# Aliases
+alias ls='ls --color=auto'
+alias ll='ls -lh'
+alias la='ls -A'
+alias l='ls -CF'
+
+alias fd=fdfind
+
+alias gs='git status'
+alias gc='git commit'
+alias ga='git add'
+alias gp='git push'
+alias gl='git pull'
+
+alias info='info --vi-keys'
+ 
+# Get weather report from wttr.in
+wttr() {
+    if [ -n "$1" ] # or better, if [ -n "$1" ]
+        then
+            curl wttr.in/"$1"
+                else
+            curl wttr.in
+            fi
+}

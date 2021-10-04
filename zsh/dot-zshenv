@@ -1,0 +1,15 @@
+unsetopt BG_NICE
+
+export EDITOR='nvim'
+
+export FZF_DEFAULT_COMMAND='fdfind --type f'
+
+export FZF_DEFAULT_OPTS='
+  --color=bg+:#34353e,bg:#282a36,spinner:#9aedfe,hl:#57c7ff
+  --color=fg:#a5a5a9,header:#57c7ff,info:#f3f99d,pointer:#9aedfe
+  --color=marker:#9aedfe,fg+:#eff0eb,prompt:#f3f99d,hl+:#57c7ff
+  '
+
+typeset -U path
+path=(~/.local/bin $path)
+if [ -e /home/adrianadermon/.nix-profile/etc/profile.d/nix.sh ]; then . /home/adrianadermon/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
