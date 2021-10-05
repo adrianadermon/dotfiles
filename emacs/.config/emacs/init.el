@@ -404,14 +404,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(fixed-pitch ((t (:family "Jetbrains Mono"))))
+ '(org-agenda-structure ((t (:inherit fixed-pitch :foreground "#4D9DE0"))))
+ '(org-block ((t (:family "PragmataPro"))))
  '(org-checkbox ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:family "PragmataPro"))))
  '(org-date ((t (:inherit fixed-pitch :foreground "#4D9DE0"))))
  '(org-document-info ((t (:foreground "#4D9DE0"))))
  '(org-done ((t (:inherit fixed-pitch :foreground "#20BF55"))))
