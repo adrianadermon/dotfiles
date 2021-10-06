@@ -1,3 +1,10 @@
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+
 (setq user-full-name "Adrian Adermon"
       user-mail-address "adrian.adermon@gmail.com")
 
@@ -94,15 +101,10 @@
 
 (prefer-coding-system 'utf-8)
 
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
-;; and `package-pinned-packages`. Most users will not need or want to do this.
-;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
 
 ;; Load Evil
 (use-package evil
+  :ensure t
   :init
   (setq evil-want-C-u-scroll t)
   (setq evil-split-window-below t)
@@ -125,6 +127,7 @@
 
 ;; Completion Overlay Region FUnction
 (use-package corfu
+  :ensure t
   ;; Optional customizations
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
@@ -197,6 +200,7 @@
 
 ;; Example configuration for Consult
 (use-package consult
+  :ensure t
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
@@ -265,6 +269,7 @@
 
 ;; Bibtex-actions
 (use-package bibtex-actions
+  :ensure t
   :bind (("C-c r" . bibtex-actions-insert-citation)
          :map minibuffer-local-map
          ("M-r" . bibtex-actions-insert-preset))
@@ -283,6 +288,7 @@
 
 ;;; Org mode
 (use-package org
+  :ensure t
   :bind
   (("C-c l" . org-store-link)
   ("C-c a" . org-agenda)
@@ -312,6 +318,8 @@
   (org-special-keyword ((t (:inherit fixed-pitch))))
   (org-date ((t (:inherit fixed-pitch
                  :foreground "#4D9DE0"))))
+  (org-drawer ((t (:inherit fixed-pitch
+                 :foreground "#B9B9B9"))))
   (org-checkbox ((t (:inherit fixed-pitch))))
   (org-block ((t (:family "PragmataPro"))))
   (org-code ((t (:family "PragmataPro"))))
@@ -404,17 +412,21 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(org corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(fixed-pitch ((t (:family "Jetbrains Mono"))))
+ '(org-agenda-structure ((t (:inherit fixed-pitch :foreground "#4D9DE0"))))
+ '(org-block ((t (:family "PragmataPro"))))
  '(org-checkbox ((t (:inherit fixed-pitch))))
+ '(org-code ((t (:family "PragmataPro"))))
  '(org-date ((t (:inherit fixed-pitch :foreground "#4D9DE0"))))
  '(org-document-info ((t (:foreground "#4D9DE0"))))
  '(org-done ((t (:inherit fixed-pitch :foreground "#20BF55"))))
+ '(org-drawer ((t (:inherit fixed-pitch :foreground "#B9B9B9"))))
  '(org-level-1 ((t (:foreground "#0E6BA8" :height 160))))
  '(org-level-2 ((t (:inherit 'org-level-1 :height 140))))
  '(org-level-3 ((t (:inherit 'org-level-1 :height 120))))
