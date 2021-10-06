@@ -7,169 +7,187 @@ if has('win32')
     let g:python3_host_prog = $HOME . '/Anaconda3/python.exe'
 endif
 
-" vim-plug
-call plug#begin('~/AppData/Local/nvim/plugged')
+" Packer package manager
+lua require('plugins')
 
-" OS-specific plugins
-if has('unix')
-    " fzf
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-    Plug 'junegunn/fzf.vim'
+" Automatically re-compile package loader file when saving changes
+autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+
+" Telescope setup
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
+au TextYankPost * lua vim.highlight.on_yank {higroup="IncSearch", timeout=250, on_visual=true}
+
+
+" Iron REPL settings
+let g:iron_map_defaults = 0
+let g:iron_map_extended = 0
+
+nmap <localleader>r <Plug>(iron-send-motion)
+vmap <localleader>r <Plug>(iron-visual-send)
+nmap <localleader>l <Plug>(iron-send-line)
+
+
+
+" " OS-specific plugins
+" if has('unix')
+"     " fzf
+"     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+"     Plug 'junegunn/fzf.vim'
     
-    " Color theme
-    " Plug 'chriskempson/base16-vim'
-    Plug 'embark-theme/vim', { 'as': 'embark' }
-    Plug 'bluz71/vim-nightfly-guicolors'
-    Plug 'drewtempelmeyer/palenight.vim'
-    Plug 'rakr/vim-one'
-else
-    " Color theme
-    Plug 'andreypopp/vim-colors-plain'
-endif
+"     " Color theme
+"     " Plug 'chriskempson/base16-vim'
+"     Plug 'embark-theme/vim', { 'as': 'embark' }
+"     Plug 'bluz71/vim-nightfly-guicolors'
+"     Plug 'drewtempelmeyer/palenight.vim'
+"     Plug 'rakr/vim-one'
+" else
+"     " Color theme
+"     Plug 'andreypopp/vim-colors-plain'
+" endif
 
 
-" Start screen
-Plug 'mhinz/vim-startify'
+" " Start screen
+" Plug 'mhinz/vim-startify'
 
-" Statusline
-" Plug 'itchyny/lightline.vim'
+" " Change directory
+" Plug 'airblade/vim-rooter'
 
-" Base16 themes for statusline
-" Plug 'felixjung/vim-base16-lightline'
+" " Move around easily
+" Plug 'justinmk/vim-sneak'
 
-" Change directory
-Plug 'airblade/vim-rooter'
+" " Switch to text objects
+" Plug 'tommcdo/vim-exchange'
 
-" Move around easily
-Plug 'justinmk/vim-sneak'
+" " Rainbow parentheses
+" Plug 'junegunn/rainbow_parentheses.vim'
 
-" Switch to text objects
-Plug 'tommcdo/vim-exchange'
+" " Additional mappings
+" Plug 'tpope/vim-unimpaired'
 
-" Rainbow parentheses
-Plug 'junegunn/rainbow_parentheses.vim'
+" " Additional targets
+" Plug 'wellle/targets.vim'
 
-" Additional mappings
-Plug 'tpope/vim-unimpaired'
+" " Auto-pair parentheses etc
+" Plug 'tmsvg/pear-tree'
 
-" Additional targets
-Plug 'wellle/targets.vim'
+" " Autocomplete
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
+" Plug 'ncm2/ncm2-path'
 
-" Auto-pair parentheses etc
-Plug 'tmsvg/pear-tree'
+" " Javascript Tern autocompletion source
+" Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
 
-" Autocomplete
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
-Plug 'ncm2/ncm2-path'
+" " Jupyter console integration
+" if has('win32')
+"     Plug 'jupyter-vim/jupyter-vim'
+" endif
 
-" Javascript Tern autocompletion source
-Plug 'ncm2/ncm2-tern',  {'do': 'npm install'}
+" " Python Jedi autocompletion source
+" Plug 'ncm2/ncm2-jedi'
 
-" Jupyter console integration
-if has('win32')
-    Plug 'jupyter-vim/jupyter-vim'
-endif
+" " Fuzzy finder
+" Plug 'junegunn/fzf'
+" Plug 'junegunn/fzf.vim'
 
-" Python Jedi autocompletion source
-Plug 'ncm2/ncm2-jedi'
+" " Snippets
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
 
-" Fuzzy finder
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+" " Linter
+" Plug 'dense-analysis/ale'
 
-" Snippets
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" " Asynchronous make
+" Plug 'tpope/vim-dispatch'
 
-" Linter
-Plug 'dense-analysis/ale'
+" " Format lines
+" Plug 'sbdchd/neoformat'
 
-" Asynchronous make
-Plug 'tpope/vim-dispatch'
+" " Tags
+" Plug 'ludovicchabant/vim-gutentags'
 
-" Format lines
-Plug 'sbdchd/neoformat'
+" " Directory viewer
+" Plug 'justinmk/vim-dirvish'
 
-" Tags
-Plug 'ludovicchabant/vim-gutentags'
+" " Work with parentheses, quotes, etc
+" Plug 'tpope/vim-surround'
 
-" Directory viewer
-Plug 'justinmk/vim-dirvish'
+" " Make plugin maps repeatable
+" Plug 'tpope/vim-repeat'
 
-" Work with parentheses, quotes, etc
-Plug 'tpope/vim-surround'
+" " Align
+" Plug 'junegunn/vim-easy-align'
 
-" Make plugin maps repeatable
-Plug 'tpope/vim-repeat'
+" " Create tables
+" Plug 'dhruvasagar/vim-table-mode'
 
-" Align
-Plug 'junegunn/vim-easy-align'
+" " Comment
+" Plug 'tpope/vim-commentary'
 
-" Create tables
-Plug 'dhruvasagar/vim-table-mode'
+" " Wrap and unwrap argument lists
+" Plug 'FooSoft/vim-argwrap'
 
-" Comment
-Plug 'tpope/vim-commentary'
+" " Highlight yank
+" Plug 'machakann/vim-highlightedyank'
 
-" Wrap and unwrap argument lists
-Plug 'FooSoft/vim-argwrap'
+" " Preview color codes
+" Plug 'ap/vim-css-color'
 
-" Highlight yank
-Plug 'machakann/vim-highlightedyank'
+" " Faster folding
+" Plug 'Konfekt/FastFold'
 
-" Preview color codes
-Plug 'ap/vim-css-color'
+" " Git integration
+" Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-rhubarb'
 
-" Faster folding
-Plug 'Konfekt/FastFold'
+" " Show git diff in gutter
+" Plug 'mhinz/vim-signify'
 
-" Git integration
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
+" " Distraction-free writing
+" Plug 'junegunn/goyo.vim'
 
-" Show git diff in gutter
-" Plug 'airblade/vim-gitgutter'
-Plug 'mhinz/vim-signify'
+" " Communicate with R
+" Plug 'jalvesaq/Nvim-R'
 
-" Distraction-free writing
-Plug 'junegunn/goyo.vim'
+" " R autocompletion
+" Plug 'gaalcaras/ncm-R'
 
-" Communicate with R
-Plug 'jalvesaq/Nvim-R'
+" " CSV files
+" Plug 'chrisbra/csv.vim'
 
-" R autocompletion
-Plug 'gaalcaras/ncm-R'
+" " Markdown and padoc support
+" Plug 'vim-pandoc/vim-pandoc'
+" Plug 'vim-pandoc/vim-pandoc-syntax'
 
-" CSV files
-Plug 'chrisbra/csv.vim'
+" " Latex editing
+" Plug 'lervag/vimtex'
 
-" Markdown and padoc support
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
+" " Julia support
+" Plug 'JuliaEditorSupport/julia-vim'
 
-" Latex editing
-Plug 'lervag/vimtex'
+" " Javascript syntax
+" Plug 'pangloss/vim-javascript'
 
-" Julia support
-Plug 'JuliaEditorSupport/julia-vim'
+" " REPL
+" Plug 'jalvesaq/vimcmdline'
 
-" Javascript syntax
-Plug 'pangloss/vim-javascript'
+" " Lilypond support
+" Plug 'gisraptor/vim-lilypond-integrator'
 
-" REPL
-Plug 'jalvesaq/vimcmdline'
+" " Graphviz support
+" Plug 'wannesm/wmgraphviz.vim'
 
-" Lilypond support
-Plug 'gisraptor/vim-lilypond-integrator'
+" " Haskell
+" Plug 'neovimhaskell/haskell-vim'
 
-" Graphviz support
-Plug 'wannesm/wmgraphviz.vim'
-
-" Haskell
-Plug 'neovimhaskell/haskell-vim'
-
-call plug#end()
+" call plug#end()
 
 " OS-specific settings
 if has('unix')
@@ -179,9 +197,6 @@ else
     " Color theme
     set background=light
     colorscheme plain
-
-    " Fix the background - should not be needed
-    highlight Normal guibg=#F1F1F1
 endif
 
 " Indent and tab settings
@@ -233,45 +248,45 @@ nnoremap <C-l> :nohlsearch<CR><C-l>
 map <space> <leader>
 
 
-" Configure statusline
-if has('statusline')
-    function! ALEWarnings() abort
-        let l:counts = ale#statusline#Count(bufnr(''))
-        let l:all_errors = l:counts.error + l:counts.style_error
-        let l:all_non_errors = l:counts.total - l:all_errors
-        return l:counts.total == 0 ? '' : printf('  %dW ', all_non_errors)
-    endfunction
-
-    function! ALEErrors() abort
-        let l:counts = ale#statusline#Count(bufnr(''))
-        let l:all_errors = l:counts.error + l:counts.style_error
-        let l:all_non_errors = l:counts.total - l:all_errors
-        return l:counts.total == 0 ? '' : printf(' %dE ', all_errors)
-    endfunction
-
-    function! ALEStatus() abort
-        let l:counts = ale#statusline#Count(bufnr(''))
-        let l:all_errors = l:counts.error + l:counts.style_error
-        let l:all_non_errors = l:counts.total - l:all_errors
-        return l:counts.total == 0 ? ' ok ' : ''
-    endfunction
-
-    set laststatus=2
-    set statusline=%<%f
-    set statusline+=%w%h%m%r
-
-
-    set statusline+=\ %y
-
-    set statusline+=%=%-12.(%l,%c%V\ %p%%%)\ 
-
-    set statusline+=%-12.(%{(&fenc!=''?&fenc:&enc)}[%{&ff}]%)
-
-    set statusline+=%#StatusLineOk#%{ALEStatus()}
-    set statusline+=%#StatusLineError#%{ALEErrors()}
-    set statusline+=%#StatusLineWarning#%{ALEWarnings()}
-
-endif
+" " Configure statusline
+" if has('statusline')
+"     function! ALEWarnings() abort
+"         let l:counts = ale#statusline#Count(bufnr(''))
+"         let l:all_errors = l:counts.error + l:counts.style_error
+"         let l:all_non_errors = l:counts.total - l:all_errors
+"         return l:counts.total == 0 ? '' : printf('  %dW ', all_non_errors)
+"     endfunction
+" 
+"     function! ALEErrors() abort
+"         let l:counts = ale#statusline#Count(bufnr(''))
+"         let l:all_errors = l:counts.error + l:counts.style_error
+"         let l:all_non_errors = l:counts.total - l:all_errors
+"         return l:counts.total == 0 ? '' : printf(' %dE ', all_errors)
+"     endfunction
+" 
+"     function! ALEStatus() abort
+"         let l:counts = ale#statusline#Count(bufnr(''))
+"         let l:all_errors = l:counts.error + l:counts.style_error
+"         let l:all_non_errors = l:counts.total - l:all_errors
+"         return l:counts.total == 0 ? ' ok ' : ''
+"     endfunction
+" 
+"     set laststatus=2
+"     set statusline=%<%f
+"     set statusline+=%w%h%m%r
+" 
+" 
+"     set statusline+=\ %y
+" 
+"     set statusline+=%=%-12.(%l,%c%V\ %p%%%)\ 
+" 
+"     set statusline+=%-12.(%{(&fenc!=''?&fenc:&enc)}[%{&ff}]%)
+" 
+"     set statusline+=%#StatusLineOk#%{ALEStatus()}
+"     set statusline+=%#StatusLineError#%{ALEErrors()}
+"     set statusline+=%#StatusLineWarning#%{ALEWarnings()}
+" 
+" endif
 
 
 " Enable smart pairs for pear-tree
@@ -322,40 +337,40 @@ nmap ga <Plug>(EasyAlign)
 let g:highlightedyank_highlight_duration = 500
 
 
-" Autocompletion setup
-""""""""""""""""""""""
+" " Autocompletion setup
+" """"""""""""""""""""""
+" 
+" " enable ncm2 for all buffers
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+" 
+" set completeopt=noinsert,menuone,noselect
 
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
+"" REPL setup
+"""""""""""""
 
-set completeopt=noinsert,menuone,noselect
+"" vimcmdline mappings
+"let cmdline_map_start          = '<LocalLeader>s'
+"let cmdline_map_send           = '<LocalLeader>l'
+"let cmdline_map_send_and_stay  = '<LocalLeader>k'
+"let cmdline_map_source_fun     = '<LocalLeader>f'
+"let cmdline_map_send_paragraph = '<LocalLeader>p'
+"let cmdline_map_send_block     = '<LocalLeader>b'
+"let cmdline_map_quit           = '<LocalLeader>q'
 
-" REPL setup
-""""""""""""
+"" vimcmdline options
+"let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
+"let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
+"let cmdline_term_height = 25     " Initial height of interpreter window or pane
+"let cmdline_tmp_dir     = '/tmp' " Temporary directory to save files
+"let cmdline_outhl       = 1      " Syntax highlight the output
+"let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)
 
-" vimcmdline mappings
-let cmdline_map_start          = '<LocalLeader>s'
-let cmdline_map_send           = '<LocalLeader>l'
-let cmdline_map_send_and_stay  = '<LocalLeader>k'
-let cmdline_map_source_fun     = '<LocalLeader>f'
-let cmdline_map_send_paragraph = '<LocalLeader>p'
-let cmdline_map_send_block     = '<LocalLeader>b'
-let cmdline_map_quit           = '<LocalLeader>q'
+"let cmdline_follow_colorscheme = 1
 
-" vimcmdline options
-let cmdline_esc_term    = 1      " Remap <Esc> to :stopinsert in Neovim's terminal
-let cmdline_in_buffer   = 1      " Start the interpreter in a Neovim's terminal
-let cmdline_term_height = 25     " Initial height of interpreter window or pane
-let cmdline_tmp_dir     = '/tmp' " Temporary directory to save files
-let cmdline_outhl       = 1      " Syntax highlight the output
-let cmdline_auto_scroll = 1      " Keep the cursor at the end of terminal (nvim)
-
-let cmdline_follow_colorscheme = 1
-
-let cmdline_app           = {}
-let cmdline_app['julia'] = 'julia --color=no'
-let cmdline_app['haskell'] = 'ghci'
-let cmdline_app['python'] = 'python'
+"let cmdline_app           = {}
+"let cmdline_app['julia'] = 'julia --color=no'
+"let cmdline_app['haskell'] = 'ghci'
+"let cmdline_app['python'] = 'python'
 
 " Linter setup
 """"""""""""""
@@ -422,65 +437,6 @@ nnoremap <leader>s :<C-u>Rg<CR>
 " Latex
 """""""""""""""""""""""""""""""""""""""""""""""""
 
-" Enable vimtex autocomplete with NCM
-augroup my_cm_setup
-    autocmd!
-    autocmd BufEnter * call ncm2#enable_for_buffer()
-    autocmd Filetype tex call ncm2#register_source({
-                \ 'name' : 'vimtex-cmds',
-                \ 'priority': 8, 
-                \ 'complete_length': -1,
-                \ 'scope': ['tex'],
-                \ 'matcher': {'name': 'prefix', 'key': 'word'},
-                \ 'word_pattern': '\w+',
-                \ 'complete_pattern': g:vimtex#re#ncm2#cmds,
-                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                \ })
-    autocmd Filetype tex call ncm2#register_source({
-                \ 'name' : 'vimtex-labels',
-                \ 'priority': 8, 
-                \ 'complete_length': -1,
-                \ 'scope': ['tex'],
-                \ 'matcher': {'name': 'combine',
-                \             'matchers': [
-                \               {'name': 'substr', 'key': 'word'},
-                \               {'name': 'substr', 'key': 'menu'},
-                \             ]},
-                \ 'word_pattern': '\w+',
-                \ 'complete_pattern': g:vimtex#re#ncm2#labels,
-                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                \ })
-    autocmd Filetype tex call ncm2#register_source({
-                \ 'name' : 'vimtex-files',
-                \ 'priority': 8, 
-                \ 'complete_length': -1,
-                \ 'scope': ['tex'],
-                \ 'matcher': {'name': 'combine',
-                \             'matchers': [
-                \               {'name': 'abbrfuzzy', 'key': 'word'},
-                \               {'name': 'abbrfuzzy', 'key': 'abbr'},
-                \             ]},
-                \ 'word_pattern': '\w+',
-                \ 'complete_pattern': g:vimtex#re#ncm2#files,
-                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                \ })
-    autocmd Filetype tex call ncm2#register_source({
-                \ 'name' : 'bibtex',
-                \ 'priority': 8, 
-                \ 'complete_length': -1,
-                \ 'scope': ['tex'],
-                \ 'matcher': {'name': 'combine',
-                \             'matchers': [
-                \               {'name': 'prefix', 'key': 'word'},
-                \               {'name': 'abbrfuzzy', 'key': 'abbr'},
-                \               {'name': 'abbrfuzzy', 'key': 'menu'},
-                \             ]},
-                \ 'word_pattern': '\w+',
-                \ 'complete_pattern': g:vimtex#re#ncm2#bibtex,
-                \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
-                \ })
-augroup END
-
 " Latexmk options
 let g:vimtex_compiler_latexmk = {
     \ 'continuous' : 0,
@@ -494,7 +450,5 @@ let g:vimtex_view_general_viewer = 'SumatraPDF'
 let g:vimtex_view_general_options
 	\ = '-reuse-instance -forward-search @tex @line @pdf'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
-
-let g:tex_flavor = 'latex'
 
 """"""""""""""""
