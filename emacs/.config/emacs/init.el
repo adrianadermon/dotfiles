@@ -106,6 +106,7 @@
 (use-package evil
   :ensure t
   :init
+  (setq evil-want-C-i-jump nil) ; Ensure <tab> works in Org mode
   (setq evil-want-C-u-scroll t)
   (setq evil-split-window-below t)
   (setq evil-vsplit-window-right t)
