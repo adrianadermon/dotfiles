@@ -268,14 +268,43 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-;; Bibtex-actions
-(use-package bibtex-actions
+;; Bibliography completion
+(use-package citar
+  :no-require
   :ensure t
-  :bind (("C-c r" . bibtex-actions-insert-citation)
+  :bind (("C-c r" . citar-insert-citation)
          :map minibuffer-local-map
-         ("M-r" . bibtex-actions-insert-preset))
-  :config
-  (setq bibtex-actions-bibliography '("~/Dropbox/references.bib")))
+         ("M-r" . citar-insert-preset))
+  :custom
+  (org-cite-global-bibliography '("~/Dropbox/references.bib"))
+  (org-cite-insert-processor 'citar)
+  (org-cite-follow-processor 'citar)
+  (org-cite-activate-processor 'citar)
+  (citar-bibliography org-cite-global-bibliography)
+  (bibtex-completion-bibliography org-cite-global-bibliography)
+  (citar-notes-paths '("~/Dropbox/org-roam/references"))
+  (citar-open-note-function 'orb-citar-edit-note))
+
+(use-package org-roam-bibtex
+  :ensure t
+  :after org-roam
+  ;; :config
+  ;; (org-roam-bibtex-mode)
+  :custom
+  (orb-roam-ref-format 'org-cite)
+  (orb-preformat-keywords '("citekey" "author" "date" "entry-type" "journal"))
+  (org-roam-capture-templates
+   '((;; default template
+      "d" "default" plain "%?"
+        :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                           "#+title: ${title}\n")
+        :unnarrowed t)
+      ;; bibliography note template
+      ("r" "bibliography reference" plain
+       "%? %^{author}\n%^{journal}\n%^{date}"
+       :target
+       (file+head "references/${citekey}.org" "#+title: ${title}\n")
+       :unnarrowed t))))
 
 ;; (use-package almost-mono-themes
 ;;   :config
@@ -406,6 +435,13 @@
 ;;   (deft-default-extension "org")
 ;;   (deft-directory "~/Dropbox/org-roam/"))
 
+(use-package org-roam-ui
+  :after org-roam
+  :config
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -413,7 +449,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
