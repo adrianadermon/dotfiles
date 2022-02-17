@@ -5,6 +5,8 @@ return require('packer').startup(function()
     -- Color theme
     use 'andreypopp/vim-colors-plain'
 
+    use {'embark-theme/vim', as = 'embark}
+
     -- Start screen
     use 'mhinz/vim-startify'
 
