@@ -153,7 +153,7 @@
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since dabbrev can be used globally (M-/).
   :init
-  (corfu-global-mode))
+  (global-corfu-mode))
 
 ;; Use the `orderless' completion style. Additionally enable
 ;; `partial-completion' for file path expansion. `partial-completion' is
