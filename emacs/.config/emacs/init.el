@@ -277,6 +277,7 @@
          ("M-r" . citar-insert-preset))
   :custom
   (org-cite-global-bibliography '("~/Dropbox/references.bib"))
+  (org-cite-csl-styles-dir "~/Zotero/styles")
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
