@@ -458,6 +458,8 @@
   (setq org-startup-indented t)
   (setq org-agenda-files '("~/Dropbox/org/"))
   (setq org-list-allow-alphabetical t)
+  (setq org-hide-emphasis-markers t)
+  (setq org-log-into-drawer t)
   :custom-face
   (variable-pitch ((t (:family "ETBembo"))))
   (fixed-pitch ((t (:family "Jetbrains Mono"))))
@@ -489,6 +491,9 @@
 
 (use-package variable-pitch-mode
   :hook org-mode)
+
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
 
 ;; (use-package org-superstar
 ;;   :hook (org-mode . org-superstar-mode)
@@ -573,13 +578,29 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
+(use-package elfeed
+  :ensure t
+  :config
+  ;; (setq elfeed-feeds
+  ;;       '("https://academic.oup.com/rss/site_5504/3365.xml"
+  ;;         "https://onlinelibrary.wiley.com/feed/14680262/most-recent"
+  ;;         "https://academic.oup.com/rss/site_5508/3369.xml"))
+  :bind (("C-x w" . elfeed)))
+
+(use-package elfeed-org
+  :ensure t
+  :config
+  (setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
+  (elfeed-org))
+
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(org-appear elfeed-org elfeed cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
