@@ -43,6 +43,9 @@
 ;; Recent files mode
 (recentf-mode)
 
+;; Use online dictionary
+(setq dictionary-server "dict.org")
+
 ;(load-theme 'dichromacy)
 
 ;; Set font
