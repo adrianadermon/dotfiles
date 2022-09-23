@@ -102,16 +102,16 @@
 (prefer-coding-system 'utf-8)
 
 
-;; Load Evil
-(use-package evil
-  :ensure t
-  :init
-  (setq evil-want-C-i-jump nil) ; Ensure <tab> works in Org mode
-  (setq evil-want-C-u-scroll t)
-  (setq evil-split-window-below t)
-  (setq evil-vsplit-window-right t)
-  :config
-  (evil-mode))
+;; ;; Load Evil
+;; (use-package evil
+;;   :ensure t
+;;   :init
+;;   (setq evil-want-C-i-jump nil) ; Ensure <tab> works in Org mode
+;;   (setq evil-want-C-u-scroll t)
+;;   (setq evil-split-window-below t)
+;;   (setq evil-vsplit-window-right t)
+;;   :config
+;;   (evil-mode))
 
 ;; Meow
 (use-package meow
@@ -201,7 +201,7 @@
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore))
-  ;; (meow-global-mode 1)
+   (meow-global-mode 1)
   )
 
 
@@ -415,6 +415,11 @@
   (citar-library-paths '("~/Dropbox/Forskning/Zotero"))
   (citar-open-note-function 'orb-citar-edit-note))
 
+(use-package citar-embark
+  :after citar embark
+  :no-require
+  :config (citar-embark-mode))
+
 (use-package org-roam-bibtex
   :ensure t
   :after org-roam
@@ -578,20 +583,20 @@
         org-roam-ui-update-on-save t
         org-roam-ui-open-on-start t))
 
-(use-package elfeed
-  :ensure t
-  :config
-  ;; (setq elfeed-feeds
-  ;;       '("https://academic.oup.com/rss/site_5504/3365.xml"
-  ;;         "https://onlinelibrary.wiley.com/feed/14680262/most-recent"
-  ;;         "https://academic.oup.com/rss/site_5508/3369.xml"))
-  :bind (("C-x w" . elfeed)))
+;; (use-package elfeed
+;;   :ensure t
+;;   :config
+;;   ;; (setq elfeed-feeds
+;;   ;;       '("https://academic.oup.com/rss/site_5504/3365.xml"
+;;   ;;         "https://onlinelibrary.wiley.com/feed/14680262/most-recent"
+;;   ;;         "https://academic.oup.com/rss/site_5508/3369.xml"))
+;;   :bind (("C-x w" . elfeed)))
 
-(use-package elfeed-org
-  :ensure t
-  :config
-  (setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
-  (elfeed-org))
+;; (use-package elfeed-org
+;;   :ensure t
+;;   :config
+;;   (setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
+;;   (elfeed-org))
 
 
 (custom-set-variables
@@ -600,7 +605,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-appear elfeed-org elfeed cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -624,3 +629,4 @@
  '(org-table ((t (:inherit 'fixed-pitch))))
  '(org-todo ((t (:inherit fixed-pitch :foreground "#FF4000"))))
  '(variable-pitch ((t (:family "ETBembo")))))
+(put 'downcase-region 'disabled nil)
