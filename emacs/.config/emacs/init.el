@@ -109,6 +109,16 @@
 (use-package rainbow-mode
   :ensure t)
 
+(use-package switch-window
+  :ensure t
+  :config (setq switch-window-shortcut-style 'qwerty)
+  :bind ("C-x o" . switch-window)
+  (:map switch-window-extra-map
+        ("l" . switch-window-mvborder-right)
+        ("h" . switch-window-mvborder-left)
+        ("j" . switch-window-mvborder-down)
+        ("k" . switch-window-mvborder-up)))
+
 ;; ;; Load Evil
 ;; (use-package evil
 ;;   :ensure t
@@ -124,6 +134,7 @@
 (use-package meow
   :ensure t
   :config
+  (setq meow-keypad-leader-dispatch "C-c")
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -611,7 +622,33 @@
 
 (use-package ess
   :ensure t
-  :init (require 'ess-r-mode))
+  :init (require 'ess-r-mode)
+  :config
+  (defun apply-r-func-at-point (func)
+    "Apply R FUNC at point, FUNC should be a string."
+    (let ((sym (ess-symbol-at-point)))
+      (if sym
+          (ess-send-string (get-buffer-process "*R*")
+                           (concat func "(" (symbol-name sym) ")\n") t)
+        (message "No valid R symbol at point"))))
+  (defun r-summary-at-point ()
+    "Show summary of R object at point"
+    (interactive)
+    (apply-r-func-at-point "summary"))
+  (defun r-print-at-point ()
+    "Print R object at point"
+    (interactive)
+    (apply-r-func-at-point "print"))
+  (defun r-names-at-point ()
+    "Show names of R object at point"
+    (interactive)
+    (apply-r-func-at-point "names"))
+  :bind (:map ess-r-mode-map
+              ("C-c s s" . r-summary-at-point)
+              ("C-c s p" . r-print-at-point)
+              ("C-c s n" . r-names-at-point)
+              )
+  )
 
 (use-package ado-mode
   :init (require 'ado-mode))
