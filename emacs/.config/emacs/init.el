@@ -80,6 +80,8 @@
                     :foreground "#20BF55")
 (set-face-attribute 'font-lock-string-face nil
                     :foreground "#FF4000")
+(set-face-attribute 'font-lock-function-name-face nil
+                    :foreground "#008EC4")
 (set-face-attribute 'font-lock-constant-face nil
                     :foreground "#7F9172")
 
@@ -104,6 +106,8 @@
 
 (prefer-coding-system 'utf-8)
 
+(use-package rainbow-mode
+  :ensure t)
 
 ;; ;; Load Evil
 ;; (use-package evil
@@ -602,6 +606,15 @@
 ;;   (setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
 ;;   (elfeed-org))
 
+(use-package tex
+  :ensure auctex)
+
+(use-package ess
+  :ensure t
+  :init (require 'ess-r-mode))
+
+(use-package ado-mode
+  :init (require 'ado-mode))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -609,7 +622,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
