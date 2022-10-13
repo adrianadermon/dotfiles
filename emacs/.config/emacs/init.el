@@ -418,9 +418,9 @@
 (use-package citar
   :no-require
   :ensure t
-  :bind (("C-c r" . citar-insert-citation)
+  :bind (("C-c z" . citar-insert-citation)
          :map minibuffer-local-map
-         ("M-r" . citar-insert-preset))
+         ("M-b" . citar-insert-preset))
   :custom
   (org-cite-global-bibliography '("~/Dropbox/references.bib"))
   (org-cite-csl-styles-dir "~/Zotero/styles")
@@ -643,10 +643,15 @@
     "Show names of R object at point"
     (interactive)
     (apply-r-func-at-point "names"))
+  (defun r-structure-at-point ()
+    "Show structure of R object at point"
+    (interactive)
+    (apply-r-func-at-point "str"))
   :bind (:map ess-r-mode-map
-              ("C-c s s" . r-summary-at-point)
-              ("C-c s p" . r-print-at-point)
-              ("C-c s n" . r-names-at-point)
+              ("C-c r s" . r-summary-at-point)
+              ("C-c r p" . r-print-at-point)
+              ("C-c r n" . r-names-at-point)
+              ("C-c r t" . r-structure-at-point)
               )
   )
 
