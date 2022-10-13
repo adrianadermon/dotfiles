@@ -651,6 +651,7 @@
   )
 
 (use-package ado-mode
+  :ensure t
   :init (require 'ado-mode))
 
 (custom-set-variables
