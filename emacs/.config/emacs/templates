@@ -4,6 +4,67 @@ fundamental-mode ;; Available everywhere
 
 (today (format-time-string "%Y-%m-%d"))
 
+ess-r-mode
+
+(lm "lm(" (p "y") " ~ " (p "x") ", data = " (p "dt") ")")
+
+;; ggplot scatter plot
+(point "ggplot(" (p "dt") ", aes(x = " (p "x") ", y = " (p "y") "))" n
+	"+ geom_point()" >)
+
+(wf "write_fst(" (p "dt") ", \"" (p "filename") ".fst\", compress = 100)")
+
+(rf (p "dt") "<- read_fst(\"" (p "filename") "\", as.data.table = TRUE)")
+
+(dtab (p "dt") "[, .N, by = " (p "variable") "]")
+
+(dsum (p "dt") "[, summary(" (p "variable") ")]")
+
+;; Drop columns from data.table
+(ddrop (p "Columns to drop: " cols noinsert) (p "dt") "[, c(\"" (string-replace " " "\", \"" cols) "\") := NULL]")
+
+;; Wrap terms in character vector
+(vec (p "Elements: " words noinsert) "c(\"" (string-replace " " "\", \"" words) "\")")
+
+;; Drop duplicates on variable
+(dupdrop  (p "dt") " <- " (p "dt" dt) "[!duplicated(" (s dt) ", by = " (p "id" id) ") &" n
+   "!duplicated(" (s dt) ", by = " (s id) ", fromLast = TRUE)]" >)
+
+;; Drop duplicates on variables
+(dupdropvec (p "ID columns: " id noinsert)
+            (p "dt") " <- " (p "dt" dt) "[!duplicated(" (s dt) ", by = c(\"" (string-replace " " "\", \"" id) "\")) &" n
+   "!duplicated(" (s dt) ", by = c(\"" (string-replace " " "\", \"" id) "\"), fromLast = TRUE)]" >)
+
+;; Keep only duplicates on variables
+(dupkeep (p "dt") " <- " (p "dt" dt) "[duplicated(" (s dt) ", by = " (p "id" id) ") |" n
+   "duplicated(" (s dt) ", by = " (s id) ", fromLast = TRUE)]" >)
+
+
+
+
+(section "#────────────────────────────────────────────────────────────────────────────────" n
+         "# " (p "Title" title) n n r n n
+         "#────────────────────────────────────────────────────────────────────────────────" n)
+
+(asciibox "# ┌─" (make-string (length str) ?─) "─┐" n
+          "# │ " (s str)                       " │" n
+          "# └─" (make-string (length str) ?─) "─┘" n)
+
+(roundbox "# ╭─" (make-string (length str) ?─) "─╮" n
+          "# │ " (s str)                       " │" n
+          "# ╰─" (make-string (length str) ?─) "─╯" n)
+
+(dblbox "# ╔═" (make-string (length str) ?═) "═╗" n
+        "# ║ " (s str)                       " ║" n
+        "# ╚═" (make-string (length str) ?═) "═╝" n)
+
+(line "#────────────────────────────────────────────────────────────────────────────────" n)
+
+(dblline "#════════════════════════════════════════════════════════════════════════════════" n)
+
+(fancyline "#╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔" n
+           "#╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝" n)
+
 prog-mode
 
 (fixme (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "FIXME ")
