@@ -525,6 +525,7 @@
   (setq org-list-allow-alphabetical t)
   (setq org-hide-emphasis-markers t)
   (setq org-log-into-drawer t)
+  (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
   :custom-face
   (variable-pitch ((t (:family "ETBembo"))))
