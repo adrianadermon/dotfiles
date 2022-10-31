@@ -106,6 +106,14 @@
 
 (prefer-coding-system 'utf-8)
 
+;; Shortcuts for inserting matching delimiters
+(define-key global-map (kbd "C-c (") 'insert-pair)
+(define-key global-map (kbd "C-c [") 'insert-pair)
+(define-key global-map (kbd "C-c {") 'insert-pair)
+(define-key global-map (kbd "C-c \"") 'insert-pair)
+(define-key global-map (kbd "C-c '") 'insert-pair)
+(define-key global-map (kbd "C-c `") 'insert-pair)
+
 (use-package rainbow-mode
   :ensure t)
 
