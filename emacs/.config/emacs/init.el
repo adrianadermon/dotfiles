@@ -694,6 +694,12 @@
   :ensure t
   :init (require 'ess-r-mode)
   :config
+  (defun r-insert-magrittr-pipe ()
+    "Insert '%>%' at point"
+    (interactive)
+    (just-one-space)
+    (insert "%>%")
+    (just-one-space))
   (defun apply-r-func-at-point (func)
     "Apply R FUNC at point, FUNC should be a string."
     (let ((sym (ess-symbol-at-point)))
@@ -718,6 +724,8 @@
     (interactive)
     (apply-r-func-at-point "str"))
   :bind (:map ess-r-mode-map
+              ("C-c <" . ess-insert-assign)
+              ("C-c >" . r-insert-magrittr-pipe)
               ("C-c r s" . r-summary-at-point)
               ("C-c r p" . r-print-at-point)
               ("C-c r n" . r-names-at-point)
