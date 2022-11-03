@@ -1,3 +1,4 @@
+;;; Use-package setup
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
@@ -5,11 +6,12 @@
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (package-initialize)
 
-(setq user-full-name "Adrian Adermon"
-      user-mail-address "adrian.adermon@gmail.com")
-
 (eval-when-compile
   (require 'use-package))
+
+;;; Basic setup
+(setq user-full-name "Adrian Adermon"
+      user-mail-address "adrian.adermon@gmail.com")
 
 ;; Disable menu, icons, scroll bar, and tooltips
 (menu-bar-mode 0)
@@ -21,6 +23,8 @@
 (setq inhibit-startup-screen t)
 (setq inhibit-startup-echo-area-message t)
 (setq initial-scratch-message nil)
+
+(prefer-coding-system 'utf-8)
 
 ;(setq initial-major-mode 'org-mode)
 ;(setq pop-up-windows nil)
@@ -46,8 +50,35 @@
 ;; Use online dictionary
 (setq dictionary-server "dict.org")
 
+
+;; Enable TAB for outline minor mode
+(setq outline-minor-mode-cycle t)
+
+;; Shortcuts for inserting matching delimiters
+(define-key global-map (kbd "C-c (") 'insert-pair)
+(define-key global-map (kbd "C-c [") 'insert-pair)
+(define-key global-map (kbd "C-c {") 'insert-pair)
+(define-key global-map (kbd "C-c \"") 'insert-pair)
+(define-key global-map (kbd "C-c '") 'insert-pair)
+(define-key global-map (kbd "C-c `") 'insert-pair)
+
+(use-package rainbow-mode
+  :ensure t)
+
+(use-package switch-window
+  :ensure t
+  :config (setq switch-window-shortcut-style 'qwerty)
+  :bind ("C-x o" . switch-window)
+  (:map switch-window-extra-map
+        ("l" . switch-window-mvborder-right)
+        ("h" . switch-window-mvborder-left)
+        ("j" . switch-window-mvborder-down)
+        ("k" . switch-window-mvborder-up)))
+
+
 ;(load-theme 'dichromacy)
 
+;;; Theme
 ;; Set font
 (add-to-list 'default-frame-alist
              '(font . "PragmataPro-12"))
@@ -104,30 +135,13 @@
 ;;                     :background nil)
 (set-fringe-mode 0)
 
-(prefer-coding-system 'utf-8)
+;; (use-package almost-mono-themes
+;;   :config
+;;   (load-theme 'almost-mono-white t))
 
-;; Shortcuts for inserting matching delimiters
-(define-key global-map (kbd "C-c (") 'insert-pair)
-(define-key global-map (kbd "C-c [") 'insert-pair)
-(define-key global-map (kbd "C-c {") 'insert-pair)
-(define-key global-map (kbd "C-c \"") 'insert-pair)
-(define-key global-map (kbd "C-c '") 'insert-pair)
-(define-key global-map (kbd "C-c `") 'insert-pair)
 
-(use-package rainbow-mode
-  :ensure t)
 
-(use-package switch-window
-  :ensure t
-  :config (setq switch-window-shortcut-style 'qwerty)
-  :bind ("C-x o" . switch-window)
-  (:map switch-window-extra-map
-        ("l" . switch-window-mvborder-right)
-        ("h" . switch-window-mvborder-left)
-        ("j" . switch-window-mvborder-down)
-        ("k" . switch-window-mvborder-up)))
-
-;; ;; Load Evil
+;;; ;; Load Evil
 ;; (use-package evil
 ;;   :ensure t
 ;;   :init
@@ -138,7 +152,7 @@
 ;;   :config
 ;;   (evil-mode))
 
-;; Meow
+;;; Meow
 (use-package meow
   :ensure t
   :config
@@ -230,8 +244,9 @@
    (meow-global-mode 1)
   )
 
+;;; Completion setup
 
-;; Enable vertico
+;;;; Vertico (minibuffer completion UI)
 (use-package vertico
   :ensure t
   :init
@@ -245,112 +260,7 @@
   )
 
 
-;; Configure Tempel
-(use-package tempel
-  :ensure t
-  ;; Require trigger prefix before template name when completing.
-  ;; :custom
-  ;; (tempel-trigger-prefix "<")
-
-  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . tempel-insert))
-
-  :init
-
-  ;; Setup completion at point
-  (defun tempel-setup-capf ()
-    ;; Add the Tempel Capf to `completion-at-point-functions'.
-    ;; `tempel-expand' only triggers on exact matches. Alternatively use
-    ;; `tempel-complete' if you want to see all matches, but then you
-    ;; should also configure `tempel-trigger-prefix', such that Tempel
-    ;; does not trigger too often when you don't expect it. NOTE: We add
-    ;; `tempel-expand' *before* the main programming mode Capf, such
-    ;; that it will be tried first.
-    (setq-local completion-at-point-functions
-                (cons #'tempel-expand
-                      completion-at-point-functions)))
-
-  (add-hook 'prog-mode-hook 'tempel-setup-capf)
-  (add-hook 'text-mode-hook 'tempel-setup-capf)
-
-  ;; Optionally make the Tempel templates available to Abbrev,
-  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
-  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
-  ;; (global-tempel-abbrev-mode)
-
-  ;; Auto-reload doesn't work with symlinked files on Windows
-  ;; Run this function to manually reload
-  (defun tempel-reload ()
-    (interactive)
-    (setq tempel--path-templates nil))
-)
-
-
-;; Completion Overlay Region FUnction
-(use-package corfu
-  :ensure t
-  ;; Optional customizations
-  ;; :custom
-  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  ;; (corfu-auto t)                 ;; Enable auto completion
-  ;; (corfu-commit-predicate nil)   ;; Do not commit selected candidates on next input
-  ;; (corfu-quit-at-boundary t)     ;; Automatically quit at word boundary
-  ;; (corfu-quit-no-match t)        ;; Automatically quit if there is no match
-  ;; (corfu-echo-documentation nil) ;; Do not show documentation in the echo area
-
-  ;; Optionally use TAB for cycling, default is `corfu-complete'.
-  ;; :bind (:map corfu-map
-  ;;        ("TAB" . corfu-next)
-  ;;        ([tab] . corfu-next)
-  ;;        ("S-TAB" . corfu-previous)
-  ;;        ([backtab] . corfu-previous))
-
-  ;; You may want to enable Corfu only for certain modes.
-  ;; :hook ((prog-mode . corfu-mode)
-  ;;        (shell-mode . corfu-mode)
-  ;;        (eshell-mode . corfu-mode))
-
-  ;; Recommended: Enable Corfu globally.
-  ;; This is recommended since dabbrev can be used globally (M-/).
-  :init
-  (global-corfu-mode))
-
-;; Add extensions
-(use-package cape
-  ;; Bind dedicated completion commands
-  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :bind (("C-c p p" . completion-at-point) ;; capf
-         ("C-c p t" . complete-tag)        ;; etags
-         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-c p h" . cape-history)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-symbol)
-         ("C-c p a" . cape-abbrev)
-         ("C-c p i" . cape-ispell)
-         ("C-c p l" . cape-line)
-         ("C-c p w" . cape-dict)
-         ("C-c p \\" . cape-tex)
-         ("C-c p _" . cape-tex)
-         ("C-c p ^" . cape-tex)
-         ("C-c p &" . cape-sgml)
-         ("C-c p r" . cape-rfc1345))
-  :init
-  ;; Add `completion-at-point-functions', used by `completion-at-point'.
-  (add-to-list 'completion-at-point-functions #'cape-file)
-  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-history)
-  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
-  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
-  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
-  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
-  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
-  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
-  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
-  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
-  ;;(add-to-list 'completion-at-point-functions #'cape-line)
-)
-
+;;;; Orderless (minibuffer completion style)
 ;; Use the `orderless' completion style. Additionally enable
 ;; `partial-completion' for file path expansion. `partial-completion' is
 ;; important for wildcard support. Multiple files can be opened at once
@@ -369,11 +279,13 @@
   :init
   (savehist-mode))
 
+;;;; Marginalia (minibuffer annotations)
 (use-package marginalia
   :ensure t
   :config
   (marginalia-mode))
 
+;;;; Embark (minibuffer actions)
 (use-package embark
   :ensure t
 
@@ -381,7 +293,6 @@
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
   :init
 
   ;; Optionally replace the key help with a completing-read interface
@@ -395,7 +306,7 @@
                  nil
                  (window-parameters (mode-line-format . none)))))
 
-;; Example configuration for Consult
+;;;; Consult (completion commands)
 (use-package consult
   :ensure t
   ;; Replace bindings. Lazily loaded due by `use-package'.
@@ -454,7 +365,7 @@
         xref-show-definitions-function #'consult-xref)
 )
 
-;; Consult users will also want the embark-consult package.
+;;;;; Consult users will also want the embark-consult package.
 (use-package embark-consult
   :ensure t
   :after (embark consult)
@@ -464,7 +375,113 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-;; Bibliography completion
+;;;; Corfu (completion-at-point UI)
+(use-package corfu
+  :ensure t
+  ;; Optional customizations
+  ;; :custom
+  ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  ;; (corfu-auto t)                 ;; Enable auto completion
+  ;; (corfu-commit-predicate nil)   ;; Do not commit selected candidates on next input
+  ;; (corfu-quit-at-boundary t)     ;; Automatically quit at word boundary
+  ;; (corfu-quit-no-match t)        ;; Automatically quit if there is no match
+  ;; (corfu-echo-documentation nil) ;; Do not show documentation in the echo area
+
+  ;; Optionally use TAB for cycling, default is `corfu-complete'.
+  ;; :bind (:map corfu-map
+  ;;        ("TAB" . corfu-next)
+  ;;        ([tab] . corfu-next)
+  ;;        ("S-TAB" . corfu-previous)
+  ;;        ([backtab] . corfu-previous))
+
+  ;; You may want to enable Corfu only for certain modes.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
+
+  ;; Recommended: Enable Corfu globally.
+  ;; This is recommended since dabbrev can be used globally (M-/).
+  :init
+  (global-corfu-mode))
+
+;;;; Cape (completion-at-point extensions)
+(use-package cape
+  ;; Bind dedicated completion commands
+  ;; Alternative prefix keys: C-c p, M-p, M-+, ...
+  :bind (("C-c p p" . completion-at-point) ;; capf
+         ("C-c p t" . complete-tag)        ;; etags
+         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("C-c p h" . cape-history)
+         ("C-c p f" . cape-file)
+         ("C-c p k" . cape-keyword)
+         ("C-c p s" . cape-symbol)
+         ("C-c p a" . cape-abbrev)
+         ("C-c p i" . cape-ispell)
+         ("C-c p l" . cape-line)
+         ("C-c p w" . cape-dict)
+         ("C-c p \\" . cape-tex)
+         ("C-c p _" . cape-tex)
+         ("C-c p ^" . cape-tex)
+         ("C-c p &" . cape-sgml)
+         ("C-c p r" . cape-rfc1345))
+  :init
+  ;; Add `completion-at-point-functions', used by `completion-at-point'.
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-history)
+  ;;(add-to-list 'completion-at-point-functions #'cape-keyword)
+  ;;(add-to-list 'completion-at-point-functions #'cape-tex)
+  ;;(add-to-list 'completion-at-point-functions #'cape-sgml)
+  ;;(add-to-list 'completion-at-point-functions #'cape-rfc1345)
+  ;;(add-to-list 'completion-at-point-functions #'cape-abbrev)
+  ;;(add-to-list 'completion-at-point-functions #'cape-ispell)
+  ;;(add-to-list 'completion-at-point-functions #'cape-dict)
+  ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
+  ;;(add-to-list 'completion-at-point-functions #'cape-line)
+)
+;;;; TempEl (template expansion)
+(use-package tempel
+  :ensure t
+  ;; Require trigger prefix before template name when completing.
+  ;; :custom
+  ;; (tempel-trigger-prefix "<")
+
+  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
+         ("M-*" . tempel-insert))
+
+  :init
+
+  ;; Setup completion at point
+  (defun tempel-setup-capf ()
+    ;; Add the Tempel Capf to `completion-at-point-functions'.
+    ;; `tempel-expand' only triggers on exact matches. Alternatively use
+    ;; `tempel-complete' if you want to see all matches, but then you
+    ;; should also configure `tempel-trigger-prefix', such that Tempel
+    ;; does not trigger too often when you don't expect it. NOTE: We add
+    ;; `tempel-expand' *before* the main programming mode Capf, such
+    ;; that it will be tried first.
+    (setq-local completion-at-point-functions
+                (cons #'tempel-expand
+                      completion-at-point-functions)))
+
+  (add-hook 'prog-mode-hook 'tempel-setup-capf)
+  (add-hook 'text-mode-hook 'tempel-setup-capf)
+
+  ;; Optionally make the Tempel templates available to Abbrev,
+  ;; either locally or globally. `expand-abbrev' is bound to C-x '.
+  ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
+  ;; (global-tempel-abbrev-mode)
+
+  ;; Auto-reload doesn't work with symlinked files on Windows
+  ;; Run this function to manually reload
+  (defun tempel-reload ()
+    (interactive)
+    (setq tempel--path-templates nil))
+)
+
+;;; Bibliography
+
+;;;; Citar (bibliography completion)
 (use-package citar
   :no-require
   :ensure t
@@ -488,6 +505,7 @@
   :no-require
   :config (citar-embark-mode))
 
+;;;; Org-roam-bibtex (Org Roam bibliography integration)
 (use-package org-roam-bibtex
   :ensure t
   :after org-roam
@@ -508,16 +526,6 @@
        :target
        (file+head "references/${citekey}.org" "#+title: ${title}\n")
        :unnarrowed t))))
-
-;; (use-package almost-mono-themes
-;;   :config
-;;   (load-theme 'almost-mono-white t))
-
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-
-;; AUCTeX headers
-;(set-face-font 'font-latex-sectioning-5-face "PragmataPro")
 
 ;;; Org mode
 (use-package org
@@ -600,8 +608,9 @@
 ;; (set-face-attribute 'org-link nil
 ;;                     :foreground "#4D9DE0")
 
+;;;; Org-roam
 (setq org-roam-v2-ack t)
-;;; Org-roam
+;; Org-roam
 ;; (use-package org-roam
 ;;       :ensure t
 ;;       :hook
@@ -668,9 +677,18 @@
 ;;   (setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
 ;;   (elfeed-org))
 
+;;; LaTeX
 (use-package tex
   :ensure auctex)
 
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+
+;; AUCTeX headers
+;(set-face-font 'font-latex-sectioning-5-face "PragmataPro")
+
+
+;;; R
 (use-package ess
   :ensure t
   :init (require 'ess-r-mode)
@@ -710,6 +728,7 @@
   :ensure t
   :init (require 'ado-mode))
 
+;;; Other
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -741,3 +760,8 @@
  '(org-todo ((t (:inherit fixed-pitch :foreground "#FF4000"))))
  '(variable-pitch ((t (:family "ETBembo")))))
 (put 'downcase-region 'disabled nil)
+
+;; Local Variables:
+;; outline-regexp: ";;; \\|;;;; "
+;; eval: (outline-minor-mode)
+;; End:
