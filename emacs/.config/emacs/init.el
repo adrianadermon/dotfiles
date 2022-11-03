@@ -683,7 +683,8 @@
 (use-package tex
   :ensure auctex
   :config
-  (setq reftex-plug-into-AUCTeX t))
+  (setq reftex-plug-into-AUCTeX t)
+  :hook (LaTeX-mode . turn-on-reftex))
 
 ;; AUCTeX headers
 ;(set-face-font 'font-latex-sectioning-5-face "PragmataPro")
