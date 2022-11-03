@@ -54,13 +54,13 @@
 ;; Enable TAB for outline minor mode
 (setq outline-minor-mode-cycle t)
 
-;; Shortcuts for inserting matching delimiters
-(define-key global-map (kbd "C-c (") 'insert-pair)
-(define-key global-map (kbd "C-c [") 'insert-pair)
-(define-key global-map (kbd "C-c {") 'insert-pair)
-(define-key global-map (kbd "C-c \"") 'insert-pair)
-(define-key global-map (kbd "C-c '") 'insert-pair)
-(define-key global-map (kbd "C-c `") 'insert-pair)
+;; Keybindings for inserting matching delimiters
+(define-key global-map (kbd "C-c d (") 'insert-pair)
+(define-key global-map (kbd "C-c d [") 'insert-pair)
+(define-key global-map (kbd "C-c d {") 'insert-pair)
+(define-key global-map (kbd "C-c d \"") 'insert-pair)
+(define-key global-map (kbd "C-c d '") 'insert-pair)
+(define-key global-map (kbd "C-c d `") 'insert-pair)
 
 (use-package rainbow-mode
   :ensure t)
@@ -138,6 +138,8 @@
 ;; (use-package almost-mono-themes
 ;;   :config
 ;;   (load-theme 'almost-mono-white t))
+
+(prefer-coding-system 'utf-8)
 
 
 
@@ -734,6 +736,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(org-agenda-files
+   '("c:/Users/adria/Dropbox/org/notes.org" "c:/Users/adria/Dropbox/org/anki.org" "c:/Users/adria/Dropbox/org/computer_setup.org" "c:/Users/adria/Dropbox/org/elfeed.org" "c:/Users/adria/Dropbox/org/emacs.org" "c:/Users/adria/Dropbox/org/forskningsprojekt.org" "c:/Users/adria/Dropbox/org/imbens_2021.org" "c:/Users/adria/Dropbox/org/kasy_2021.org" "c:/Users/adria/Dropbox/org/reproducible_research.org" "c:/Users/adria/Dropbox/org/sjukgymnastik.org" "c:/Users/adria/Dropbox/org/variance.org" "c:/Users/adria/Dropbox/org/woodworking.org" "c:/Users/adria/Dropbox/org/wooldridge.org"))
  '(package-selected-packages
    '(eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
