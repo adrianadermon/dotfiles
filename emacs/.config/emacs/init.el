@@ -243,6 +243,8 @@
    '("z" . meow-pop-selection)
    '("'" . repeat)
    '("<escape>" . ignore))
+  (meow-define-keys 'insert
+    '("ESC" . meow-insert-exit)) ; Map C-[ to leave insert mode
    (meow-global-mode 1)
   )
 
