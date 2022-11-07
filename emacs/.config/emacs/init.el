@@ -686,6 +686,7 @@
   :ensure auctex
   :config
   (setq reftex-plug-into-AUCTeX t)
+  (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
   :hook (LaTeX-mode . turn-on-reftex))
 
 ;; AUCTeX headers
