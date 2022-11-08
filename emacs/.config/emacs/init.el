@@ -67,7 +67,7 @@
 
 (use-package switch-window
   :ensure t
-  :config (setq switch-window-shortcut-style 'qwerty)
+  :custom (switch-window-shortcut-style 'qwerty)
   :bind ("C-x o" . switch-window)
   (:map switch-window-extra-map
         ("l" . switch-window-mvborder-right)
@@ -157,9 +157,10 @@
 ;;; Meow
 (use-package meow
   :ensure t
+  :custom
+  (meow-keypad-leader-dispatch "C-c")
+  (meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   :config
-  (setq meow-keypad-leader-dispatch "C-c")
-  (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
    '("k" . meow-prev)
@@ -538,13 +539,14 @@
   (("C-c l" . org-store-link)
   ("C-c a" . org-agenda)
   ("C-c c" . org-capture))
+  :custom
+  (org-special-ctrl-a/e t)
+  (org-startup-indented t)
+  (org-agenda-files '("~/Dropbox/org/"))
+  (org-list-allow-alphabetical t)
+  (org-hide-emphasis-markers t)
+  (org-log-into-drawer t)
   :config
-  (setq org-special-ctrl-a/e t)
-  (setq org-startup-indented t)
-  (setq org-agenda-files '("~/Dropbox/org/"))
-  (setq org-list-allow-alphabetical t)
-  (setq org-hide-emphasis-markers t)
-  (setq org-log-into-drawer t)
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
   :custom-face
@@ -684,8 +686,9 @@
 ;;; LaTeX
 (use-package tex
   :ensure auctex
+  :custom
+  (reftex-plug-into-AUCTeX t)
   :config
-  (setq reftex-plug-into-AUCTeX t)
   (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
   :hook (LaTeX-mode . turn-on-reftex))
 
@@ -747,10 +750,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-agenda-files
-   '("c:/Users/adria/Dropbox/org/notes.org" "c:/Users/adria/Dropbox/org/anki.org" "c:/Users/adria/Dropbox/org/computer_setup.org" "c:/Users/adria/Dropbox/org/elfeed.org" "c:/Users/adria/Dropbox/org/emacs.org" "c:/Users/adria/Dropbox/org/forskningsprojekt.org" "c:/Users/adria/Dropbox/org/imbens_2021.org" "c:/Users/adria/Dropbox/org/kasy_2021.org" "c:/Users/adria/Dropbox/org/reproducible_research.org" "c:/Users/adria/Dropbox/org/sjukgymnastik.org" "c:/Users/adria/Dropbox/org/variance.org" "c:/Users/adria/Dropbox/org/woodworking.org" "c:/Users/adria/Dropbox/org/wooldridge.org"))
  '(package-selected-packages
-   '(eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -774,7 +775,6 @@
  '(org-table ((t (:inherit 'fixed-pitch))))
  '(org-todo ((t (:inherit fixed-pitch :foreground "#FF4000"))))
  '(variable-pitch ((t (:family "ETBembo")))))
-(put 'downcase-region 'disabled nil)
 
 ;; Local Variables:
 ;; outline-regexp: ";;; \\|;;;; "
