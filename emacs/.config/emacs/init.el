@@ -546,6 +546,7 @@
   (org-list-allow-alphabetical t)
   (org-hide-emphasis-markers t)
   (org-log-into-drawer t)
+  (org-use-property-inheritance '("EXPORT_OPTIONS"))
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
