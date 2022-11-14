@@ -26,6 +26,9 @@
 
 (prefer-coding-system 'utf-8)
 
+;; Visual warning instead of sound
+(setq visible-bell t)
+
 ;(setq initial-major-mode 'org-mode)
 ;(setq pop-up-windows nil)
 
@@ -543,6 +546,9 @@
   (org-special-ctrl-a/e t)
   (org-startup-indented t)
   (org-agenda-files '("~/Dropbox/org/"))
+  (org-refile-targets '((org-agenda-files . (:maxlevel . 2))))
+  (org-refile-use-outline-path 'file)
+  (org-outline-path-complete-in-steps nil)
   (org-list-allow-alphabetical t)
   (org-hide-emphasis-markers t)
   (org-log-into-drawer t)
