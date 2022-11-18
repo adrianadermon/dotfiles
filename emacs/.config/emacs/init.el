@@ -47,12 +47,23 @@
 ;; Word wrap long lines
 (global-visual-line-mode)
 
-;; Recent files mode
+;; Remember recently edited files
 (recentf-mode)
+
+;; Remember minibuffer history
+(savehist-mode)
+
+;; Keep buffers up to date with underlying file
+(global-auto-revert-mode)
 
 ;; Use online dictionary
 (setq dictionary-server "dict.org")
 
+;; Enable indentation+completion using the TAB key
+(setq tab-always-indent 'complete)
+
+;; TAB cycle if there are only few candidates
+(setq completion-cycle-threshold 3)
 
 ;; Enable TAB for outline minor mode
 (setq outline-minor-mode-cycle t)
@@ -87,7 +98,6 @@
              '(font . "PragmataPro-12"))
 
 
-
 ;; Set colors
 (add-to-list 'default-frame-alist '(background-color . "#FFFCF9"))
 (add-to-list 'default-frame-alist '(foreground-color . "#201E1F"))
@@ -95,13 +105,12 @@
 (set-face-attribute 'font-lock-comment-face nil
                     :foreground "#008EC4")
 
-
-; Theme testing
-;-------------------------------------
-;(set-frame-font "PragmataPro-12" nil t)
-;(set-frame-font "ETBembo-14" nil t)
-;(set-frame-font "Lato-12" nil t)
-;(set-frame-font "Open Sans-12" nil t)
+;; Theme testing
+;; -------------------------------------
+;; (set-frame-font "PragmataPro-12" nil t)
+;; (set-frame-font "ETBembo-14" nil t)
+;; (set-frame-font "Lato-12" nil t)
+;; (set-frame-font "Open Sans-12" nil t)
 
 (set-background-color "#FFFCF9")
 ;; (set-foreground-color "#201E1F")
@@ -281,12 +290,6 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :ensure t
-  :init
-  (savehist-mode))
-
 ;;;; Marginalia (minibuffer annotations)
 (use-package marginalia
   :ensure t
@@ -414,6 +417,7 @@
 
 ;;;; Cape (completion-at-point extensions)
 (use-package cape
+  :ensure t
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
   :bind (("C-c p p" . completion-at-point) ;; capf
