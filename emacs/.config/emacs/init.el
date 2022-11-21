@@ -143,10 +143,47 @@
 (set-face-attribute 'font-lock-constant-face nil
                     :foreground "#7F9172")
 
-
-
 (set-face-attribute 'region nil ;selection
                     :background "#FFDD4A")
+
+
+(set-face-attribute 'help-key-binding nil
+                    :foreground "#008EC4"
+                    :background "#EEEEEE"
+                    :box '(:line-width (1 . -1) :color "#B9B9B9"))
+
+
+(set-face-attribute 'link nil
+                    :foreground "#008EC4")
+
+
+;; Isearch faces
+(set-face-attribute 'isearch nil
+                    :background "#EA638C"
+                    :foreground "#FFFCF9") ; Face for highlighting Isearch matches.
+
+;; (set-face-attribute 'isearch-fail nil
+;;                     :background "#EA638C"
+;;                     :foreground "#201E1F") ; Face for highlighting failed part in Isearch echo-area message.
+
+(set-face-attribute 'lazy-highlight nil
+                    :background "#78C3FB"
+                    :foreground "#FFFCF9") ; Face for lazy highlighting of matches other than the current one.
+
+
+
+
+;; Parentheses faces
+(set-face-attribute 'show-paren-match nil
+                    :background "#BCE7FD") ; Face used for a matching paren.
+(set-face-attribute 'show-paren-mismatch nil
+                    :background "#FF4000"
+                    :foreground "#FFFCF9") ; Face used for a mismatching paren.
+;; (set-face-attribute 'show-paren-match-expression nil
+;;                     :background "#EA638C"
+;;                     :foreground "#FFFCF9") ; Face used for a matching paren when highlighting the whole expression.
+
+
 ;-------------------------------------
 
 
@@ -408,7 +445,8 @@
   ;; :custom
   ;; (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
   ;; (corfu-auto t)                 ;; Enable auto completion
-  ;; (corfu-commit-predicate nil)   ;; Do not commit selected candidates on next input
+  ;; (corfu-commit-predicate nil)   ;; Do not commit selected candidates
+  ;; on next input
   ;; (corfu-quit-at-boundary t)     ;; Automatically quit at word boundary
   ;; (corfu-quit-no-match t)        ;; Automatically quit if there is no match
   ;; (corfu-echo-documentation nil) ;; Do not show documentation in the echo area
