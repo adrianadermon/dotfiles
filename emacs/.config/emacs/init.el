@@ -754,6 +754,7 @@
   :ensure auctex
   :custom
   (reftex-plug-into-AUCTeX t)
+  (reftex-ref-style-default-list '("Default" "Cleveref"))
   :config
   (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
   :hook (LaTeX-mode . turn-on-reftex))
