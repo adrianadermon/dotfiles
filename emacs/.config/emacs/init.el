@@ -306,7 +306,10 @@
    '("{" . backward-sentence)
    '(">" . forward-paragraph)
    '("<" . backward-paragraph)
-   '("\"" . move-to-window-line-top-bottom))
+   '("\"" . consult-buffer)
+   '("=" . move-to-window-line-top-bottom)
+   '("`" . previous-buffer)
+   '("~" . next-buffer))
   (meow-define-keys 'insert
     '("ESC" . meow-insert-exit)) ; Map C-[ to leave insert mode
    (meow-global-mode 1)
