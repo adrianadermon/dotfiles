@@ -76,6 +76,16 @@
 (define-key global-map (kbd "C-c d '") 'insert-pair)
 (define-key global-map (kbd "C-c d `") 'insert-pair)
 
+;; Remove borders from mode-line
+(set-face-attribute 'mode-line nil
+                    :box nil)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :box nil)
+
+;; Make the fringes invisible
+(set-fringe-mode 0)
+
 (use-package rainbow-mode
   :ensure t)
 
@@ -185,25 +195,6 @@
 
 
 ;-------------------------------------
-
-
-;; Remove borders from mode-line
-(set-face-attribute 'mode-line nil
-                    :box nil)
-
-(set-face-attribute 'mode-line-inactive nil
-                    :box nil)
-
-;; Make the fringes invisible
-;; (set-face-attribute 'fringe nil
-;;                     :background nil)
-(set-fringe-mode 0)
-
-;; (use-package almost-mono-themes
-;;   :config
-;;   (load-theme 'almost-mono-white t))
-
-(prefer-coding-system 'utf-8)
 
 
 
