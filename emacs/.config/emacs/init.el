@@ -152,6 +152,9 @@
                     :foreground "#008EC4")
 (set-face-attribute 'font-lock-constant-face nil
                     :foreground "#7F9172")
+(set-face-attribute 'font-lock-type-face nil
+                    :foreground "#3B3B58")
+
 
 (set-face-attribute 'region nil ;selection
                     :background "#FFDD4A")
@@ -298,7 +301,12 @@
    '("Y" . meow-sync-grab)
    '("z" . meow-pop-selection)
    '("'" . repeat)
-   '("<escape>" . ignore))
+   '("<escape>" . ignore)
+   '("}" . forward-sentence)
+   '("{" . backward-sentence)
+   '(">" . forward-paragraph)
+   '("<" . backward-paragraph)
+   '("\"" . move-to-window-line-top-bottom))
   (meow-define-keys 'insert
     '("ESC" . meow-insert-exit)) ; Map C-[ to leave insert mode
    (meow-global-mode 1)
