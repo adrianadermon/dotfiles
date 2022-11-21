@@ -79,6 +79,9 @@
 (use-package rainbow-mode
   :ensure t)
 
+(use-package olivetti
+  :ensure t)
+
 (use-package switch-window
   :ensure t
   :custom (switch-window-shortcut-style 'qwerty)
