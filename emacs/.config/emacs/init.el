@@ -82,7 +82,7 @@
 (use-package switch-window
   :ensure t
   :custom (switch-window-shortcut-style 'qwerty)
-  :bind ("C-x o" . switch-window)
+  :bind ("M-o" . switch-window)
   (:map switch-window-extra-map
         ("l" . switch-window-mvborder-right)
         ("h" . switch-window-mvborder-left)
@@ -560,8 +560,10 @@
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
+  :hook
+  (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
   :custom-face
-  (variable-pitch ((t (:family "ETBembo"))))
+  (variable-pitch ((t (:family "Readex Pro"))))
   (fixed-pitch ((t (:family "Jetbrains Mono"))))
   (org-level-1 ((t (:foreground "#0E6BA8"
                    :height 160))))
@@ -589,10 +591,8 @@
                              :foreground "#4D9DE0"))))
   )
 
-(use-package variable-pitch-mode
-  :hook org-mode)
-
 (use-package org-appear
+  :ensure t
   :hook (org-mode . org-appear-mode))
 
 ;; (use-package org-superstar
@@ -762,7 +762,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
