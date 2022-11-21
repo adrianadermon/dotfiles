@@ -89,6 +89,18 @@
         ("j" . switch-window-mvborder-down)
         ("k" . switch-window-mvborder-up)))
 
+;; Visual undo
+(use-package vundo
+  :ensure t
+  :custom (vundo-glyph-alist vundo-unicode-symbols)
+  :bind (:map vundo-mode-map
+              ("l" . vundo-forward)
+              ("h" . vundo-backward)
+              ("j" . vundo-next)
+              ("k" . vundo-previous))
+  :custom-face
+  (vundo-highlight ((t (:foreground "#FF4000"))))
+  )
 
 ;(load-theme 'dichromacy)
 
