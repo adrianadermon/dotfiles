@@ -308,6 +308,7 @@
    '("<" . backward-paragraph)
    '("\"" . consult-buffer)
    '("=" . move-to-window-line-top-bottom)
+   '("+" . recenter-top-bottom)
    '("`" . previous-buffer)
    '("~" . next-buffer))
   (meow-define-keys 'insert
