@@ -201,17 +201,6 @@
 
 
 
-;;; ;; Load Evil
-;; (use-package evil
-;;   :ensure t
-;;   :init
-;;   (setq evil-want-C-i-jump nil) ; Ensure <tab> works in Org mode
-;;   (setq evil-want-C-u-scroll t)
-;;   (setq evil-split-window-below t)
-;;   (setq evil-vsplit-window-right t)
-;;   :config
-;;   (evil-mode))
-
 ;;; Meow
 (use-package meow
   :ensure t
@@ -311,9 +300,10 @@
    '("+" . recenter-top-bottom)
    '("`" . previous-buffer)
    '("~" . next-buffer))
-  (meow-define-keys 'insert
-    '("ESC" . meow-insert-exit)) ; Map C-[ to leave insert mode
-   (meow-global-mode 1)
+  (when window-system
+    (define-key input-decode-map (kbd "C-[") [control-bracketleft])
+    (define-key meow-insert-state-keymap [control-bracketleft] 'meow-insert-exit))
+  (meow-global-mode 1)
   )
 
 ;;; Completion setup
