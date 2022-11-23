@@ -582,6 +582,7 @@
 ;;; Org mode
 (use-package org
   :ensure t
+  :demand t
   :bind
   (("C-c l" . org-store-link)
   ("C-c a" . org-agenda)
