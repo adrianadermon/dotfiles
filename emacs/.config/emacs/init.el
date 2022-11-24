@@ -603,6 +603,7 @@
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
   :hook
   (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
+  (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
   :custom-face
   (variable-pitch ((t (:family "Readex Pro"))))
   (fixed-pitch ((t (:family "Jetbrains Mono"))))
@@ -735,6 +736,31 @@
 ;;   (setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
 ;;   (elfeed-org))
 
+;;; Notes
+;;;; Denote
+(use-package denote
+  :ensure t
+  :custom
+  (denote-directory (expand-file-name "~/Dropbox/notes/"))
+  (denote-known-keywords '("journal article" "econometrics"))
+  (denote-infer-keywords t)
+  (denote-sort-keywords t)
+  (denote-prompts '(title keywords))
+  (denote-date-prompt-use-org-read-date t) ; Pick dates, where relevant, with Org's advanced interface:
+  )
+
+;;;; Consult-notes
+(use-package consult-notes
+  :ensure t
+  :commands (consult-notes
+             consult-notes-search-in-all-notes)
+  :config
+  (consult-notes-denote-mode)
+  :custom
+  (consult-notes-sources
+  `(("Literature notes" ?l ,(denote-directory))))
+  )
+
 ;;; LaTeX
 (use-package tex
   :ensure auctex
@@ -804,7 +830,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
