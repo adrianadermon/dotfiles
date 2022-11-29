@@ -602,6 +602,8 @@
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
+  (set-face-attribute 'org-column nil
+                      :inherit 'default) ; Fix alignment in column view
   :hook
   (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
   (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
@@ -631,8 +633,9 @@
   (org-block ((t (:family "PragmataPro"))))
   (org-code ((t (:family "PragmataPro"))))
   (org-agenda-structure ((t (:inherit fixed-pitch
-                             :foreground "#4D9DE0"))))
+                                      :foreground "#4D9DE0"))))
   )
+
 
 (use-package org-appear
   :ensure t
@@ -831,7 +834,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
