@@ -554,19 +554,42 @@
   (citar-open-note-function 'orb-citar-edit-note))
 
 (use-package citar-embark
+  :ensure t
   :after citar embark
   :no-require
   :config (citar-embark-mode))
+
+(use-package citar-org-roam
+  :ensure t
+  :after citar org-roam
+  :no-require
+  :config
+  (citar-org-roam-mode)
+  (citar-register-notes-source
+   'orb-citar-source (list :name "Org-Roam Notes"
+                           :category 'org-roam-node
+                           :items #'citar-org-roam--get-candidates
+                           :hasitems #'citar-org-roam-has-notes
+                           :open #'citar-org-roam-open-note
+                           :create #'orb-citar-edit-note
+                           :annotate #'citar-org-roam--annotate))
+   (setq citar-notes-source 'orb-citar-source))
+
+
+
 
 ;;;; Org-roam-bibtex (Org Roam bibliography integration)
 (use-package org-roam-bibtex
   :ensure t
   :after org-roam
-  ;; :config
-  ;; (org-roam-bibtex-mode)
+  :init
+  (defun my-orb-date-to-year (date)
+    (number-to-string (nth 5 (parse-time-string date)))) ; Function to extract year from date field
+  :config
+  (org-roam-bibtex-mode)
   :custom
   (orb-roam-ref-format 'org-cite)
-  (orb-preformat-keywords '("citekey" "author" "date" "entry-type" "journal"))
+  (orb-preformat-keywords '("citekey" "author" "date" "entry-type" "journaltitle"))
   (org-roam-capture-templates
    '((;; default template
       "d" "default" plain "%?"
@@ -575,7 +598,7 @@
         :unnarrowed t)
       ;; bibliography note template
       ("r" "bibliography reference" plain
-       "%? %^{author}\n%^{journal}\n%^{date}"
+       "%^{author}\n%^{journaltitle}\n%(my-orb-date-to-year \"%^{date}\")\n%?"
        :target
        (file+head "references/${citekey}.org" "#+title: ${title}\n")
        :unnarrowed t))))
@@ -602,6 +625,7 @@
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
   (set-face-attribute 'org-column nil
                       :inherit 'default) ; Fix alignment in column view
   :hook
@@ -635,7 +659,6 @@
   (org-agenda-structure ((t (:inherit fixed-pitch
                                       :foreground "#4D9DE0"))))
   )
-
 
 (use-package org-appear
   :ensure t
@@ -834,7 +857,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
