@@ -300,7 +300,8 @@
    '("=" . move-to-window-line-top-bottom)
    '("+" . recenter-top-bottom)
    '("`" . previous-buffer)
-   '("~" . next-buffer))
+   '("~" . next-buffer)
+   '("P" . meow-clipboard-yank))
   (when window-system
     (define-key input-decode-map (kbd "C-[") [control-bracketleft])
     (define-key meow-insert-state-keymap [control-bracketleft] 'meow-insert-exit))
