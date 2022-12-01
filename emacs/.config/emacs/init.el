@@ -791,6 +791,7 @@
 ;;; LaTeX
 (use-package tex
   :ensure auctex
+  :ensure cdlatex
   :custom
   (reftex-plug-into-AUCTeX t)
   (reftex-ref-style-default-list '("Default" "Cleveref"))
