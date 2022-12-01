@@ -295,6 +295,7 @@
    '("{" . backward-sentence)
    '(">" . forward-paragraph)
    '("<" . backward-paragraph)
+   '(":" . find-file)
    '("\"" . consult-buffer)
    '("=" . move-to-window-line-top-bottom)
    '("+" . recenter-top-bottom)
