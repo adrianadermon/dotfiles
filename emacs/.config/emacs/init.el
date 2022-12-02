@@ -628,6 +628,13 @@
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+  (setq org-format-latex-header (concat org-format-latex-header ; Code for Org LaTeX preview
+                                   "\n\\DeclareMathOperator{\\E}{E}
+                                    \\DeclareMathOperator{\\Corr}{Corr}
+                                    \\DeclareMathOperator{\\Cov}{Cov}
+                                    \\DeclareMathOperator{\\Var}{Var}
+                                    \\DeclareMathOperator*{\\argmin}{arg\\,min}
+                                    \\DeclareMathOperator{\\plim}{plim}"))
   (set-face-attribute 'org-column nil
                       :inherit 'default) ; Fix alignment in column view
   :hook
