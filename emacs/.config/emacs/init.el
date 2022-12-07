@@ -185,9 +185,9 @@
 
 
 (set-face-attribute 'mode-line nil
-                    :background "#FCD9DB")
+                    :background "#D6F3FF")
 (set-face-attribute 'mode-line-inactive nil
-                    :background "#FDE8E9")
+                    :background "#EBF9FF")
 
 
 
