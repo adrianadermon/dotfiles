@@ -184,6 +184,11 @@
                     :foreground "#FFFCF9") ; Face for lazy highlighting of matches other than the current one.
 
 
+(set-face-attribute 'mode-line nil
+                    :background "#FCD9DB")
+(set-face-attribute 'mode-line-inactive nil
+                    :background "#FDE8E9")
+
 
 
 ;; Parentheses faces
