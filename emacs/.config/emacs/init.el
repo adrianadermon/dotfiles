@@ -821,7 +821,9 @@
   (reftex-ref-style-default-list '("Default" "Cleveref"))
   :config
   (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
-  :hook (LaTeX-mode . turn-on-reftex))
+  :hook
+  (LaTeX-mode . turn-on-reftex)
+  (LaTeX-mode . turn-on-cdlatex))
 
 ;; AUCTeX headers
 ;(set-face-font 'font-latex-sectioning-5-face "PragmataPro")
@@ -881,8 +883,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(consult-notes-file-dir-sources
+   `((#("Literature notes" 0 16
+        (face consult-notes-name))
+      108 ,(denote-directory))) nil nil "Customized with use-package consult-notes")
  '(package-selected-packages
-   '(markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
