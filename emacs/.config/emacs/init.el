@@ -56,6 +56,18 @@
 ;; Keep buffers up to date with underlying file
 (global-auto-revert-mode)
 
+;; Put backups in a separate directory
+(defvar --backup-directory (concat user-emacs-directory "backups"))
+(if (not (file-exists-p --backup-directory))
+        (make-directory --backup-directory t))
+(setq backup-directory-alist `(("." . ,--backup-directory)))
+(setq backup-by-copying t
+      kept-new-versions 6
+      kept-old-versions 2
+      delete-old-versions t
+      delete-by-moving-to-trash t
+      version-control t)
+
 ;; Use online dictionary
 (setq dictionary-server "dict.org")
 
