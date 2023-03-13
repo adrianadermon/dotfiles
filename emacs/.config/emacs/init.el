@@ -566,7 +566,7 @@
   (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
   (bibtex-completion-bibliography org-cite-global-bibliography)
-  (citar-notes-paths '("~/Dropbox/org-roam/references"))
+  (citar-notes-paths (denote-directory))
   (citar-library-paths '("~/Dropbox/Forskning/Zotero"))
   (citar-open-note-function 'orb-citar-edit-note))
 
@@ -576,49 +576,57 @@
   :no-require
   :config (citar-embark-mode))
 
-(use-package citar-org-roam
-  :ensure t
-  :after citar org-roam
-  :no-require
-  :config
-  (citar-org-roam-mode)
-  (citar-register-notes-source
-   'orb-citar-source (list :name "Org-Roam Notes"
-                           :category 'org-roam-node
-                           :items #'citar-org-roam--get-candidates
-                           :hasitems #'citar-org-roam-has-notes
-                           :open #'citar-org-roam-open-note
-                           :create #'orb-citar-edit-note
-                           :annotate #'citar-org-roam--annotate))
-   (setq citar-notes-source 'orb-citar-source))
+(use-package citar-denote
+  :after citar denote
+  :custom
+  (citar-denote-title-format "author-year")
+  (citar-denote-title-format-authors 2)
+  (citar-denote-title-format-andstr "&")
+  :config (citar-denote-mode))
+
+;; (use-package citar-org-roam
+;;   :ensure t
+;;   :after citar org-roam
+;;   :no-require
+;;   :config
+;;   (citar-org-roam-mode)
+;;   (citar-register-notes-source
+;;    'orb-citar-source (list :name "Org-Roam Notes"
+;;                            :category 'org-roam-node
+;;                            :items #'citar-org-roam--get-candidates
+;;                            :hasitems #'citar-org-roam-has-notes
+;;                            :open #'citar-org-roam-open-note
+;;                            :create #'orb-citar-edit-note
+;;                            :annotate #'citar-org-roam--annotate))
+;;    (setq citar-notes-source 'orb-citar-source))
 
 
 
 
 ;;;; Org-roam-bibtex (Org Roam bibliography integration)
-(use-package org-roam-bibtex
-  :ensure t
-  :after org-roam
-  :init
-  (defun my-orb-date-to-year (date)
-    (number-to-string (nth 5 (parse-time-string date)))) ; Function to extract year from date field
-  :config
-  (org-roam-bibtex-mode)
-  :custom
-  (orb-roam-ref-format 'org-cite)
-  (orb-preformat-keywords '("citekey" "author" "date" "entry-type" "journaltitle"))
-  (org-roam-capture-templates
-   '((;; default template
-      "d" "default" plain "%?"
-        :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                           "#+title: ${title}\n")
-        :unnarrowed t)
-      ;; bibliography note template
-      ("r" "bibliography reference" plain
-       "%^{author}\n%^{journaltitle}\n%(my-orb-date-to-year \"%^{date}\")\n%?"
-       :target
-       (file+head "references/${citekey}.org" "#+title: ${title}\n")
-       :unnarrowed t))))
+;; (use-package org-roam-bibtex
+;;   :ensure t
+;;   :after org-roam
+;;   :init
+;;   (defun my-orb-date-to-year (date)
+;;     (number-to-string (nth 5 (parse-time-string date)))) ; Function to extract year from date field
+;;   :config
+;;   (org-roam-bibtex-mode)
+;;   :custom
+;;   (orb-roam-ref-format 'org-cite)
+;;   (orb-preformat-keywords '("citekey" "author" "date" "entry-type" "journaltitle"))
+;;   (org-roam-capture-templates
+;;    '((;; default template
+;;       "d" "default" plain "%?"
+;;         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+;;                            "#+title: ${title}\n")
+;;         :unnarrowed t)
+;;       ;; bibliography note template
+;;       ("r" "bibliography reference" plain
+;;        "%^{author}\n%^{journaltitle}\n%(my-orb-date-to-year \"%^{date}\")\n%?"
+;;        :target
+;;        (file+head "references/${citekey}.org" "#+title: ${title}\n")
+;;        :unnarrowed t))))
 
 ;;; Org mode
 (use-package org
@@ -719,7 +727,7 @@
 ;;                     :foreground "#4D9DE0")
 
 ;;;; Org-roam
-(setq org-roam-v2-ack t)
+;; (setq org-roam-v2-ack t)
 ;; Org-roam
 ;; (use-package org-roam
 ;;       :ensure t
@@ -735,23 +743,23 @@
 ;;               :map org-mode-map
 ;;               (("C-c n i" . org-roam-insert))
 ;;               (("C-c n I" . org-roam-insert-immediate))))
-(use-package org-roam
-      :ensure t
-      :custom
-      (org-roam-directory (file-truename "~/Dropbox/org-roam/"))
-      (org-roam-db-location "~/org-roam.db")
-      :bind (("C-c n l" . org-roam-buffer-toggle)
-             ("C-c n f" . org-roam-node-find)
-             ("C-c n g" . org-roam-graph)
-             ("C-c n i" . org-roam-node-insert)
-             ("C-c n c" . org-roam-capture)
-             ;; Dailies
-             ("C-c n j" . org-roam-dailies-capture-today))
-      :config
-      (org-roam-db-autosync-mode)
-      ;; ;; If using org-roam-protocol
-      ;; (require 'org-roam-protocol)
-      )
+;; (use-package org-roam
+;;       :ensure t
+;;       :custom
+;;       (org-roam-directory (file-truename "~/Dropbox/org-roam/"))
+;;       (org-roam-db-location "~/org-roam.db")
+;;       :bind (("C-c n l" . org-roam-buffer-toggle)
+;;              ("C-c n f" . org-roam-node-find)
+;;              ("C-c n g" . org-roam-graph)
+;;              ("C-c n i" . org-roam-node-insert)
+;;              ("C-c n c" . org-roam-capture)
+;;              ;; Dailies
+;;              ("C-c n j" . org-roam-dailies-capture-today))
+;;       :config
+;;       (org-roam-db-autosync-mode)
+;;       ;; ;; If using org-roam-protocol
+;;       ;; (require 'org-roam-protocol)
+;;       )
 
 ;; ;;; Deft
 ;; (use-package deft
@@ -764,13 +772,13 @@
 ;;   (deft-default-extension "org")
 ;;   (deft-directory "~/Dropbox/org-roam/"))
 
-(use-package org-roam-ui
-  :after org-roam
-  :config
-  (setq org-roam-ui-sync-theme t
-        org-roam-ui-follow t
-        org-roam-ui-update-on-save t
-        org-roam-ui-open-on-start t))
+;; (use-package org-roam-ui
+;;   :after org-roam
+;;   :config
+;;   (setq org-roam-ui-sync-theme t
+;;         org-roam-ui-follow t
+;;         org-roam-ui-update-on-save t
+;;         org-roam-ui-open-on-start t))
 
 ;; (use-package elfeed
 ;;   :ensure t
@@ -793,7 +801,7 @@
   :ensure t
   :custom
   (denote-directory (expand-file-name "~/Dropbox/notes/"))
-  (denote-known-keywords '("journal article" "econometrics"))
+  (denote-known-keywords '("econometrics" "draft" "replication"))
   (denote-infer-keywords t)
   (denote-sort-keywords t)
   (denote-prompts '(title keywords))
@@ -807,9 +815,9 @@
              consult-notes-search-in-all-notes)
   :config
   (consult-notes-denote-mode)
-  :custom
-  (consult-notes-sources
-  `(("Literature notes" ?l ,(denote-directory))))
+  ;; :custom
+  ;; (consult-notes-sources
+  ;; `(("Literature notes" ?l ,(denote-directory))))
   )
 
 ;;; LaTeX
@@ -883,12 +891,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(consult-notes-file-dir-sources
-   `((#("Literature notes" 0 16
-        (face consult-notes-name))
-      108 ,(denote-directory))) nil nil "Customized with use-package consult-notes")
  '(package-selected-packages
-   '(citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
