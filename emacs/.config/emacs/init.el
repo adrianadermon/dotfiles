@@ -80,6 +80,9 @@
 ;; Enable TAB for outline minor mode
 (setq outline-minor-mode-cycle t)
 
+;; Use Ripgrep for regexp search
+(setq xref-search-program 'ripgrep)
+
 ;; Keybindings for inserting matching delimiters
 (define-key global-map (kbd "C-c d (") 'insert-pair)
 (define-key global-map (kbd "C-c d [") 'insert-pair)
