@@ -87,6 +87,7 @@
 (define-key global-map (kbd "C-c d (") 'insert-pair)
 (define-key global-map (kbd "C-c d [") 'insert-pair)
 (define-key global-map (kbd "C-c d {") 'insert-pair)
+(define-key global-map (kbd "C-c d <") 'insert-pair)
 (define-key global-map (kbd "C-c d \"") 'insert-pair)
 (define-key global-map (kbd "C-c d '") 'insert-pair)
 (define-key global-map (kbd "C-c d `") 'insert-pair)
