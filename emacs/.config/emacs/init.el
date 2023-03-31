@@ -594,7 +594,16 @@
   (citar-denote-title-format "author-year")
   (citar-denote-title-format-authors 2)
   (citar-denote-title-format-andstr "&")
-  :config (citar-denote-mode))
+  :config (citar-denote-mode)
+  :bind (("C-c n c c" . citar-create-note)
+         ("C-c n c a" . citar-denote-add-citekey)
+         ("C-c n c x" . citar-denote-remove-citekey)
+         ("C-c d c o" . citar-denote-open-note)
+         ("C-c n c d" . citar-denote-dwim)
+         ("C-c n c r" . citar-denote-find-reference)
+         ("C-c n c f" . citar-denote-find-citation)
+         ("C-c n c n" . citar-denote-find-nocite))
+)
 
 ;; (use-package citar-org-roam
 ;;   :ensure t
@@ -818,6 +827,21 @@
   (denote-sort-keywords t)
   (denote-prompts '(title keywords))
   (denote-date-prompt-use-org-read-date t) ; Pick dates, where relevant, with Org's advanced interface:
+  :hook (dired-mode . denote-dired-mode-in-directories)
+  :bind (
+         ("C-c n n" . denote)
+         ("C-c n t" . denote-template)
+         ("C-c n r" . denote-rename-file)
+         ("C-c n R" . denote-rename-file-using-front-matter)
+         :map org-mode-map
+         ("C-c n i" . denote-link)
+         ("C-c n I" . denote-link-add-links)
+         ("C-c n b" . denote-link-backlinks)
+         ("C-c n f f" . denote-link-find-file)
+         ("C-c n f b" . denote-link-find-backlink)
+         ("C-c n k a" . denote-keywords-add)
+         ("C-c n k x" . denote-keywords-remove)
+         )
   )
 
 ;;;; Consult-notes
