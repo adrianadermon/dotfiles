@@ -582,7 +582,7 @@
   (org-cite-activate-processor 'citar)
   (citar-bibliography org-cite-global-bibliography)
   (bibtex-completion-bibliography org-cite-global-bibliography)
-  (citar-notes-paths (denote-directory))
+  (citar-notes-paths (list denote-directory))
   (citar-library-paths '("~/Dropbox/Forskning/Zotero"))
   (citar-open-note-function 'orb-citar-edit-note))
 
@@ -825,7 +825,7 @@
 (use-package denote
   :ensure t
   :custom
-  (denote-directory (expand-file-name "~/Dropbox/notes/"))
+  (denote-directory (file-truename "~/Dropbox/notes/"))
   (denote-known-keywords '("econometrics" "draft" "replication"))
   (denote-infer-keywords t)
   (denote-sort-keywords t)
