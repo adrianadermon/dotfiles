@@ -110,7 +110,9 @@
 
 (use-package switch-window
   :ensure t
-  :custom (switch-window-shortcut-style 'qwerty)
+  :custom
+  (switch-window-shortcut-style 'qwerty)
+  (switch-window-threshold 3)
   :bind ("M-o" . switch-window)
   (:map switch-window-extra-map
         ("l" . switch-window-mvborder-right)
