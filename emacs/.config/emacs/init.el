@@ -674,6 +674,7 @@
   (org-hide-emphasis-markers t)
   (org-log-into-drawer t)
   (org-use-property-inheritance '("EXPORT_OPTIONS"))
+  (org-confirm-babel-evaluate nil)
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
@@ -685,8 +686,7 @@
                                     \\DeclareMathOperator{\\Var}{Var}
                                     \\DeclareMathOperator*{\\argmin}{arg\\,min}
                                     \\DeclareMathOperator{\\plim}{plim}"))
-  (set-face-attribute 'org-column nil
-                      :inherit 'default) ; Fix alignment in column view
+  (add-to-list 'org-babel-load-languages '(R . t)) ; Enable R for Babel
   :hook
   (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
   (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
@@ -715,8 +715,10 @@
   (org-checkbox ((t (:inherit fixed-pitch))))
   (org-block ((t (:family "PragmataPro"))))
   (org-code ((t (:family "PragmataPro"))))
+  (org-block-begin-line ((t (:family "PragmataPro"))))
   (org-agenda-structure ((t (:inherit fixed-pitch
                                       :foreground "#4D9DE0"))))
+  (org-column ((t (:inherit default)))) ; Fix alignment in column view
   )
 
 (use-package org-appear
@@ -740,7 +742,11 @@
           (lambda ()
             (push '("[ ]" . ?☐) prettify-symbols-alist)
             (push '("[X]" . ?☑) prettify-symbols-alist)
-            (push '("[-]" . ?❍) prettify-symbols-alist)))
+            (push '("[-]" . ?❍) prettify-symbols-alist)
+            (push '("#+begin_src" . "") prettify-symbols-alist)
+            (push '("#+end_src" . "―") prettify-symbols-alist)
+            )
+          )
 
 
 ;; (set-face-attribute 'org-level-1 nil
