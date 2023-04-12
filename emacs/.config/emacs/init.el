@@ -933,6 +933,8 @@
               ("C-c r n" . r-names-at-point)
               ("C-c r t" . r-structure-at-point)
               )
+  :custom
+  (inferior-R-args "--no-save --no-restore")
   )
 
 (use-package ado-mode
