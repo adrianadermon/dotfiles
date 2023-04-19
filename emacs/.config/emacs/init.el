@@ -906,7 +906,7 @@
     "Apply R FUNC at point, FUNC should be a string."
     (let ((sym (ess-symbol-at-point)))
       (if sym
-          (ess-send-string (get-buffer-process "*R*")
+          (ess-send-string (ess-get-process ess-local-process-name)
                            (concat func "(" (symbol-name sym) ")\n") t)
         (message "No valid R symbol at point"))))
   (defun r-summary-at-point ()
