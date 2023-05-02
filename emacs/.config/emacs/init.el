@@ -693,6 +693,10 @@
                                     \\DeclareMathOperator*{\\argmin}{arg\\,min}
                                     \\DeclareMathOperator{\\plim}{plim}"))
   (add-to-list 'org-babel-load-languages '(R . t)) ; Enable R for Babel
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-todo-ignore-deadlines t)
+  (setq org-agenda-todo-ignore-scheduled t)
   :hook
   (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
   (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
