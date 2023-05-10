@@ -479,6 +479,7 @@
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
   :ensure t
+  :demand t
   :init
   (global-corfu-mode)
   (corfu-popupinfo-mode))
@@ -540,6 +541,7 @@
 ;;;; TempEl (template expansion)
 (use-package tempel
   :ensure t
+  :demand t
   ;; Require trigger prefix before template name when completing.
   ;; :custom
   ;; (tempel-trigger-prefix "<")
