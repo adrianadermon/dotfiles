@@ -227,6 +227,7 @@
 ;;; Meow
 (use-package meow
   :ensure t
+  :demand t
   :custom
   (meow-keypad-leader-dispatch "C-c")
   (meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
