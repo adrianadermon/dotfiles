@@ -341,6 +341,7 @@
   (meow-global-mode 1)
   :hook
   (meow-insert-exit . corfu-quit)
+  (meow-insert-exit . tempel-done)
   )
 
 ;;; Completion setup
