@@ -339,6 +339,8 @@
     (define-key input-decode-map (kbd "C-[") [control-bracketleft])
     (define-key meow-insert-state-keymap [control-bracketleft] 'meow-insert-exit))
   (meow-global-mode 1)
+  :hook
+  (meow-insert-exit . corfu-quit)
   )
 
 ;;; Completion setup
