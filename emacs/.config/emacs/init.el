@@ -699,6 +699,7 @@
                                     \\DeclareMathOperator*{\\argmin}{arg\\,min}
                                     \\DeclareMathOperator{\\plim}{plim}"))
   (add-to-list 'org-babel-load-languages '(R . t)) ; Enable R for Babel
+  (add-to-list 'org-babel-load-languages '(dot . t)) ; Enable Graphviz DOT for Babel
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-todo-ignore-deadlines t)
@@ -736,6 +737,9 @@
                                       :foreground "#4D9DE0"))))
   (org-column ((t (:inherit default)))) ; Fix alignment in column view
   )
+
+(use-package graphviz-dot-mode
+  :ensure t)
 
 (use-package org-appear
   :ensure t
@@ -958,7 +962,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(graphviz-dot-mode meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
