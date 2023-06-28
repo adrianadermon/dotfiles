@@ -9,6 +9,10 @@
 (eval-when-compile
   (require 'use-package))
 
+;;; Install packages automatically
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
+
 ;;; Basic setup
 (setq user-full-name "Adrian Adermon"
       user-mail-address "adrian.adermon@gmail.com")
@@ -102,14 +106,11 @@
 ;; Make the fringes invisible
 (set-fringe-mode 0)
 
-(use-package rainbow-mode
-  :ensure t)
+(use-package rainbow-mode)
 
-(use-package olivetti
-  :ensure t)
+(use-package olivetti)
 
 (use-package switch-window
-  :ensure t
   :custom
   (switch-window-shortcut-style 'qwerty)
   (switch-window-threshold 3)
@@ -122,7 +123,6 @@
 
 ;; Visual undo
 (use-package vundo
-  :ensure t
   :custom (vundo-glyph-alist vundo-unicode-symbols)
   :bind (:map vundo-mode-map
               ("l" . vundo-forward)
@@ -226,7 +226,6 @@
 
 ;;; Meow
 (use-package meow
-  :ensure t
   :demand t
   :custom
   (meow-keypad-leader-dispatch "C-c")
@@ -349,7 +348,6 @@
 
 ;;;; Vertico (minibuffer completion UI)
 (use-package vertico
-  :ensure t
   :init
   (vertico-mode)
 
@@ -368,7 +366,6 @@
 ;; with `find-file' if you enter a wildcard. You may also give the
 ;; `initials' completion style a try.
 (use-package orderless
-  :ensure t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-defaults nil)
@@ -376,14 +373,11 @@
 
 ;;;; Marginalia (minibuffer annotations)
 (use-package marginalia
-  :ensure t
   :config
   (marginalia-mode))
 
 ;;;; Embark (minibuffer actions)
 (use-package embark
-  :ensure t
-
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
@@ -403,7 +397,6 @@
 
 ;;;; Consult (completion commands)
 (use-package consult
-  :ensure t
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings in `mode-specific-map'
          ("C-c M-x" . consult-mode-command)
@@ -468,7 +461,6 @@
 
 ;;;;; Consult users will also want the embark-consult package.
 (use-package embark-consult
-  :ensure t
   :after (embark consult)
   :demand t ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
@@ -478,7 +470,6 @@
 
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
-  :ensure t
   :demand t
   :init
   (global-corfu-mode)
@@ -504,7 +495,6 @@
 
 ;;;; Cape (completion-at-point extensions)
 (use-package cape
-  :ensure t
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
   :bind (("C-c p p" . completion-at-point) ;; capf
@@ -540,7 +530,6 @@
 )
 ;;;; TempEl (template expansion)
 (use-package tempel
-  :ensure t
   :demand t
   ;; Require trigger prefix before template name when completing.
   ;; :custom
@@ -584,7 +573,7 @@
 ;;;; Citar (bibliography completion)
 (use-package citar
   :no-require
-  :ensure t
+  :demand t
   :bind (("C-c z" . citar-insert-citation)
          :map minibuffer-local-map
          ("M-b" . citar-insert-preset))
@@ -601,13 +590,13 @@
   (citar-open-note-function 'orb-citar-edit-note))
 
 (use-package citar-embark
-  :ensure t
   :after citar embark
   :no-require
   :config (citar-embark-mode))
 
 (use-package citar-denote
   :after citar denote
+  :demand t
   :custom
   (citar-denote-title-format "author-year")
   (citar-denote-title-format-authors 2)
@@ -669,7 +658,6 @@
 
 ;;; Org mode
 (use-package org
-  :ensure t
   :demand t
   :bind
   (("C-c l" . org-store-link)
@@ -738,11 +726,9 @@
   (org-column ((t (:inherit default)))) ; Fix alignment in column view
   )
 
-(use-package graphviz-dot-mode
-  :ensure t)
+(use-package graphviz-dot-mode)
 
 (use-package org-appear
-  :ensure t
   :hook (org-mode . org-appear-mode))
 
 ;; (use-package org-superstar
@@ -851,7 +837,7 @@
 ;;; Notes
 ;;;; Denote
 (use-package denote
-  :ensure t
+  :demand t
   :custom
   (denote-directory (file-truename "~/Dropbox/notes/"))
   (denote-known-keywords '("econometrics" "draft" "replication"))
@@ -878,7 +864,6 @@
 
 ;;;; Consult-notes
 (use-package consult-notes
-  :ensure t
   :commands (consult-notes
              consult-notes-search-in-all-notes)
   :config
@@ -907,7 +892,6 @@
 
 ;;; R
 (use-package ess
-  :ensure t
   :init (require 'ess-r-mode)
   :config
   (defun r-insert-magrittr-pipe ()
@@ -952,7 +936,6 @@
   )
 
 (use-package ado-mode
-  :ensure t
   :init (require 'ado-mode))
 
 ;;; Other
@@ -962,7 +945,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(graphviz-dot-mode meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(helpful meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
