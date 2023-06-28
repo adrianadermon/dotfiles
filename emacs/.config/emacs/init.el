@@ -838,6 +838,8 @@
 ;;;; Denote
 (use-package denote
   :demand t
+  :init
+  (require 'denote-org-dblock) ; Register Denote's Org dynamic blocks
   :custom
   (denote-directory (file-truename "~/Dropbox/notes/"))
   (denote-known-keywords '("econometrics" "draft" "replication"))
