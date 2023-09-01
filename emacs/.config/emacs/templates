@@ -160,6 +160,17 @@ org-mode
 (src "#+begin_src " p n> r> n> "#+end_src" :post (org-edit-src-code))
 (elisp "#+begin_src emacs-lisp" n> r> n "#+end_src" :post (org-edit-src-code))
 
+(ifau-referee-rapport
+ ":PROPERTIES:" n
+ ":EXPORT_TITLE: Refereerapport för \"" (p "title") "\" av " (p "author") n
+ ":EXPORT_AUTHOR: Adrian Adermon" n
+ ":EXPORT_DATE: " (format-time-string "%F") n
+ ":EXPORT_FILE_NAME: rapport_ifau_" (format-time-string "%Y%m%d") n
+ ":EXPORT_OPTIONS: *:t" n
+ ":END:"
+ )
+
+
 ;; Local Variables:
 ;; mode: lisp-data
 ;; outline-regexp: "[a-z]"
