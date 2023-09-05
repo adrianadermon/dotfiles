@@ -9,102 +9,100 @@
 (eval-when-compile
   (require 'use-package))
 
+;; For testing theme
+;; (add-to-list 'custom-theme-load-path "~/dotfiles/emacs/.config/emacs/")
+
 ;;; Install packages automatically
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 
-;;; Basic setup
-(setq user-full-name "Adrian Adermon"
-      user-mail-address "adrian.adermon@gmail.com")
+;;; Which-key
+(use-package which-key
+  :config
+  (which-key-mode)
+  )
+;;; General
+(use-package general)
 
-;; Disable menu, icons, scroll bar, and tooltips
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
-(tooltip-mode 0)
+(use-package emacs
+  :custom
+  ;;; Basic setup
+  (user-full-name "Adrian Adermon")
+  (user-mail-address "adrian.adermon@gmail.com")
+  ;; Disable start-up messages
+  (inhibit-startup-screen t)
+  (inhibit-startup-echo-area-message t)
+  (initial-scratch-message nil)
+  ;; Visual warning instead of sound
+  (visible-bell t)
+  ;; Use online dictionary
+  (dictionary-server "dict.org")
+  ;; Enable indentation+completion using the TAB key
+  (tab-always-indent 'complete)
+  ;; TAB cycle if there are only few candidates
+  (completion-cycle-threshold 3)
+  ;; Enable TAB for outline minor mode
+  (outline-minor-mode-cycle t)
+  ;; Use Ripgrep for regexp search
+  (xref-search-program 'ripgrep)
 
-;; Disable start-up messages
-(setq inhibit-startup-screen t)
-(setq inhibit-startup-echo-area-message t)
-(setq initial-scratch-message nil)
+  :config
+  ;; Disable menu, icons, scroll bar, and tooltips
+  (menu-bar-mode 0)
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0)
+  (tooltip-mode 0)
 
-(prefer-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8)
+  ;; Save place in files between sessions
+  (save-place-mode)
+    ;; Highlight matching parenthesis
+  (show-paren-mode)
 
-;; Visual warning instead of sound
-(setq visible-bell t)
+  ;; Prevent Extraneous Tabs
+  (setq-default indent-tabs-mode nil)
 
-;(setq initial-major-mode 'org-mode)
-;(setq pop-up-windows nil)
+  ;; Word wrap long lines
+  (global-visual-line-mode)
 
-;(require 'uniquify)
-;(setq uniquify-buffer-name-style 'forward)
+  ;; Remember recently edited files
+  (recentf-mode)
 
-;; Save place in files between sessions
-(save-place-mode)
+  ;; Remember minibuffer history
+  (savehist-mode)
 
-;; Highlight matching parenthesis
-(show-paren-mode)
+  ;; Keep buffers up to date with underlying file
+  (global-auto-revert-mode)
 
-;; Prevent Extraneous Tabs
-(setq-default indent-tabs-mode nil)
+  ;; Put backups in a separate directory
+  (defvar --backup-directory (concat user-emacs-directory "backups"))
+  (if (not (file-exists-p --backup-directory))
+      (make-directory --backup-directory t))
+  (setq backup-directory-alist `(("." . ,--backup-directory)))
+  (setq backup-by-copying t
+        kept-new-versions 6
+        kept-old-versions 2
+        delete-old-versions t
+        delete-by-moving-to-trash t
+        version-control t)
+  ;; Make the fringes invisible
+  (set-fringe-mode 0)
+  
+  :general
+  ;; Keybindings for inserting matching delimiters
+  (:keymaps 'global-map
+            :prefix "C-c d"
+            "" '(:ignore t :which-key "Delimiters")
+            "(" 'insert-pair
+            "[" 'insert-pair
+            "{" 'insert-pair
+            "<" 'insert-pair
+            "\"" 'insert-pair
+            "'" 'insert-pair
+            "`" 'insert-pair
+            ))
 
-;; Word wrap long lines
-(global-visual-line-mode)
 
-;; Remember recently edited files
-(recentf-mode)
-
-;; Remember minibuffer history
-(savehist-mode)
-
-;; Keep buffers up to date with underlying file
-(global-auto-revert-mode)
-
-;; Put backups in a separate directory
-(defvar --backup-directory (concat user-emacs-directory "backups"))
-(if (not (file-exists-p --backup-directory))
-        (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
-(setq backup-by-copying t
-      kept-new-versions 6
-      kept-old-versions 2
-      delete-old-versions t
-      delete-by-moving-to-trash t
-      version-control t)
-
-;; Use online dictionary
-(setq dictionary-server "dict.org")
-
-;; Enable indentation+completion using the TAB key
-(setq tab-always-indent 'complete)
-
-;; TAB cycle if there are only few candidates
-(setq completion-cycle-threshold 3)
-
-;; Enable TAB for outline minor mode
-(setq outline-minor-mode-cycle t)
-
-;; Use Ripgrep for regexp search
-(setq xref-search-program 'ripgrep)
-
-;; Keybindings for inserting matching delimiters
-(define-key global-map (kbd "C-c d (") 'insert-pair)
-(define-key global-map (kbd "C-c d [") 'insert-pair)
-(define-key global-map (kbd "C-c d {") 'insert-pair)
-(define-key global-map (kbd "C-c d <") 'insert-pair)
-(define-key global-map (kbd "C-c d \"") 'insert-pair)
-(define-key global-map (kbd "C-c d '") 'insert-pair)
-(define-key global-map (kbd "C-c d `") 'insert-pair)
-
-;; Remove borders from mode-line
-(set-face-attribute 'mode-line nil
-                    :box nil)
-
-(set-face-attribute 'mode-line-inactive nil
-                    :box nil)
-
-;; Make the fringes invisible
-(set-fringe-mode 0)
 
 (use-package rainbow-mode)
 
@@ -219,8 +217,15 @@
 ;;                     :background "#EA638C"
 ;;                     :foreground "#FFFCF9") ; Face used for a matching paren when highlighting the whole expression.
 
+;; Remove borders from mode-line
+(set-face-attribute 'mode-line nil
+                    :box nil)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :box nil)
 
 ;-------------------------------------
+
 
 
 
@@ -497,22 +502,25 @@
 (use-package cape
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :bind (("C-c p p" . completion-at-point) ;; capf
-         ("C-c p t" . complete-tag)        ;; etags
-         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-c p h" . cape-history)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-symbol)
-         ("C-c p a" . cape-abbrev)
-         ("C-c p i" . cape-ispell)
-         ("C-c p l" . cape-line)
-         ("C-c p w" . cape-dict)
-         ("C-c p \\" . cape-tex)
-         ("C-c p _" . cape-tex)
-         ("C-c p ^" . cape-tex)
-         ("C-c p &" . cape-sgml)
-         ("C-c p r" . cape-rfc1345))
+  :general
+  (:prefix "C-c p"
+           "" '(nil :which-key "Completion")
+           "p" 'completion-at-point ;; capf
+           "t" 'complete-tag        ;; etags
+           "d" 'cape-dabbrev        ;; or dabbrev-completion
+           "h" 'cape-history
+           "f" 'cape-file
+           "k" 'cape-keyword
+           "s" 'cape-symbol
+           "a" 'cape-abbrev
+           "i" 'cape-ispell
+           "l" 'cape-line
+           "w" 'cape-dict
+           "\\" 'cape-tex
+           "_" 'cape-tex
+           "^" 'cape-tex
+           "&" 'cape-sgml
+           "r" 'cape-rfc1345)
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   (add-to-list 'completion-at-point-functions #'cape-file)
@@ -602,59 +610,18 @@
   (citar-denote-title-format-authors 2)
   (citar-denote-title-format-andstr "&")
   :config (citar-denote-mode)
-  :bind (("C-c n c c" . citar-create-note)
-         ("C-c n c a" . citar-denote-add-citekey)
-         ("C-c n c x" . citar-denote-remove-citekey)
-         ("C-c d c o" . citar-denote-open-note)
-         ("C-c n c d" . citar-denote-dwim)
-         ("C-c n c r" . citar-denote-find-reference)
-         ("C-c n c f" . citar-denote-find-citation)
-         ("C-c n c n" . citar-denote-find-nocite))
+  :general
+  (:prefix "C-c n c"
+           "" '(:ignore t :which-key "References")
+           "c" 'citar-create-note
+           "a" 'citar-denote-add-citekey
+           "x" 'citar-denote-remove-citekey
+           "o" 'citar-denote-open-note
+           "d" 'citar-denote-dwim
+           "r" 'citar-denote-find-reference
+           "f" 'citar-denote-find-citation
+           "n" 'citar-denote-find-nocite)
 )
-
-;; (use-package citar-org-roam
-;;   :ensure t
-;;   :after citar org-roam
-;;   :no-require
-;;   :config
-;;   (citar-org-roam-mode)
-;;   (citar-register-notes-source
-;;    'orb-citar-source (list :name "Org-Roam Notes"
-;;                            :category 'org-roam-node
-;;                            :items #'citar-org-roam--get-candidates
-;;                            :hasitems #'citar-org-roam-has-notes
-;;                            :open #'citar-org-roam-open-note
-;;                            :create #'orb-citar-edit-note
-;;                            :annotate #'citar-org-roam--annotate))
-;;    (setq citar-notes-source 'orb-citar-source))
-
-
-
-
-;;;; Org-roam-bibtex (Org Roam bibliography integration)
-;; (use-package org-roam-bibtex
-;;   :ensure t
-;;   :after org-roam
-;;   :init
-;;   (defun my-orb-date-to-year (date)
-;;     (number-to-string (nth 5 (parse-time-string date)))) ; Function to extract year from date field
-;;   :config
-;;   (org-roam-bibtex-mode)
-;;   :custom
-;;   (orb-roam-ref-format 'org-cite)
-;;   (orb-preformat-keywords '("citekey" "author" "date" "entry-type" "journaltitle"))
-;;   (org-roam-capture-templates
-;;    '((;; default template
-;;       "d" "default" plain "%?"
-;;         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-;;                            "#+title: ${title}\n")
-;;         :unnarrowed t)
-;;       ;; bibliography note template
-;;       ("r" "bibliography reference" plain
-;;        "%^{author}\n%^{journaltitle}\n%(my-orb-date-to-year \"%^{date}\")\n%?"
-;;        :target
-;;        (file+head "references/${citekey}.org" "#+title: ${title}\n")
-;;        :unnarrowed t))))
 
 ;;; Org mode
 (use-package org
@@ -731,19 +698,6 @@
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
 
-;; (use-package org-superstar
-;;   :hook (org-mode . org-superstar-mode)
-;;   :config
-;;   (setq inhibit-compacting-font-caches t) ; Mitigate slow-down of Emacs
-;;   (setq org-superstar-item-bullet-alist
-;;                 '((?* . ?•)
-;;                   (?+ . ?※)
-;;                   (?- . ?⁂))))
-
-;; (set-face-attribute 'variable-pitch nil :family "IBM Plex Serif")
-
-;; (setq valign-fancy-bar 1)
-
 (add-hook 'org-mode-hook
           (lambda ()
             (push '("[ ]" . ?☐) prettify-symbols-alist)
@@ -753,86 +707,6 @@
             (push '("#+end_src" . "―") prettify-symbols-alist)
             )
           )
-
-
-;; (set-face-attribute 'org-level-1 nil
-;;                     :height 160
-;;                     :family "IBM Plex Sans"
-;;                     :foreground "#EA638C")
-;; (set-face-attribute 'org-level-2 nil
-;;                     :height 140
-;;                     :inherit 'org-level-1)
-;; (set-face-attribute 'org-link nil
-;;                     :foreground "#4D9DE0")
-
-;;;; Org-roam
-;; (setq org-roam-v2-ack t)
-;; Org-roam
-;; (use-package org-roam
-;;       :ensure t
-;;       :hook
-;;       (after-init . org-roam-mode)
-;;       :custom
-;;       (org-roam-directory "~/Dropbox/org-roam/")
-;;       (org-roam-db-location "~/org-roam.db")
-;;       :bind (:map org-roam-mode-map
-;;               (("C-c n l" . org-roam)
-;;                ("C-c n f" . org-roam-find-file)
-;;                ("C-c n g" . org-roam-graph))
-;;               :map org-mode-map
-;;               (("C-c n i" . org-roam-insert))
-;;               (("C-c n I" . org-roam-insert-immediate))))
-;; (use-package org-roam
-;;       :ensure t
-;;       :custom
-;;       (org-roam-directory (file-truename "~/Dropbox/org-roam/"))
-;;       (org-roam-db-location "~/org-roam.db")
-;;       :bind (("C-c n l" . org-roam-buffer-toggle)
-;;              ("C-c n f" . org-roam-node-find)
-;;              ("C-c n g" . org-roam-graph)
-;;              ("C-c n i" . org-roam-node-insert)
-;;              ("C-c n c" . org-roam-capture)
-;;              ;; Dailies
-;;              ("C-c n j" . org-roam-dailies-capture-today))
-;;       :config
-;;       (org-roam-db-autosync-mode)
-;;       ;; ;; If using org-roam-protocol
-;;       ;; (require 'org-roam-protocol)
-;;       )
-
-;; ;;; Deft
-;; (use-package deft
-;;   :after org
-;;   :bind
-;;   ("C-c n d" . deft)
-;;   :custom
-;;   (deft-recursive t)
-;;   (deft-use-filter-string-for-filename t)
-;;   (deft-default-extension "org")
-;;   (deft-directory "~/Dropbox/org-roam/"))
-
-;; (use-package org-roam-ui
-;;   :after org-roam
-;;   :config
-;;   (setq org-roam-ui-sync-theme t
-;;         org-roam-ui-follow t
-;;         org-roam-ui-update-on-save t
-;;         org-roam-ui-open-on-start t))
-
-;; (use-package elfeed
-;;   :ensure t
-;;   :config
-;;   ;; (setq elfeed-feeds
-;;   ;;       '("https://academic.oup.com/rss/site_5504/3365.xml"
-;;   ;;         "https://onlinelibrary.wiley.com/feed/14680262/most-recent"
-;;   ;;         "https://academic.oup.com/rss/site_5508/3369.xml"))
-;;   :bind (("C-x w" . elfeed)))
-
-;; (use-package elfeed-org
-;;   :ensure t
-;;   :config
-;;   (setq rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
-;;   (elfeed-org))
 
 ;;; Notes
 ;;;; Denote
@@ -848,20 +722,32 @@
   (denote-prompts '(title keywords))
   (denote-date-prompt-use-org-read-date t) ; Pick dates, where relevant, with Org's advanced interface:
   :hook (dired-mode . denote-dired-mode-in-directories)
-  :bind (
-         ("C-c n n" . denote)
-         ("C-c n t" . denote-template)
-         ("C-c n r" . denote-rename-file)
-         ("C-c n R" . denote-rename-file-using-front-matter)
-         :map org-mode-map
-         ("C-c n i" . denote-link)
-         ("C-c n I" . denote-link-add-links)
-         ("C-c n b" . denote-link-backlinks)
-         ("C-c n f f" . denote-link-find-file)
-         ("C-c n f b" . denote-link-find-backlink)
-         ("C-c n k a" . denote-keywords-add)
-         ("C-c n k x" . denote-keywords-remove)
-         )
+  :general
+  (:prefix "C-c n"
+           "" '(:ignore t :which-key "Notes")
+           "n" 'denote
+           "t" 'denote-template
+           "r" 'denote-rename-file
+           "R" 'denote-rename-file-using-front-matter
+           :keymaps 'org-mode-map
+                     "i" 'denote-link
+                     "I" 'denote-link-add-links
+                     "b" 'denote-link-backlinks
+                     ;; "f f" 'denote-link-find-file
+                     ;; "f b" 'denote-link-find-backlink
+                     ;; "k a" 'denote-keywords-add
+                     ;; "k x" 'denote-keywords-remove
+                     )
+  (:keymaps 'org-mode-map
+            :prefix "C-c n f"
+            "" '(:ignore t :which-key "Find")
+            "f" 'denote-link-find-file
+            "b" 'denote-link-find-backlink)
+  (:keymaps 'org-mode-map
+            :prefix "C-c n k"
+            "" '(:ignore t :which-key "Keyword")
+            "a" 'denote-keywords-add
+            "x" 'denote-keywords-remove)
   )
 
 ;;;; Consult-notes
@@ -887,10 +773,6 @@
   :hook
   (LaTeX-mode . turn-on-reftex)
   (LaTeX-mode . turn-on-cdlatex))
-
-;; AUCTeX headers
-;(set-face-font 'font-latex-sectioning-5-face "PragmataPro")
-
 
 ;;; R
 (use-package ess
@@ -946,6 +828,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("81f64c2c35ab52aef83e98b99b43782df062343e2b5f0cc9a87ad238c01ae473" "55eb866c3e98f74e902035fd78193e2cab8b4ff0e8dcf8045e223432d82fc37d" "8828e8c38c1fccd1bb52e5479f7ceaacae6ac5b0ede6e4c8c13544fc515fe1eb" "fef8cbdc8e9ecdcee7e5baaae8a9a20511c8706ac6acee4f2db8199e8620ebc8" default))
  '(package-selected-packages
    '(helpful meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
