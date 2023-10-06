@@ -9,6 +9,9 @@
 (eval-when-compile
   (require 'use-package))
 
+;; Profile startup times
+;; (setq use-package-compute-statistics t)
+
 ;; For testing theme
 ;; (add-to-list 'custom-theme-load-path "~/dotfiles/emacs/.config/emacs/")
 
@@ -242,7 +245,9 @@
 
 
 ;;; Version control
-(use-package magit)
+(use-package magit
+  :defer t)
+
 ;;; Meow
 (use-package meow
   :demand t
