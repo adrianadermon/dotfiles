@@ -254,6 +254,22 @@
   :custom
   (meow-keypad-leader-dispatch "C-c")
   (meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (meow-char-thing-table
+   '((?( . round)
+     (?) . round)
+     (?[ . square)
+     (?] . square)
+     (?{ . curly)
+     (?} . curly)
+     (?s . string)
+     (?e . symbol)
+     (?w . window)
+     (?b . buffer)
+     (?p . paragraph)
+     (?l . line)
+     (?v . visual-line)
+     (?f . defun)
+     (?. . sentence)))
   :config
   (defun neg-meow-find ()
     (interactive)
@@ -358,7 +374,8 @@
    '("+" . recenter-top-bottom)
    '("`" . previous-buffer)
    '("~" . next-buffer)
-   '("P" . meow-clipboard-yank))
+   '("P" . meow-clipboard-yank)
+   '("S" . meow-clipboard-save))
   (when window-system
     (define-key input-decode-map (kbd "C-[") [control-bracketleft])
     (define-key meow-insert-state-keymap [control-bracketleft] 'meow-insert-exit))
