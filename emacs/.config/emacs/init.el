@@ -801,6 +801,9 @@
              consult-notes-search-in-all-notes)
   :config
   (consult-notes-denote-mode)
+  :general
+  (:prefix "C-c n"
+           "s" 'consult-notes)
   ;; :custom
   ;; (consult-notes-sources
   ;; `(("Literature notes" ?l ,(denote-directory))))
