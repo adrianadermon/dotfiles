@@ -669,7 +669,11 @@
   :custom
   (org-special-ctrl-a/e t)
   (org-startup-indented t)
+  (org-directory '("~/Dropbox/org/"))
   (org-agenda-files '("~/Dropbox/org/"))
+  (org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Blandat")
+         "* TODO %?\n  %i\n")))
   (org-refile-targets '((org-agenda-files . (:maxlevel . 2))))
   (org-refile-use-outline-path 'file)
   (org-outline-path-complete-in-steps nil)
