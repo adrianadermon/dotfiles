@@ -117,7 +117,7 @@
             "`" 'insert-pair
             ))
 
-
+(use-package markdown-mode)
 
 (use-package rainbow-mode)
 
@@ -874,6 +874,12 @@
 (use-package ado-mode
   :init (require 'ado-mode))
 
+;;; LLM
+(use-package gptel
+  :custom
+  (gptel-use-curl nil)
+  (gptel-default-mode 'org-mode)
+  )
 ;;; Other
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -883,7 +889,7 @@
  '(custom-safe-themes
    '("81f64c2c35ab52aef83e98b99b43782df062343e2b5f0cc9a87ad238c01ae473" "55eb866c3e98f74e902035fd78193e2cab8b4ff0e8dcf8045e223432d82fc37d" "8828e8c38c1fccd1bb52e5479f7ceaacae6ac5b0ede6e4c8c13544fc515fe1eb" "fef8cbdc8e9ecdcee7e5baaae8a9a20511c8706ac6acee4f2db8199e8620ebc8" default))
  '(package-selected-packages
-   '(engrave-faces dashboard helpful meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
+   '(gptel eldoc-box binky consult-tex engrave-faces dashboard helpful meow citar-denote markdown-mode citar-org-roam org-ql prism consult-notes julia-mode vundo all-the-icons-completion all-the-icons-dired all-the-icons kaolin-themes dracula-theme eglot tempel switch-window ado-mode ess denote org-anki org-appear citar-embark cape org-modern org-roam-ui org-roam-bibtex citar magit corfu which-key vertico orderless embark-consult bibtex-actions consult embark marginalia deft valign auctex cdlatex org-superstar rainbow-mode olivetti org-roam evil use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
