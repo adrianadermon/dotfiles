@@ -876,6 +876,12 @@
 
 ;;; LLM
 (use-package gptel
+  :config
+  (gptel-make-ollama
+   "Ollama"                               ;Any name of your choosing
+   :host "localhost:56272"                ;Where it's running
+   :models '("mistral:latest")            ;Installed models
+   :stream t)                             ;Stream responses
   :custom
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
