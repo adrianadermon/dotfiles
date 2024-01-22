@@ -159,6 +159,10 @@
     (when (memq window-system '(mac ns x))
       (exec-path-from-shell-initialize))
     (setq visible-bell nil)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ; Transparent titlebar
+    (add-to-list 'default-frame-alist '(ns-appearance . light))
+    (setq ns-use-proxy-icon nil)
+    (setq frame-title-format nil)
     (use-package pdf-tools)
     )
 
