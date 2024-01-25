@@ -152,11 +152,28 @@
 
 ;(load-theme 'dichromacy)
 
+;; MacOS specific settings
+(when (eq system-type 'darwin)
+    ;; (set-face-attribute 'default nil :height 150)
+    ;; Ensure Emacs can access PATH
+    (when (memq window-system '(mac ns x))
+      (exec-path-from-shell-initialize))
+    (setq visible-bell nil)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ; Transparent titlebar
+    (add-to-list 'default-frame-alist '(ns-appearance . light))
+    (setq ns-use-proxy-icon nil)
+    (setq frame-title-format nil)
+    (use-package pdf-tools)
+    )
+
 ;;; Theme
 ;; Set font
-(add-to-list 'default-frame-alist
-             '(font . "PragmataPro-12"))
-
+(if (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist
+                 '(font . "PragmataPro-16")) ; MacOS
+    (add-to-list 'default-frame-alist
+                 '(font . "PragmataPro-12")) ; Windows/Linux
+  )
 
 ;; Set colors
 (add-to-list 'default-frame-alist '(background-color . "#FFFCF9"))
@@ -910,6 +927,7 @@
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
   )
+
 
 ;;; Custom file
 ;; Write custom to a separate file
