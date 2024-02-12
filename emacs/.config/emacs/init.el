@@ -46,7 +46,7 @@
   
   ;; Enable indentation+completion using the TAB key
   (tab-always-indent 'complete)
-    ;; TAB cycle if there are only few candidates
+  ;; TAB cycle if there are only few candidates
   (completion-cycle-threshold 3)
     ;; Enable TAB for outline minor mode
   (outline-minor-mode-cycle t)
@@ -150,12 +150,12 @@
 (use-package surround
   :bind-keymap ("M-'" . surround-keymap))
 
-;(load-theme 'dichromacy)
+(load-theme 'plain t)
 
 ;;; Theme
 ;; Set font
 (add-to-list 'default-frame-alist
-             '(font . "PragmataPro-12"))
+             '(font . "PragmataPro Mono-13"))
 
 
 ;; Set colors
@@ -168,6 +168,7 @@
 ;; Theme testing
 ;; -------------------------------------
 ;; (set-frame-font "PragmataPro-12" nil t)
+;; (set-frame-font "Berkeley Mono-12" nil t)
 ;; (set-frame-font "ETBembo-14" nil t)
 ;; (set-frame-font "Lato-12" nil t)
 ;; (set-frame-font "Open Sans-12" nil t)
@@ -475,6 +476,7 @@
          ("M-g I" . consult-imenu-multi)
          ;; M-s bindings in `search-map'
          ("M-s d" . consult-find)
+         ("M-s f" . consult-fd)
          ("M-s D" . consult-locate)
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
@@ -894,10 +896,19 @@
   (python-shell-interpreter "python")
   (python-shell-interpreter-args "-i")
   )
-;; Handle virtual environments
-(use-package pet
+
+;; ;; Handle virtual environments
+;; (use-package pet
+;;   :config
+;;   (add-hook 'python-base-mode-hook 'pet-mode -10))
+
+;; Handle conda environments
+(use-package conda
   :config
-  (add-hook 'python-base-mode-hook 'pet-mode -10))
+  (conda-env-initialize-interactive-shells)
+  :custom
+  (conda-anaconda-home "~/AppData/Local/miniconda3")
+  )
 ;;; LLM
 (use-package gptel
   :config
@@ -909,6 +920,136 @@
   :custom
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
+  )
+
+;;; RSS
+(use-package elfeed
+  :custom
+  (elfeed-feeds
+   '(
+     ("http://citec.repec.org/cgi-bin/rss.pl?h=repec:aea:aecrev" journal) ; AER
+     ("https://academic.oup.com/rss/site_5504/3365.xml" journal) ; QJE
+     ("https://onlinelibrary.wiley.com/feed/14680262/most-recent" journal) ; Econometrica
+     ("https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc=jpe" journal) ; JPE
+     ("https://academic.oup.com/rss/site_5508/3369.xml" journal) ; ReStud
+     ("https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc=jole" journal) ; JOLE
+     ("https://direct.mit.edu/rss/site_1000065/1000035.xml" journal) ; ReStat
+     ("https://academic.oup.com/rss/site_6182/4014.xml" journal) ; EJ
+     ("https://academic.oup.com/rss/site_5571/3427.xml" journal) ; JEEA
+     ("https://rss.sciencedirect.com/publication/science/03044076" journal) ; Journal of Econometrics
+     ("https://www.tandfonline.com/feed/rss/ubes20" journal) ; Journal of Business & Economic Statistics
+     ("https://www.tandfonline.com/feed/rss/uasa20" journal) ; JASA
+     ("https://www.theatlantic.com/feed/all/" magazine) ; The Atlantic
+     ("https://www.newyorker.com/feed/everything" magazine) ; The New Yorker
+     ("https://www.economist.com/the-world-this-week/rss.xml" magazine) ; The Economist - The world this week
+     ("https://www.economist.com/briefing/rss.xml" magazine) ; The Economist - Briefings
+     ("https://www.economist.com/europe/rss.xml" magazine) ; The Economist - Europe
+     ("https://www.foreignaffairs.com/rss.xml" magazine) ; Foreign Affairs
+     ("https://foreignpolicy.com/feed" magazine) ; Foreign Policy
+     ;; ("www.ft.com/world?format=rss" news) ; Financial Times - World
+     ("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news us) ; NYT - Top Stories
+     ("https://rss.nytimes.com/services/xml/rss/nyt/World.xml" news us) ; NYT - World
+     ("https://www.theguardian.com/europe/rss" news europe) ; Guardian - Europe
+     ("https://www.theguardian.com/world/rss" news world) ; Guardian - World
+     ("http://feeds.bbci.co.uk/news/rss.xml" news europe) ; BBC - Top Stories
+     ("http://feeds.bbci.co.uk/news/world/rss.xml" news world) ; BBC - World
+     ("http://www.spiegel.de/schlagzeilen/rss/0,5291,676,00.xml" news europe) ; Spiegel International
+     ("https://feeds.elpais.com/mrss-s/pages/ep/site/english.elpais.com/portada" news europe) ; El Pais in English
+     ("politico.eu/feed" news europe) ; Politico EU
+     ("https://www.lemonde.fr/en/rss/une.xml" news europe) ; Le Monde in English
+     ("https://www.dn.se/rss" news sweden) ; DN
+     ("https://www.svt.se/rss.xml" news sweden) ; SVT
+     ("https://api.sr.se/rss/channel?id=114&formatId=1" news sweden) ; SR P4 Uppland
+     )))
+
+(use-package elfeed-summary
+  :custom
+  elfeed-summary-settings
+  '((group (:title . "Academic journals")
+           (:elements
+            (query . journal)
+            ))
+    (group (:title . "Magazines")
+           (:elements
+            (query . magazine)
+            ))
+    (group (:title . "News")
+           (:elements
+            ;; (query . news)
+            (group (:title . "World")
+                   (:elements
+                    (query . (and news world))))
+            (group (:title . "Europe")
+                   (:elements
+                    (query . (and news europe))))
+            (group (:title . "US")
+                   (:elements
+                    (query . (and news us))))
+            (group (:title . "Sweden")
+                   (:elements
+                    (query . (and news sweden))))
+            ))
+    ))
+
+;;; Dashboard
+
+(use-package dashboard
+  :custom
+  (dashboard-startup-banner "~/emacs_fancy_logos-main/gnu_color.svg")
+  (dashboard-image-banner-max-width 500)
+  (dashboard-center-content t)
+  (dashboard-set-footer nil)
+  (dashboard-projects-backend 'project-el)
+  (dashboard-items '((recents  . 5)
+                     (bookmarks . 5)
+                     (projects . 5)
+                     (agenda . 5)
+                     (registers . 5)))
+  )
+
+;;; Calendar
+
+(use-package calendar
+  :custom
+  (calendar-week-start-day 1) ; Start week on Monday
+  (calendar-date-style 'european)
+  (calendar-time-display-form '(24-hours ":" minutes))
+  (calendar-latitude 59.0)
+  (calendar-longitude 17.6)
+  (calendar-location-name "Uppsala, Sweden")
+)
+
+(use-package calfw
+  :custom
+  ;; (cfw:render-line-breaker 'cfw:render-line-breaker-simple)
+  (cfw:fchar-junction ?┼)
+  (cfw:fchar-vertical-line ?│)
+  (cfw:fchar-horizontal-line ?─)
+  (cfw:fchar-left-junction ?├)
+  (cfw:fchar-right-junction ?┤)
+  (cfw:fchar-top-junction ?┬)
+  (cfw:fchar-top-left-corner ?┌)
+  (cfw:fchar-top-right-corner ?┐)
+  ;; (cfw:fchar-junction ?╬)
+  ;; (cfw:fchar-vertical-line ?║)
+  ;; (cfw:fchar-horizontal-line ?═)
+  ;; (cfw:fchar-left-junction ?╠)
+  ;; (cfw:fchar-right-junction ?╣)
+  ;; (cfw:fchar-top-junction ?╦)
+  ;; (cfw:fchar-top-left-corner ?╔)
+  ;; (cfw:fchar-top-right-corner ?╗)
+  ;; :custom-face
+  ;; (cfw:face-grid ((t (:foreground "#4D9DE0"))))
+  ;; (cfw:face-select ((t (:foreground "#FFFCF9"
+  ;;                                   :background "#008EC4"))))
+  ;; (cfw:face-today ((t (:foreground "#FFDD4A"
+  ;;                                  :background "#008EC4"))))
+  )
+
+;; Exchange
+(use-package excorporate
+  :custom
+  (excorporate-configuration '("adrian.adermon@ifau.uu.se" . "https://mail.uu.se/EWS/Exchange.asmx"))
   )
 
 ;;; Custom file
