@@ -102,7 +102,24 @@
   
   ;; Make the fringes invisible
   (set-fringe-mode 0)
-
+  
+  ;; Change default face for text modes
+  (define-minor-mode my-text-remap-mode
+    "Remap default face"
+    :local t
+    :init-value nil
+    (if my-text-remap-mode
+        (setq my-text-remap-cookie
+              (face-remap-add-relative 'default :family "Berkeley Mono"))
+      (face-remap-remove-relative my-text-remap-cookie)))
+  
+  :hook
+  ;; ;; Change default face for text modes
+  ;; (text-mode . my-text-remap-mode)
+  ;; Change default face for info mode
+  (Info-mode . my-text-remap-mode)
+  ;; Save recent files list before exit
+  (kill-emacs . recentf-save-list)
   :general
   ;; Keybindings for inserting matching delimiters
   (:keymaps 'global-map
@@ -142,8 +159,6 @@
               ("h" . vundo-backward)
               ("j" . vundo-next)
               ("k" . vundo-previous))
-  :custom-face
-  (vundo-highlight ((t (:foreground "#FF4000"))))
   )
 
 ;; Manipulate surrounding pairs
@@ -152,102 +167,75 @@
 
 (load-theme 'plain t)
 
+;; MacOS specific settings
+(when (eq system-type 'darwin)
+    ;; (set-face-attribute 'default nil :height 150)
+    (setq visible-bell nil)
+    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ; Transparent titlebar
+    (add-to-list 'default-frame-alist '(ns-appearance . light))
+    (setq ns-use-proxy-icon nil)
+    (setq frame-title-format nil)
+    ;; Use GNU version of ls for dired
+    (setq dired-use-ls-dired t)
+    (setq insert-directory-program "gls")
+
+    ;; PDF viewer
+    (use-package pdf-tools)
+
+    ;; Email
+    (use-package mu4e
+      :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e"
+      :custom
+      (mail-user-agent 'mu4e-user-agent)
+      (mu4e-maildir "~/maildir")
+      (mu4e-user-mail-address-list '("adrian.adermon@ifau.uu.se"))
+      (mu4e-confirm-quit nil)
+      (mu4e-split-view 'vertical)
+      (mu4e-headers-visible-columns 140)
+      (mu4e-use-fancy-chars t)
+      (mu4e-headers-attach-mark    '("a" . "⁂"))
+      (mu4e-headers-flagged-mark   '("F" . "⚑"))
+      (mu4e-headers-new-mark       '("N" . "★"))
+      (mu4e-headers-passed-mark    '("P" . "❯"))
+      (mu4e-headers-replied-mark   '("R" . "❮"))
+      (mu4e-headers-seen-mark      '("S" . "☑"))
+      (mu4e-headers-trashed-mark   '("T" . "♻"))
+      ;; (mu4e-headers-draft-mark    '("D" . "💈"))
+      ;;                             mu4e-headers-encrypted-mark '("x" . "🔒")
+      ;;                             mu4e-headers-signed-mark    '("s" . "🔑")
+      ;;                             mu4e-headers-unread-mark    '("u" . "⎕")
+      ;;                             mu4e-headers-list-mark      '("l" . "🔈")
+      ;;                             mu4e-headers-personal-mark  '("p" . "👨")
+      ;;                             mu4e-headers-calendar-mark  '("c" . "📅")
+      (mu4e-modeline-unread-items  '("U:" . "✉"))
+      (mu4e-modeline-new-items     '("N:" . "❋"))
+      )
+    
+    ;; Spell-checker
+    (use-package jinx
+      ;; :hook (emacs-startup . global-jinx-mode)
+      :bind (("C-;" . jinx-correct)
+             ;; ("C-:" . jinx-languages)
+             )
+      :custom
+      (jinx-languages "en_US sv_SE") 
+      )
+    )
+
+;; Ensure Emacs can access PATH on MacOS
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 ;;; Theme
 ;; Set font
-(add-to-list 'default-frame-alist
-             '(font . "PragmataPro Mono-13"))
-
-
-;; Set colors
-(add-to-list 'default-frame-alist '(background-color . "#FFFCF9"))
-(add-to-list 'default-frame-alist '(foreground-color . "#201E1F"))
-
-(set-face-attribute 'font-lock-comment-face nil
-                    :foreground "#008EC4")
-
-;; Theme testing
-;; -------------------------------------
-;; (set-frame-font "PragmataPro-12" nil t)
-;; (set-frame-font "Berkeley Mono-12" nil t)
-;; (set-frame-font "ETBembo-14" nil t)
-;; (set-frame-font "Lato-12" nil t)
-;; (set-frame-font "Open Sans-12" nil t)
-
-(set-background-color "#FFFCF9")
-;; (set-foreground-color "#201E1F")
-
-(set-face-attribute 'font-lock-comment-face nil
-                    :foreground "#EA638C")
-(set-face-attribute 'font-lock-builtin-face nil
-                    :foreground "#4D9DE0")
-(set-face-attribute 'font-lock-keyword-face nil
-                    :foreground "#20BF55")
-(set-face-attribute 'font-lock-string-face nil
-                    :foreground "#FF4000")
-(set-face-attribute 'font-lock-function-name-face nil
-                    :foreground "#008EC4")
-(set-face-attribute 'font-lock-constant-face nil
-                    :foreground "#7F9172")
-(set-face-attribute 'font-lock-type-face nil
-                    :foreground "#3B3B58")
-
-
-(set-face-attribute 'region nil ;selection
-                    :background "#FFDD4A")
-
-
-(set-face-attribute 'help-key-binding nil
-                    :foreground "#008EC4"
-                    :background "#EEEEEE"
-                    :box '(:line-width (1 . -1) :color "#B9B9B9"))
-
-
-(set-face-attribute 'link nil
-                    :foreground "#008EC4")
-
-
-;; Isearch faces
-(set-face-attribute 'isearch nil
-                    :background "#EA638C"
-                    :foreground "#FFFCF9") ; Face for highlighting Isearch matches.
-
-;; (set-face-attribute 'isearch-fail nil
-;;                     :background "#EA638C"
-;;                     :foreground "#201E1F") ; Face for highlighting failed part in Isearch echo-area message.
-
-(set-face-attribute 'lazy-highlight nil
-                    :background "#78C3FB"
-                    :foreground "#FFFCF9") ; Face for lazy highlighting of matches other than the current one.
-
-
-(set-face-attribute 'mode-line nil
-                    :background "#D6F3FF")
-(set-face-attribute 'mode-line-inactive nil
-                    :background "#EBF9FF")
-
-
-
-;; Parentheses faces
-(set-face-attribute 'show-paren-match nil
-                    :background "#BCE7FD") ; Face used for a matching paren.
-(set-face-attribute 'show-paren-mismatch nil
-                    :background "#FF4000"
-                    :foreground "#FFFCF9") ; Face used for a mismatching paren.
-;; (set-face-attribute 'show-paren-match-expression nil
-;;                     :background "#EA638C"
-;;                     :foreground "#FFFCF9") ; Face used for a matching paren when highlighting the whole expression.
-
-;; Remove borders from mode-line
-(set-face-attribute 'mode-line nil
-                    :box nil)
-
-(set-face-attribute 'mode-line-inactive nil
-                    :box nil)
-
-;-------------------------------------
-
-
-
+(if (eq system-type 'darwin)
+    (add-to-list 'default-frame-alist
+                 '(font . "PragmataPro Mono-16")) ; MacOS
+    ;; (add-to-list 'default-frame-alist
+    ;;              '(font . "Berkeley Mono-16")) ; MacOS
+    (add-to-list 'default-frame-alist
+                 '(font . "PragmataPro Mono-13")) ; Windows/Linux
+    )
 
 ;;; Version control
 (use-package magit
@@ -276,6 +264,7 @@
      (?f . defun)
      (?. . sentence)))
   :config
+  (add-to-list 'meow-mode-state-list '(mu4e-main-mode . insert)) ; Open Mu4e in insert mode
   (defun neg-meow-find ()
     (interactive)
     (let ((current-prefix-arg -1))
@@ -426,7 +415,7 @@
 (use-package embark
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-," . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
 
@@ -712,37 +701,9 @@
   (setq org-agenda-todo-ignore-deadlines t)
   (setq org-agenda-todo-ignore-scheduled t)
   :hook
-  (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
+  ;; (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
+  (org-mode . my-text-remap-mode) ; Use text mode font
   (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
-  :custom-face
-  (variable-pitch ((t (:family "Readex Pro"))))
-  (fixed-pitch ((t (:family "Jetbrains Mono"))))
-  (org-level-1 ((t (:foreground "#0E6BA8"
-                   :height 160))))
-  (org-level-2 ((t (:inherit 'org-level-1
-                   :height 140))))
-  (org-level-3 ((t (:inherit 'org-level-1
-                   :height 120))))
-  (org-link ((t (:foreground "#4D9DE0"))))
-  (org-document-info ((t (:foreground "#4D9DE0"))))
-  (org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-  (org-table ((t (:inherit 'fixed-pitch))))
-  (org-todo ((t (:inherit fixed-pitch
-                          :foreground "#FF4000"))))
-  (org-done ((t (:inherit fixed-pitch
-                         :foreground  "#20BF55"))))
-  (org-special-keyword ((t (:inherit fixed-pitch))))
-  (org-date ((t (:inherit fixed-pitch
-                 :foreground "#4D9DE0"))))
-  (org-drawer ((t (:inherit fixed-pitch
-                 :foreground "#B9B9B9"))))
-  (org-checkbox ((t (:inherit fixed-pitch))))
-  (org-block ((t (:family "PragmataPro"))))
-  (org-code ((t (:family "PragmataPro"))))
-  (org-block-begin-line ((t (:family "PragmataPro"))))
-  (org-agenda-structure ((t (:inherit fixed-pitch
-                                      :foreground "#4D9DE0"))))
-  (org-column ((t (:inherit default)))) ; Fix alignment in column view
   )
 
 ;; Syntax highlighting of code blocks in org exports
@@ -762,6 +723,16 @@
             (push '("#+end_src" . "―") prettify-symbols-alist)
             )
           )
+
+(use-package org-super-agenda
+  :config
+  (org-super-agenda-mode)
+  :custom
+  (org-super-agenda-groups
+   '((:name "Important"
+            :priority "A"))     
+   )
+  )
 
 ;;; Notes
 ;;;; Denote
