@@ -504,6 +504,14 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
+;;;; Consult-dir (insert paths into minibuffer prompts)
+(use-package consult-dir
+  :ensure t
+  :bind (("C-x C-d" . consult-dir)
+         :map vertico-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file)))
+
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
   :demand t
@@ -678,6 +686,8 @@
   (org-use-property-inheritance '("EXPORT_OPTIONS"))
   (org-confirm-babel-evaluate nil)
   (org-latex-src-block-backend 'engraved) ; Syntax highlighting of code blocks in exports
+  (org-fontify-todo-headline nil)
+  (org-fontify-done-headline nil)
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
