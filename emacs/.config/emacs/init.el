@@ -61,12 +61,6 @@
   (column-number-mode t)
   
   :config
-  ;; Disable menu, icons, scroll bar, and tooltips
-  (menu-bar-mode 0)
-  (tool-bar-mode 0)
-  (scroll-bar-mode 0)
-  (tooltip-mode 0)
-
   (prefer-coding-system 'utf-8)
   ;; Save place in files between sessions
   (save-place-mode)
@@ -165,8 +159,6 @@
 (use-package surround
   :bind-keymap ("M-'" . surround-keymap))
 
-(load-theme 'plain t)
-
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
     ;; (set-face-attribute 'default nil :height 150)
@@ -225,17 +217,6 @@
 ;; Ensure Emacs can access PATH on MacOS
 (when (memq window-system '(mac ns x))
   (exec-path-from-shell-initialize))
-
-;;; Theme
-;; Set font
-(if (eq system-type 'darwin)
-    (add-to-list 'default-frame-alist
-                 '(font . "PragmataPro Mono-16")) ; MacOS
-    ;; (add-to-list 'default-frame-alist
-    ;;              '(font . "Berkeley Mono-16")) ; MacOS
-    (add-to-list 'default-frame-alist
-                 '(font . "PragmataPro Mono-13")) ; Windows/Linux
-    )
 
 ;;; Version control
 (use-package magit
