@@ -6,6 +6,11 @@
 (scroll-bar-mode 0)
 (tooltip-mode 0)
 
+;; Disable start-up messages
+(setq inhibit-startup-screen t)
+(setq inhibit-startup-echo-area-message t)
+(setq initial-scratch-message nil)
+
 ;; Set font
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist

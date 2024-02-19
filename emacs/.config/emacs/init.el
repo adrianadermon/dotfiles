@@ -32,12 +32,7 @@
   ;;; Basic setup
   (user-full-name "Adrian Adermon")
   (user-mail-address "adrian.adermon@gmail.com")
-  
-  ;; Disable start-up messages
-  (inhibit-startup-screen t)
-  (inhibit-startup-echo-area-message t)
-  (initial-scratch-message nil)
-  
+
   ;; Visual warning instead of sound
   (visible-bell t)
   
