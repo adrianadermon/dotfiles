@@ -700,16 +700,6 @@
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (push '("[ ]" . ?☐) prettify-symbols-alist)
-            (push '("[X]" . ?☑) prettify-symbols-alist)
-            (push '("[-]" . ?❍) prettify-symbols-alist)
-            (push '("#+begin_src" . "") prettify-symbols-alist)
-            (push '("#+end_src" . "―") prettify-symbols-alist)
-            )
-          )
-
 (use-package org-super-agenda
   :config
   (org-super-agenda-mode)
