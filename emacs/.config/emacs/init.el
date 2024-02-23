@@ -701,8 +701,7 @@
   :hook (org-mode . org-appear-mode))
 
 (use-package org-super-agenda
-  :config
-  (org-super-agenda-mode)
+  :hook (org-mode . org-super-agenda-mode)
   :custom
   (org-super-agenda-groups
    '((:name "Important"
