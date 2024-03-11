@@ -74,6 +74,13 @@
    `(cfw:face-grid ((,class :foreground ,lighter_gray)))
    `(cfw:face-header ((,class :background ,lightest_gray :foreground ,light_black)))
    `(cfw:face-select ((,class :background ,light_blue :foreground ,norm)))
+   `(font-latex-sectioning-5-face ((,class :inherit default :weight bold)))
+   `(font-latex-warning-face ((,class :foreground ,dark_red :weight bold)))
+   `(font-latex-bold-face ((,class :foreground ,dark_green :weight bold)))
+   `(font-latex-italic-face ((,class :inherit italic)))
+   `(font-latex-math-face ((,class :foreground ,black)))
+   `(font-latex-script-char-face ((,class :foreground ,light_gray)))
+   `(font-latex-sedate-face ((,class :foreground ,medium_gray)))
    ))
 
 (provide-theme 'plain)

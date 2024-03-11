@@ -174,6 +174,7 @@
       :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e"
       :custom
       (mail-user-agent 'mu4e-user-agent)
+      (mu4e-get-mail-command "mbsync -a")
       (mu4e-maildir "~/maildir")
       (mu4e-user-mail-address-list '("adrian.adermon@ifau.uu.se"))
       (mu4e-confirm-quit nil)
@@ -785,7 +786,9 @@
   (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
   :hook
   (LaTeX-mode . turn-on-reftex)
-  (LaTeX-mode . turn-on-cdlatex))
+  (LaTeX-mode . turn-on-cdlatex)
+  (LaTeX-mode . my-text-remap-mode) ; Use text mode font
+  )
 
 ;;; R
 (use-package ess
