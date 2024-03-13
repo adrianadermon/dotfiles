@@ -167,7 +167,10 @@
     (setq insert-directory-program "gls")
 
     ;; PDF viewer
-    (use-package pdf-tools)
+    (use-package pdf-tools
+      :config
+      (pdf-loader-install)
+      )
 
     ;; Email
     (use-package mu4e
@@ -779,11 +782,15 @@
 (use-package tex
   :ensure auctex
   :ensure cdlatex
+  :init
+  (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
   :custom
   (reftex-plug-into-AUCTeX t)
   (reftex-ref-style-default-list '("Default" "Cleveref"))
+  (TeX-source-correlate-mode t) ; enable forward and inverse search
   :config
   (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
+  (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools"))
   :hook
   (LaTeX-mode . turn-on-reftex)
   (LaTeX-mode . turn-on-cdlatex)
