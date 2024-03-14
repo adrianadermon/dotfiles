@@ -56,7 +56,8 @@
   (column-number-mode t)
   
   :config
-  (prefer-coding-system 'utf-8)
+  ;; Use UTF-8 with LF file endings
+  (set-default-coding-systems 'utf-8-unix)
   ;; Save place in files between sessions
   (save-place-mode)
     ;; Highlight matching parenthesis
