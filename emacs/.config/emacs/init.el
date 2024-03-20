@@ -615,7 +615,11 @@
   (bibtex-completion-bibliography org-cite-global-bibliography)
   (citar-notes-paths (list denote-directory))
   (citar-library-paths '("~/Dropbox/Forskning/Zotero"))
-  (citar-open-note-function 'orb-citar-edit-note))
+  (citar-open-note-function 'orb-citar-edit-note)
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup)
+  )
 
 (use-package citar-embark
   :after citar embark
@@ -789,6 +793,8 @@
   (reftex-plug-into-AUCTeX t)
   (reftex-ref-style-default-list '("Default" "Cleveref"))
   (TeX-source-correlate-mode t) ; enable forward and inverse search
+  (TeX-parse-self t) ; enable parse on load
+  (TeX-auto-save t) ; enable parse on save
   :config
   (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
   (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools"))
