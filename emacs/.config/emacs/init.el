@@ -612,13 +612,36 @@
 ;;;; LSP
 
 ;; LSP client
-(use-package eglot)
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs
+               '(text-mode . ("vale-ls")))
+  )
 
 ;; Enable TempEl to use LSP templates
 (use-package eglot-tempel)
 
 ;; Consult interface for LSP workspace/symbols 
 (use-package consult-eglot)
+
+;;;; Flymake syntax checker
+(use-package flymake
+  :general
+  (:keymaps 'flymake-mode-map
+            "M-n" 'flymake-goto-next-error
+            "M-p" 'flymake-goto-prev-error)
+  )
+
+;; LanguageTool
+(use-package flymake-languagetool
+  :hook ((text-mode       . flymake-languagetool-load)
+         (latex-mode      . flymake-languagetool-load)
+         (org-mode        . flymake-languagetool-load)
+         (markdown-mode   . flymake-languagetool-load))
+  :custom
+  ;; Local Server Configuration
+  (flymake-languagetool-server-jar
+   "languagetool-server.jar"))
 
 ;;; Bibliography
 
