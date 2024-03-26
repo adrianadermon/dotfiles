@@ -603,6 +603,17 @@
     (setq tempel--path-templates nil))
 )
 
+;;;; LSP
+
+;; LSP client
+(use-package eglot)
+
+;; Enable TempEl to use LSP templates
+(use-package eglot-tempel)
+
+;; Consult interface for LSP workspace/symbols 
+(use-package consult-eglot)
+
 ;;; Bibliography
 
 ;;;; Citar (bibliography completion)
