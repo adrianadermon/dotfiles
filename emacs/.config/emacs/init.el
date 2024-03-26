@@ -612,11 +612,7 @@
 ;;;; LSP
 
 ;; LSP client
-(use-package eglot
-  :config
-  (add-to-list 'eglot-server-programs
-               '(text-mode . ("vale-ls")))
-  )
+(use-package eglot)
 
 ;; Enable TempEl to use LSP templates
 (use-package eglot-tempel)
