@@ -155,6 +155,13 @@
 (use-package surround
   :bind-keymap ("M-'" . surround-keymap))
 
+;; Calc porcelain
+(use-package casual
+  :general
+  (:keymaps 'calc-mode-map
+            "C-o" 'casual-main-menu
+            ))
+
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
     ;; (set-face-attribute 'default nil :height 150)
