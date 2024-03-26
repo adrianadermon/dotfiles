@@ -162,6 +162,12 @@
             "C-o" 'casual-main-menu
             ))
 
+;; Menu for isearch
+(use-package cc-isearch-menu
+  :general
+  (:keymaps 'isearch-mode-map
+            "<f2>" 'cc-isearch-menu-transient))
+
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
     ;; (set-face-attribute 'default nil :height 150)
