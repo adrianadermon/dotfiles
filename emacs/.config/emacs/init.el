@@ -612,7 +612,12 @@
 ;;;; LSP
 
 ;; LSP client
-(use-package eglot)
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs
+               '(LaTeX-mode . ("texlab")))
+  ;; (add-to-list 'eglot-stay-out-of 'flymake) ; Prevent Eglot from taking over Flymake
+  )
 
 ;; Enable TempEl to use LSP templates
 (use-package eglot-tempel
