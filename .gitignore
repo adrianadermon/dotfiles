@@ -2,3 +2,17 @@ tags
 neovim/.config/nvim/autoload/
 neovim/.config/nvim/plugged/
 emacs/.config/emacs/init.el~
+/emacs/.config/broot/
+/emacs/.config/emacs-custom.el
+/emacs/.config/emacs/backups/
+/emacs/.config/emacs/bookmarks
+/emacs/.config/emacs/diary
+/emacs/.config/emacs/elpa/
+/emacs/.config/emacs/excorporate/
+/emacs/.config/emacs/history
+/emacs/.config/emacs/org-persist/
+/emacs/.config/emacs/places
+/emacs/.config/emacs/projects
+/emacs/.config/emacs/recentf
+/emacs/.config/emacs/transient/
+/emacs/.config/enchant/
