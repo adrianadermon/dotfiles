@@ -615,7 +615,8 @@
 (use-package eglot)
 
 ;; Enable TempEl to use LSP templates
-(use-package eglot-tempel)
+(use-package eglot-tempel
+  :after eglot)
 
 ;; Consult interface for LSP workspace/symbols 
 (use-package consult-eglot)
