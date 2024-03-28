@@ -771,8 +771,6 @@
 ;;;; Denote
 (use-package denote
   :demand t
-  :init
-  (require 'denote-org-dblock) ; Register Denote's Org dynamic blocks
   :config
   (denote-rename-buffer-mode 1)
   :custom
