@@ -387,6 +387,14 @@
   ;; (setq vertico-cycle t)
   )
 
+;; Configure Vertico modes per command or completion category
+(use-package vertico-multiform
+  :after vertico
+  :ensure nil
+  :config
+  (add-to-list 'vertico-multiform-categories '(embark-keybinding grid))
+  (vertico-multiform-mode)
+  )
 
 ;;;; Orderless (minibuffer completion style)
 ;; Use the `orderless' completion style. Additionally enable
