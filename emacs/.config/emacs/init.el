@@ -949,6 +949,7 @@
      ("https://rss.sciencedirect.com/publication/science/03044076" journal) ; Journal of Econometrics
      ("https://www.tandfonline.com/feed/rss/ubes20" journal) ; Journal of Business & Economic Statistics
      ("https://www.tandfonline.com/feed/rss/uasa20" journal) ; JASA
+     ("https://www.annualreviews.org/action/showFeed?ui=45mu4&mi=3fndc3&ai=67b7&jc=economics&type=etoc&feed=atom%20" journal) ; Annual Review of Economics
      ("https://www.theatlantic.com/feed/all/" magazine) ; The Atlantic
      ("https://www.newyorker.com/feed/everything" magazine) ; The New Yorker
      ("https://www.economist.com/the-world-this-week/rss.xml" magazine) ; The Economist - The world this week
