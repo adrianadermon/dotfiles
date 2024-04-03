@@ -37,6 +37,7 @@
    `(fringe ((,class :inherit linum)))
    `(show-paren-match-face ((,class :background ,bg_subtle :foreground ,norm)))
    `(help-key-binding ((,class :foreground ,dark_blue :weight bold)))
+   `(success ((,class :foreground ,dark_green :weight bold)))
    `(isearch ((,class :background ,selection :foreground ,selection_fg)))
    `(isearch-lazy-highlight-face ((,class :inherit isearch :weight bold)))
    `(font-lock-comment-face ((,class :foreground ,comment :slant italic)))

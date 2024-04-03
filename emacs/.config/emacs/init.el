@@ -930,6 +930,9 @@
 ;;; LLM
 (use-package gptel
   :config
+  (gptel-make-anthropic "Claude"          ;Any name you want
+    :stream t                             ;Streaming responses
+    :key (auth-source-pick-first-password :host "api.anthropic.com"))
   (gptel-make-ollama
    "Ollama"                               ;Any name of your choosing
    :host "localhost:61632"                ;Where it's running
@@ -939,6 +942,7 @@
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
   )
+
 
 ;;; RSS
 (use-package elfeed
