@@ -933,11 +933,14 @@
   (gptel-make-anthropic "Claude"          ;Any name you want
     :stream t                             ;Streaming responses
     :key (auth-source-pick-first-password :host "api.anthropic.com"))
+  (gptel-make-kagi "Kagi"                    ;any name
+    :key (auth-source-pick-first-password :host "kagi.com"))
   (gptel-make-ollama
    "Ollama"                               ;Any name of your choosing
    :host "localhost:61632"                ;Where it's running
    :models '("mistral:latest")            ;Installed models
    :stream t)                             ;Stream responses
+  (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   :custom
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
