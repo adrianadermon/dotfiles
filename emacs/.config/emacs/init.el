@@ -930,16 +930,15 @@
 ;;; LLM
 (use-package gptel
   :config
-  (gptel-make-anthropic "Claude"          ;Any name you want
+  (gptel-make-anthropic "Claude"
     :stream t                             ;Streaming responses
-    :key (auth-source-pick-first-password :host "api.anthropic.com"))
-  (gptel-make-kagi "Kagi"                    ;any name
-    :key (auth-source-pick-first-password :host "kagi.com"))
-  (gptel-make-ollama
-   "Ollama"                               ;Any name of your choosing
+    :key gptel-api-key)
+  (gptel-make-kagi "Kagi"
+    :key gptel-api-key)
+  (gptel-make-ollama "Ollama"
    :host "localhost:61632"                ;Where it's running
    :models '("mistral:latest")            ;Installed models
-   :stream t)                             ;Stream responses
+   :stream t)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   :custom
   (gptel-use-curl nil)
