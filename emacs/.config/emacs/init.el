@@ -730,6 +730,7 @@
   (org-latex-src-block-backend 'engraved) ; Syntax highlighting of code blocks in exports
   (org-fontify-todo-headline nil)
   (org-fontify-done-headline nil)
+  (org-agenda-include-diary t)
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
