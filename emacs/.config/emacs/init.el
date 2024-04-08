@@ -1042,7 +1042,31 @@
   (calendar-latitude 59.0)
   (calendar-longitude 17.6)
   (calendar-location-name "Uppsala, Sweden")
-)
+  (holiday-christian-holidays nil)
+  (holiday-hebrew-holidays nil)
+  (holiday-islamic-holidays nil)
+  (holiday-bahai-holidays nil)
+  (holiday-oriental-holidays nil)
+  (holiday-general-holidays
+   '((holiday-fixed 1 1 "Nyårsdagen")
+     (holiday-fixed 1 6 "Trettondedag jul")
+     (holiday-easter-etc -2 "Långfredagen")
+     (holiday-easter-etc 0 "Påskdagen")
+     (holiday-easter-etc +1 "Annandag påsk")
+     (holiday-fixed 5 1 "Första maj")
+     (holiday-easter-etc +39 "Kristi himmelsfärdsdag")
+     (holiday-easter-etc +49 "Pingstdagen")
+     (holiday-fixed 6 6 "Sveriges nationaldag")
+     (holiday-float 6 5 0 "Midsommarafton" 19)
+     (holiday-float 6 6 0 "Midsommardagen" 20)
+     (holiday-float 10 6 0 "Alla helgons dag" 31)
+     (holiday-fixed 12 24 "Julafton")
+     (holiday-fixed 12 25 "Juldagen")
+     (holiday-fixed 12 26 "Annandag jul")
+     (holiday-fixed 12 31 "Nyårsafton")
+     )
+   ))
+
 
 (use-package calfw
   :custom
