@@ -214,6 +214,12 @@
       ;;                             mu4e-headers-calendar-mark  '("c" . "📅")
       (mu4e-modeline-unread-items  '("U:" . "✉"))
       (mu4e-modeline-new-items     '("N:" . "❋"))
+      :hook
+      ;; Change default face
+      (mu4e-main-mode . my-text-remap-mode)
+      (mu4e-view-mode . my-text-remap-mode)
+      (mu4e-headers-mode . my-text-remap-mode)
+      (mu4e-compose-mode . my-text-remap-mode)
       )
     
     ;; Spell-checker
