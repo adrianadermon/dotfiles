@@ -1,0 +1,17 @@
+# Set default values for all the accounts.
+defaults
+logfile ~/maildir/msmtp.log
+# tls_trust_file ~/maildir/certificates/root-certificates.pem
+
+account ifau
+auth on
+host mail.uu.se
+port 587
+protocol smtp
+from adrian.adermon@ifau.uu.se
+user adrad148
+passwordeval security find-generic-password -s mu4e-ifau -a adrian.adermon@ifau.uu.se -w
+tls on
+tls_starttls on
+
+account default : ifau
