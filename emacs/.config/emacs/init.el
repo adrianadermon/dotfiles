@@ -186,45 +186,7 @@
       (pdf-loader-install)
       )
 
-    ;; ;; Email
-    ;; (use-package mu4e
-    ;;   :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e"
-    ;;   :custom
-    ;;   (mail-user-agent 'mu4e-user-agent)
-    ;;   (mu4e-get-mail-command "mbsync -a")
-    ;;   (mu4e-maildir "~/maildir")
-    ;;   (mu4e-user-mail-address-list '("adrian.adermon@ifau.uu.se"))
-    ;;   (mu4e-confirm-quit nil)
-    ;;   (mu4e-split-view 'vertical)
-    ;;   (mu4e-headers-visible-columns 140)
-    ;;   (mu4e-use-fancy-chars t)
-    ;;   (mu4e-headers-attach-mark    '("a" . "⁂"))
-    ;;   (mu4e-headers-flagged-mark   '("F" . "⚑"))
-    ;;   (mu4e-headers-new-mark       '("N" . "★"))
-    ;;   (mu4e-headers-passed-mark    '("P" . "❯"))
-    ;;   (mu4e-headers-replied-mark   '("R" . "❮"))
-    ;;   (mu4e-headers-seen-mark      '("S" . "☑"))
-    ;;   (mu4e-headers-trashed-mark   '("T" . "♻"))
-    ;;   ;; (mu4e-headers-draft-mark    '("D" . "💈"))
-    ;;   ;;                             mu4e-headers-encrypted-mark '("x" . "🔒")
-    ;;   ;;                             mu4e-headers-signed-mark    '("s" . "🔑")
-    ;;   ;;                             mu4e-headers-unread-mark    '("u" . "⎕")
-    ;;   ;;                             mu4e-headers-list-mark      '("l" . "🔈")
-    ;;   ;;                             mu4e-headers-personal-mark  '("p" . "👨")
-    ;;   ;;                             mu4e-headers-calendar-mark  '("c" . "📅")
-    ;;   (mu4e-modeline-unread-items  '("U:" . "✉"))
-    ;;   (mu4e-modeline-new-items     '("N:" . "❋"))
-    ;;   :hook
-    ;;   ;; Change default face
-    ;;   (mu4e-main-mode . my-text-remap-mode)
-    ;;   (mu4e-view-mode . my-text-remap-mode)
-    ;;   (mu4e-headers-mode . my-text-remap-mode)
-    ;;   (mu4e-compose-mode . my-text-remap-mode)
-    ;;   )
-
-
-
-    
+    ;; Email
     (use-package mu4e
       :load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e"
       :custom
