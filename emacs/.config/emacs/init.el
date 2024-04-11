@@ -980,6 +980,11 @@
   (gptel-default-mode 'org-mode)
   )
 
+;; Put the following in ~/.authinfo, with API keys in place of ***
+;; machine api.openai.com login apikey password ***
+;; machine api.anthropic.com login apikey password ***
+;; machine kagi.com login apikey password ***
+
 
 ;;; RSS
 (use-package elfeed
