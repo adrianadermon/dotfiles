@@ -54,7 +54,7 @@
 
   ;; Show column numbers
   (column-number-mode t)
-  
+
   :config
   ;; Use UTF-8 with LF file endings
   (set-default-coding-systems 'utf-8-unix)
@@ -110,6 +110,12 @@
   (Info-mode . my-text-remap-mode)
   ;; Save recent files list before exit
   (kill-emacs . recentf-save-list)
+  
+  ;; Tab-bar
+  (tab-bar-mode . (lambda ()
+                    (setq tab-bar-close-button nil)
+                    (setq tab-bar-new-button nil)))
+
   :general
   ;; Keybindings for inserting matching delimiters
   (:keymaps 'global-map
