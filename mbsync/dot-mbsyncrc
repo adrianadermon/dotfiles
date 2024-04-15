@@ -23,8 +23,6 @@ Far :ifau-remote:
 Near :ifau-local:
 Patterns *
 Create Near
-# Sync All
-Sync Pull
-# Expunge Both
-Expunge Near
+Sync All
+Expunge Both
 SyncState *

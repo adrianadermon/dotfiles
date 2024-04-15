@@ -225,6 +225,10 @@
     (mu4e-use-fancy-chars t)
     (mu4e-context-policy 'pick-first)
     (mu4e-compose-context-policy nil)
+    (mu4e-sent-folder   "/ifau/Sent Items")       ;; folder for sent messages
+    (mu4e-drafts-folder "/ifau/Drafts")     ;; unfinished messages
+    (mu4e-trash-folder  "/ifau/Trash")      ;; trashed messages
+    (mu4e-refile-folder "/ifau/Archive")   ;; saved messages
     :config
     (setq mu4e-contexts
           `( ,(make-mu4e-context
