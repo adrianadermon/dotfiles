@@ -205,6 +205,8 @@
 (cond ((eq system-type 'darwin) (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e"))
       ((eq system-type 'gnu/linux) (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.10.8/")))
 
+(when (memq system-type '(darwin gnu/linux))
+  
 (use-package mu4e
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
   :custom
@@ -271,6 +273,7 @@
   ;; (mu4e-headers-mode . my-text-remap-mode)
   ;; (mu4e-compose-mode . my-text-remap-mode)
   )
+)
 
 ;; Spell-checker
 (use-package jinx
@@ -282,7 +285,7 @@
   :custom
   (jinx-languages "en_US sv_SE") 
   )
-)
+
 
 ;;; Version control
 (use-package magit
