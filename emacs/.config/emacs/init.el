@@ -1011,44 +1011,56 @@
 
 ;;; RSS
 (use-package elfeed
+  ;; :custom
+  ;; (elfeed-feeds
+  ;;  '(
+  ;;    ("http://citec.repec.org/cgi-bin/rss.pl?h=repec:aea:aecrev" journal) ; AER
+  ;;    ("https://academic.oup.com/rss/site_5504/3365.xml" journal) ; QJE
+  ;;    ("https://onlinelibrary.wiley.com/feed/14680262/most-recent" journal) ; Econometrica
+  ;;    ("https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc=jpe" journal) ; JPE
+  ;;    ("https://academic.oup.com/rss/site_5508/3369.xml" journal) ; ReStud
+  ;;    ("https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc=jole" journal) ; JOLE
+  ;;    ("https://direct.mit.edu/rss/site_1000065/1000035.xml" journal) ; ReStat
+  ;;    ("https://academic.oup.com/rss/site_6182/4014.xml" journal) ; EJ
+  ;;    ("https://academic.oup.com/rss/site_5571/3427.xml" journal) ; JEEA
+  ;;    ("https://rss.sciencedirect.com/publication/science/03044076" journal :title "JoE") ; Journal of Econometrics
+  ;;    ("https://www.tandfonline.com/feed/rss/ubes20" journal) ; Journal of Business & Economic Statistics
+  ;;    ("https://www.tandfonline.com/feed/rss/uasa20" journal) ; JASA
+  ;;    ("https://www.annualreviews.org/action/showFeed?ui=45mu4&mi=3fndc3&ai=67b7&jc=economics&type=etoc&feed=atom%20" journal) ; Annual Review of Economics
+  ;;    ("https://www.theatlantic.com/feed/all/" magazine) ; The Atlantic
+  ;;    ("https://www.newyorker.com/feed/everything" magazine) ; The New Yorker
+  ;;    ("https://www.economist.com/the-world-this-week/rss.xml" magazine) ; The Economist - The world this week
+  ;;    ("https://www.economist.com/briefing/rss.xml" magazine) ; The Economist - Briefings
+  ;;    ("https://www.economist.com/europe/rss.xml" magazine) ; The Economist - Europe
+  ;;    ("https://www.foreignaffairs.com/rss.xml" magazine) ; Foreign Affairs
+  ;;    ("https://foreignpolicy.com/feed" magazine) ; Foreign Policy
+  ;;    ;; ("www.ft.com/world?format=rss" news) ; Financial Times - World
+  ;;    ("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news us) ; NYT - Top Stories
+  ;;    ("https://rss.nytimes.com/services/xml/rss/nyt/World.xml" news us) ; NYT - World
+  ;;    ("https://www.theguardian.com/europe/rss" news europe) ; Guardian - Europe
+  ;;    ("https://www.theguardian.com/world/rss" news world) ; Guardian - World
+  ;;    ("http://feeds.bbci.co.uk/news/rss.xml" news europe) ; BBC - Top Stories
+  ;;    ("http://feeds.bbci.co.uk/news/world/rss.xml" news world) ; BBC - World
+  ;;    ("http://www.spiegel.de/schlagzeilen/rss/0,5291,676,00.xml" news europe) ; Spiegel International
+  ;;    ("https://feeds.elpais.com/mrss-s/pages/ep/site/english.elpais.com/portada" news europe) ; El Pais in English
+  ;;    ("politico.eu/feed" news europe) ; Politico EU
+  ;;    ("https://www.lemonde.fr/en/rss/une.xml" news europe) ; Le Monde in English
+  ;;    ("https://www.dn.se/rss" news sweden) ; DN
+  ;;    ("https://www.svt.se/rss.xml" news sweden) ; SVT
+  ;;    ("https://api.sr.se/rss/channel?id=114&formatId=1" news sweden) ; SR P4 Uppland
+  ;;    )
+  ;;  )
+  :hook
+  (elfeed-show-mode . my-text-remap-mode)
+  (elfeed-search-mode . my-text-remap-mode)
+  )
+
+(use-package elfeed-org
+  :init
+  (elfeed-org)
   :custom
-  (elfeed-feeds
-   '(
-     ("http://citec.repec.org/cgi-bin/rss.pl?h=repec:aea:aecrev" journal) ; AER
-     ("https://academic.oup.com/rss/site_5504/3365.xml" journal) ; QJE
-     ("https://onlinelibrary.wiley.com/feed/14680262/most-recent" journal) ; Econometrica
-     ("https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc=jpe" journal) ; JPE
-     ("https://academic.oup.com/rss/site_5508/3369.xml" journal) ; ReStud
-     ("https://www.journals.uchicago.edu/action/showFeed?type=etoc&feed=rss&jc=jole" journal) ; JOLE
-     ("https://direct.mit.edu/rss/site_1000065/1000035.xml" journal) ; ReStat
-     ("https://academic.oup.com/rss/site_6182/4014.xml" journal) ; EJ
-     ("https://academic.oup.com/rss/site_5571/3427.xml" journal) ; JEEA
-     ("https://rss.sciencedirect.com/publication/science/03044076" journal) ; Journal of Econometrics
-     ("https://www.tandfonline.com/feed/rss/ubes20" journal) ; Journal of Business & Economic Statistics
-     ("https://www.tandfonline.com/feed/rss/uasa20" journal) ; JASA
-     ("https://www.annualreviews.org/action/showFeed?ui=45mu4&mi=3fndc3&ai=67b7&jc=economics&type=etoc&feed=atom%20" journal) ; Annual Review of Economics
-     ("https://www.theatlantic.com/feed/all/" magazine) ; The Atlantic
-     ("https://www.newyorker.com/feed/everything" magazine) ; The New Yorker
-     ("https://www.economist.com/the-world-this-week/rss.xml" magazine) ; The Economist - The world this week
-     ("https://www.economist.com/briefing/rss.xml" magazine) ; The Economist - Briefings
-     ("https://www.economist.com/europe/rss.xml" magazine) ; The Economist - Europe
-     ("https://www.foreignaffairs.com/rss.xml" magazine) ; Foreign Affairs
-     ("https://foreignpolicy.com/feed" magazine) ; Foreign Policy
-     ;; ("www.ft.com/world?format=rss" news) ; Financial Times - World
-     ("https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml" news us) ; NYT - Top Stories
-     ("https://rss.nytimes.com/services/xml/rss/nyt/World.xml" news us) ; NYT - World
-     ("https://www.theguardian.com/europe/rss" news europe) ; Guardian - Europe
-     ("https://www.theguardian.com/world/rss" news world) ; Guardian - World
-     ("http://feeds.bbci.co.uk/news/rss.xml" news europe) ; BBC - Top Stories
-     ("http://feeds.bbci.co.uk/news/world/rss.xml" news world) ; BBC - World
-     ("http://www.spiegel.de/schlagzeilen/rss/0,5291,676,00.xml" news europe) ; Spiegel International
-     ("https://feeds.elpais.com/mrss-s/pages/ep/site/english.elpais.com/portada" news europe) ; El Pais in English
-     ("politico.eu/feed" news europe) ; Politico EU
-     ("https://www.lemonde.fr/en/rss/une.xml" news europe) ; Le Monde in English
-     ("https://www.dn.se/rss" news sweden) ; DN
-     ("https://www.svt.se/rss.xml" news sweden) ; SVT
-     ("https://api.sr.se/rss/channel?id=114&formatId=1" news sweden) ; SR P4 Uppland
-     )))
+  (rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
+  )
 
 (use-package elfeed-summary
   :custom
