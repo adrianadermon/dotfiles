@@ -274,6 +274,21 @@
     ;; (mu4e-headers-mode . my-text-remap-mode)
     ;; (mu4e-compose-mode . my-text-remap-mode)
     )
+
+  (use-package notmuch
+    :load-path "/opt/homebrew/share/emacs/site-lisp/notmuch"
+    :ensure nil
+    :unless (eq system-type 'windows-nt) ; Don't load on Windows
+    :custom
+    (notmuch-show-logo nil)
+      :hook
+      (notmuch-hello-mode . my-text-remap-mode) ; Use text mode font
+      (notmuch-tree-mode . my-text-remap-mode)
+      (notmuch-tree-outline-mode . my-text-remap-mode)
+      (notmuch-show-mode . my-text-remap-mode)
+      (notmuch-search-mode . my-text-remap-mode)
+      (notmuch-message-mode . my-text-remap-mode)
+    )
   )
 
 ;; Spell-checker
@@ -916,6 +931,10 @@
   (LaTeX-mode . turn-on-cdlatex)
   (LaTeX-mode . my-text-remap-mode) ; Use text mode font
   )
+
+(use-package latex-change-env
+  :after latex
+  :bind (:map LaTeX-mode-map ("C-c r" . latex-change-env)))
 
 ;;; R
 (use-package ess
