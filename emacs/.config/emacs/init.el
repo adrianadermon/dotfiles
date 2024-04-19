@@ -1089,7 +1089,10 @@
                    (:elements
                     (query . (and news sweden))))
             ))
-    ))
+    )
+    :hook
+    (elfeed-summary-mode . my-text-remap-mode)
+  )
 
 ;;; Dashboard
 

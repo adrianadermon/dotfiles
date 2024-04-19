@@ -108,6 +108,10 @@
    `(elfeed-search-title-face ((,class :foreground ,light_gray)))
    `(elfeed-search-date-face ((,class :foreground ,light_gray)))
    `(elfeed-search-unread-count-face ((,class :foreground ,dark_blue)))
+   `(elfeed-summary-button-face ((,class :inherit default)))
+   `(magit-section-heading ((,class :foreground ,dark_blue :weight bold)))
+   `(magit-branch-local ((,class :foreground ,dark_blue)))
+   `(magit-branch-remote ((,class :foreground ,dark_green)))
    ))
 
 (provide-theme 'plain)
