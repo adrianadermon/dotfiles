@@ -174,6 +174,15 @@
   (:keymaps 'isearch-mode-map
             "<f2>" 'cc-isearch-menu-transient))
 
+(use-package helpful
+  :general
+  ("C-h f" 'helpful-callable)
+  ("C-h v" 'helpful-variable)
+  ("C-h k" 'helpful-key)
+  ("C-h x" 'helpful-command)
+  ("C-c h" 'helpful-at-point)
+  )
+
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
     ;; (set-face-attribute 'default nil :height 150)
@@ -185,7 +194,7 @@
     ;; Use GNU version of ls for dired
     (setq dired-use-ls-dired t)
     (setq insert-directory-program "gls")
-
+    
     )
 
 ;; Ensure Emacs can access PATH on MacOS
@@ -202,93 +211,92 @@
 ;; Email
 
 ;; OS-specific paths to mu4e
-(cond ((eq system-type 'darwin) (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e"))
-      ((eq system-type 'gnu/linux) (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.10.8/")))
+(cond ((eq system-type 'darwin)
+       (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/mu/mu4e")
+       (add-to-list 'load-path "/opt/homebrew/share/emacs/site-lisp/notmuch"))
+      ((eq system-type 'gnu/linux)
+       (add-to-list 'load-path "/usr/share/emacs/site-lisp/elpa-src/mu4e-1.10.8/")))
 
-(when (memq system-type '(darwin gnu/linux))
-  
-  (use-package mu4e
-    :ensure nil
-    :unless (eq system-type 'windows-nt) ; Don't load on Windows
-    :custom
-    (send-mail-function 'sendmail-send-it)
-    (message-send-mail-function 'sendmail-send-it)
-    (sendmail-program "msmtp")
-    (mail-user-agent 'mu4e-user-agent)
-    (message-kill-buffer-on-exit t)
-    (mu4e-get-mail-command "mbsync -a")
-    (mu4e-confirm-quit nil)
-    (mu4e-split-view 'vertical)
-    (mu4e-headers-visible-columns 140)
-    (mu4e-use-fancy-chars t)
-    (mu4e-context-policy 'pick-first)
-    (mu4e-compose-context-policy nil)
-    (mu4e-sent-folder   "/ifau/Sent Items")       ;; folder for sent messages
-    (mu4e-drafts-folder "/ifau/Drafts")     ;; unfinished messages
-    (mu4e-trash-folder  "/ifau/Trash")      ;; trashed messages
-    (mu4e-refile-folder "/ifau/Archive")   ;; saved messages
-    :config
-    (setq mu4e-contexts
-          `( ,(make-mu4e-context
-               :name "IFAU"
-               :vars '( ( user-mail-address	       . "adrian.adermon@ifau.uu.se" )
-                        ( user-full-name	       . "Adrian Adermon" )
-                        ( message-user-organization . "IFAU" )
-                        ( message-signature         .
-                          (concat
-                           "Adrian Adermon\n"
-                           "Associate professor\n"
-                           "Institute for Evaluation of Labour Market and Education Policy (IFAU)\n"
-                           "Uppsala, Sweden\n"
-                           "\n"
-                           "Phone: +46(0)18-471 70 86\n"
-                           "E-mail: adrian.adermon@ifau.uu.se\n"
-                           "Website: https://www.adrianadermon.com\n")
-                          )
-                        ))))
-    (setq mu4e-headers-attach-mark    '("a" . "⁂"))
-    (setq mu4e-headers-flagged-mark   '("F" . "⚑"))
-    (setq mu4e-headers-new-mark       '("N" . "★"))
-    (setq mu4e-headers-passed-mark    '("P" . "❯"))
-    (setq mu4e-headers-replied-mark   '("R" . "❮"))
-    (setq mu4e-headers-seen-mark      '("S" . "☑"))
-    (setq mu4e-headers-trashed-mark   '("T" . "♻"))
-    ;; (mu4e-headers-draft-mark    '("D" . "💈"))
-    ;; mu4e-headers-encrypted-mark '("x" . "🔒")
-    ;; mu4e-headers-signed-mark    '("s" . "🔑")
-    ;; mu4e-headers-unread-mark    '("u" . "⎕")
-    ;; mu4e-headers-list-mark      '("l" . "🔈")
-    ;; mu4e-headers-personal-mark  '("p" . "👨")
-    ;; mu4e-headers-calendar-mark  '("c" . "📅")
-    (setq mu4e-modeline-unread-items  '("U:" . "✉"))
-    (setq mu4e-modeline-new-items     '("N:" . "❋"))
-    ;; For some reason, putting these in :hook doesn't work
-    (add-hook 'mu4e-main-mode-hook 'my-text-remap-mode)
-    (add-hook 'mu4e-view-mode-hook 'my-text-remap-mode)
-    (add-hook 'mu4e-headers-mode-hook 'my-text-remap-mode)
-    (add-hook 'mu4e-compose-mode-hook 'my-text-remap-mode)
-    ;; :hook
-    ;; ;; Change default face
-    ;; (mu4e-main-mode . my-text-remap-mode)
-    ;; (mu4e-view-mode . my-text-remap-mode)
-    ;; (mu4e-headers-mode . my-text-remap-mode)
-    ;; (mu4e-compose-mode . my-text-remap-mode)
-    )
+(use-package mu4e
+  :ensure nil
+  :unless (eq system-type 'windows-nt) ; Don't load on Windows
+  :custom
+  (send-mail-function 'sendmail-send-it)
+  (message-send-mail-function 'sendmail-send-it)
+  (sendmail-program "msmtp")
+  (mail-user-agent 'mu4e-user-agent)
+  (message-kill-buffer-on-exit t)
+  (mu4e-get-mail-command "mbsync -a")
+  (mu4e-confirm-quit nil)
+  (mu4e-split-view 'vertical)
+  (mu4e-headers-visible-columns 140)
+  (mu4e-use-fancy-chars t)
+  (mu4e-context-policy 'pick-first)
+  (mu4e-compose-context-policy nil)
+  (mu4e-sent-folder   "/ifau/Sent Items")       ;; folder for sent messages
+  (mu4e-drafts-folder "/ifau/Drafts")     ;; unfinished messages
+  (mu4e-trash-folder  "/ifau/Trash")      ;; trashed messages
+  (mu4e-refile-folder "/ifau/Archive")   ;; saved messages
+  :config
+  (setq mu4e-contexts
+        `( ,(make-mu4e-context
+             :name "IFAU"
+             :vars '( ( user-mail-address	       . "adrian.adermon@ifau.uu.se" )
+                      ( user-full-name	       . "Adrian Adermon" )
+                      ( message-user-organization . "IFAU" )
+                      ( message-signature         .
+                        (concat
+                         "Adrian Adermon\n"
+                         "Associate professor\n"
+                         "Institute for Evaluation of Labour Market and Education Policy (IFAU)\n"
+                         "Uppsala, Sweden\n"
+                         "\n"
+                         "Phone: +46(0)18-471 70 86\n"
+                         "E-mail: adrian.adermon@ifau.uu.se\n"
+                         "Website: https://www.adrianadermon.com\n")
+                        )
+                      ))))
+  (setq mu4e-headers-attach-mark    '("a" . "⁂"))
+  (setq mu4e-headers-flagged-mark   '("F" . "⚑"))
+  (setq mu4e-headers-new-mark       '("N" . "★"))
+  (setq mu4e-headers-passed-mark    '("P" . "❯"))
+  (setq mu4e-headers-replied-mark   '("R" . "❮"))
+  (setq mu4e-headers-seen-mark      '("S" . "☑"))
+  (setq mu4e-headers-trashed-mark   '("T" . "♻"))
+  ;; (mu4e-headers-draft-mark    '("D" . "💈"))
+  ;; mu4e-headers-encrypted-mark '("x" . "🔒")
+  ;; mu4e-headers-signed-mark    '("s" . "🔑")
+  ;; mu4e-headers-unread-mark    '("u" . "⎕")
+  ;; mu4e-headers-list-mark      '("l" . "🔈")
+  ;; mu4e-headers-personal-mark  '("p" . "👨")
+  ;; mu4e-headers-calendar-mark  '("c" . "📅")
+  (setq mu4e-modeline-unread-items  '("U:" . "✉"))
+  (setq mu4e-modeline-new-items     '("N:" . "❋"))
+  ;; For some reason, putting these in :hook doesn't work
+  (add-hook 'mu4e-main-mode-hook 'my-text-remap-mode)
+  (add-hook 'mu4e-view-mode-hook 'my-text-remap-mode)
+  (add-hook 'mu4e-headers-mode-hook 'my-text-remap-mode)
+  (add-hook 'mu4e-compose-mode-hook 'my-text-remap-mode)
+  ;; :hook
+  ;; ;; Change default face
+  ;; (mu4e-main-mode . my-text-remap-mode)
+  ;; (mu4e-view-mode . my-text-remap-mode)
+  ;; (mu4e-headers-mode . my-text-remap-mode)
+  ;; (mu4e-compose-mode . my-text-remap-mode)
+  )
 
-  (use-package notmuch
-    :load-path "/opt/homebrew/share/emacs/site-lisp/notmuch"
-    :ensure nil
-    :unless (eq system-type 'windows-nt) ; Don't load on Windows
-    :custom
-    (notmuch-show-logo nil)
-      :hook
-      (notmuch-hello-mode . my-text-remap-mode) ; Use text mode font
-      (notmuch-tree-mode . my-text-remap-mode)
-      (notmuch-tree-outline-mode . my-text-remap-mode)
-      (notmuch-show-mode . my-text-remap-mode)
-      (notmuch-search-mode . my-text-remap-mode)
-      (notmuch-message-mode . my-text-remap-mode)
-    )
+(use-package notmuch
+  :ensure nil
+  :unless (eq system-type 'windows-nt) ; Don't load on Windows
+  :custom
+  (notmuch-show-logo nil)
+  :hook
+  (notmuch-hello-mode . my-text-remap-mode) ; Use text mode font
+  (notmuch-tree-mode . my-text-remap-mode)
+  (notmuch-tree-outline-mode . my-text-remap-mode)
+  (notmuch-show-mode . my-text-remap-mode)
+  (notmuch-search-mode . my-text-remap-mode)
+  (notmuch-message-mode . my-text-remap-mode)
   )
 
 ;; Spell-checker
