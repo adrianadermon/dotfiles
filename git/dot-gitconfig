@@ -9,4 +9,4 @@
 	autocrlf = input
 	eol = lf
 [credential]
-	helper = wincred
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
