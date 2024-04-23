@@ -339,6 +339,7 @@
      (?. . sentence)))
   :config
   (add-to-list 'meow-mode-state-list '(mu4e-main-mode . insert)) ; Open Mu4e in insert mode
+  (add-to-list 'meow-mode-state-list '(mu4e-view-mode . motion))
   (defun neg-meow-find ()
     (interactive)
     (let ((current-prefix-arg -1))
