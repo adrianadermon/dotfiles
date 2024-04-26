@@ -337,6 +337,7 @@
      (?v . visual-line)
      (?f . defun)
      (?. . sentence)))
+  (meow-expand-exclude-mode-list nil)
   :config
   (add-to-list 'meow-mode-state-list '(mu4e-main-mode . insert)) ; Open Mu4e in insert mode
   (add-to-list 'meow-mode-state-list '(mu4e-view-mode . motion))
