@@ -1121,18 +1121,27 @@
 
 ;;; Dashboard
 
+;; To get logos, clone https://github.com/egstatsml/emacs_fancy_logos into home
 (use-package dashboard
   :custom
-  (dashboard-startup-banner "~/emacs_fancy_logos-main/gnu_color.svg")
+  (dashboard-startup-banner "~/emacs_fancy_logos/gnu_color.svg")
   (dashboard-image-banner-max-width 500)
   (dashboard-center-content t)
-  (dashboard-set-footer nil)
   (dashboard-projects-backend 'project-el)
   (dashboard-items '((recents  . 5)
                      (bookmarks . 5)
                      (projects . 5)
                      (agenda . 5)
                      (registers . 5)))
+  (dashboard-startupify-list '(dashboard-insert-banner
+                               dashboard-insert-newline
+                               ;; dashboard-insert-navigator
+                               ;; dashboard-insert-newline
+                               dashboard-insert-init-info
+                               dashboard-insert-items
+                               dashboard-insert-newline))
+  :hook
+  (dashboard-mode . my-text-remap-mode)
   )
 
 ;;; Calendar
