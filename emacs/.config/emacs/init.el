@@ -1018,8 +1018,8 @@
   (gptel-make-kagi "Kagi"
     :key gptel-api-key)
   (gptel-make-ollama "Ollama"
-   :host "localhost:61632"                ;Where it's running
-   :models '("mistral:latest")            ;Installed models
+   :host "localhost:11434"                ;Where it's running
+   :models '("mistral:latest" "llama3")            ;Installed models
    :stream t)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   :custom
