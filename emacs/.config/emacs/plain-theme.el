@@ -44,6 +44,7 @@
    `(error ((,class :foreground ,dark_red :weight bold)))
    `(warning ((,class :foreground ,orange :weight bold)))
    `(minibuffer-prompt ((,class :foreground ,dark_blue)))
+   `(widget-button ((,class :inherit default)))
    `(message-header-name ((,class :foreground ,dark_blue)))
    `(message-header-subject ((,class :foreground ,norm :weight bold)))
    `(message-header-other ((,class :inherit default)))
