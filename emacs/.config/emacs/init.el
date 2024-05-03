@@ -183,6 +183,37 @@
   ("C-c h" 'helpful-at-point)
   )
 
+;; Weather forecasts
+(use-package biome
+  :config
+  (add-to-list 'biome-presets-alist
+               '("Uppsala 7 day forecast" :normal
+                 ((:name . "Weather Forecast")
+                  (:group . "daily")
+                  (:params
+                   ("forecast_days" . 7)
+                   ("past_days" . 0)
+                   ("timezone" . "Europe/Stockholm")
+                   ("daily" "precipitation_sum" "temperature_2m_max" "temperature_2m_min")
+                   ("longitude" . 17.6389)
+                   ("latitude" . 59.8586)))))
+  (add-to-list 'biome-presets-alist
+               '("Uppsala 2 day hourly forecast" :normal
+                 ((:name . "Weather Forecast")
+                  (:group . "hourly")
+                  (:params
+                   ("hourly" "cloud_cover" "precipitation" "precipitation_probability" "temperature_2m")
+                   ("forecast_days" . 2)
+                   ("past_days" . 0)
+                   ("timezone" . "Europe/Stockholm")
+                   ("longitude" . 17.6389)
+                   ("latitude" . 59.8586)))))
+  ;; invoke with M-x biome-preset
+  :custom
+  (biome-query-coords
+   '(("Uppsala" 59.8586 17.6389))
+   ))
+
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
     ;; (set-face-attribute 'default nil :height 150)
