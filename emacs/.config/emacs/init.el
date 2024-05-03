@@ -211,7 +211,9 @@
   ;; invoke with M-x biome-preset
   :custom
   (biome-query-coords
-   '(("Uppsala" 59.8586 17.6389))
+   '(("Uppsala" 59.8586 17.6389)
+     ("Östersund" 63.1767 14.6361)
+     ("Stockholm" 59.3293 18.0686))
    ))
 
 ;; MacOS specific settings
