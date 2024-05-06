@@ -161,18 +161,24 @@
 (use-package surround
   :bind-keymap ("M-'" . surround-keymap))
 
-;; Calc porcelain
+;; Calc transient menu
 (use-package casual
   :general
   (:keymaps 'calc-mode-map
             "C-o" 'casual-main-menu
             ))
 
-;; Menu for isearch
+;; Dired transient menu
+(use-package casual-dired
+  :general
+  (:keymaps 'dired-mode-map
+            "C-o" 'casual-dired-tmenu))
+
+;; Isearch transient menu
 (use-package cc-isearch-menu
   :general
   (:keymaps 'isearch-mode-map
-            "<f2>" 'cc-isearch-menu-transient))
+            "C-o" 'cc-isearch-menu-transient))
 
 (use-package helpful
   :general
