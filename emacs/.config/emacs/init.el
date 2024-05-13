@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 ;;; Use-package setup
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -577,7 +579,8 @@
            "m" 'consult-mark
            "k" 'consult-global-mark
            "i" 'consult-imenu
-           "I" 'consult-imenu-multi)
+           "I" 'consult-imenu-multi
+           "o" 'consult-org-heading)
   (:prefix "M-s"
            "d" 'consult-find
            "f" 'consult-fd

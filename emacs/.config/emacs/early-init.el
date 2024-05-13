@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (load-theme 'plain t)
 
 ;; Disable menu, icons, scroll bar, and tooltips
