@@ -161,18 +161,24 @@
 (use-package surround
   :bind-keymap ("M-'" . surround-keymap))
 
-;; Calc porcelain
+;; Calc transient menu
 (use-package casual
   :general
   (:keymaps 'calc-mode-map
             "C-o" 'casual-main-menu
             ))
 
-;; Menu for isearch
+;; Dired transient menu
+(use-package casual-dired
+  :general
+  (:keymaps 'dired-mode-map
+            "C-o" 'casual-dired-tmenu))
+
+;; Isearch transient menu
 (use-package cc-isearch-menu
   :general
   (:keymaps 'isearch-mode-map
-            "<f2>" 'cc-isearch-menu-transient))
+            "C-o" 'cc-isearch-menu-transient))
 
 (use-package helpful
   :general
@@ -182,6 +188,39 @@
   ("C-h x" 'helpful-command)
   ("C-c h" 'helpful-at-point)
   )
+
+;; Weather forecasts
+(use-package biome
+  :config
+  (add-to-list 'biome-presets-alist
+               '("Uppsala 7 day forecast" :normal
+                 ((:name . "Weather Forecast")
+                  (:group . "daily")
+                  (:params
+                   ("forecast_days" . 7)
+                   ("past_days" . 0)
+                   ("timezone" . "Europe/Stockholm")
+                   ("daily" "precipitation_sum" "temperature_2m_max" "temperature_2m_min")
+                   ("longitude" . 17.6389)
+                   ("latitude" . 59.8586)))))
+  (add-to-list 'biome-presets-alist
+               '("Uppsala 2 day hourly forecast" :normal
+                 ((:name . "Weather Forecast")
+                  (:group . "hourly")
+                  (:params
+                   ("hourly" "cloud_cover" "precipitation" "precipitation_probability" "temperature_2m")
+                   ("forecast_days" . 2)
+                   ("past_days" . 0)
+                   ("timezone" . "Europe/Stockholm")
+                   ("longitude" . 17.6389)
+                   ("latitude" . 59.8586)))))
+  ;; invoke with M-x biome-preset
+  :custom
+  (biome-query-coords
+   '(("Uppsala" 59.8586 17.6389)
+     ("Östersund" 63.1767 14.6361)
+     ("Stockholm" 59.3293 18.0686))
+   ))
 
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
@@ -1019,8 +1058,8 @@
   (gptel-make-kagi "Kagi"
     :key gptel-api-key)
   (gptel-make-ollama "Ollama"
-   :host "localhost:61632"                ;Where it's running
-   :models '("mistral:latest")            ;Installed models
+   :host "localhost:11434"                ;Where it's running
+   :models '("mistral:latest" "llama3")            ;Installed models
    :stream t)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   :custom
