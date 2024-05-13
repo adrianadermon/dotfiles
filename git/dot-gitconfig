@@ -10,3 +10,5 @@
 	eol = lf
 [credential]
 	helper = wincred
+[credential "https://git.overleaf.com"]
+	provider = generic

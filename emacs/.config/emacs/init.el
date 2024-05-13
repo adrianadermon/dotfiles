@@ -1123,6 +1123,17 @@
 
 ;; To get logos, clone https://github.com/egstatsml/emacs_fancy_logos into home
 (use-package dashboard
+  :config
+  (defun dashboard-insert-custom (list-size) ; Show sunrise and sunset
+    (defvar my-tz (current-time-zone))
+    (defvar my-today (calendar-current-date))
+    (defvar my-sunrise-sunset (solar-sunrise-sunset my-today))
+    (defvar my-sunrise (car (nth 0 my-sunrise-sunset)))
+    (defvar my-sunset (car (nth 1 my-sunrise-sunset)))
+    (insert (concat "Sunrise " (solar-time-string my-sunrise my-tz)
+                    ", sunset " (solar-time-string my-sunset my-tz))))
+  (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+  (add-to-list 'dashboard-items '(custom) t)
   :custom
   (dashboard-startup-banner "~/emacs_fancy_logos/gnu_color.svg")
   (dashboard-image-banner-max-width 500)
