@@ -865,6 +865,7 @@
   :hook
   ;; (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
   (org-mode . my-text-remap-mode) ; Use text mode font
+  (org-agenda-mode . my-text-remap-mode) ; Use text mode font
   (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
   )
 
