@@ -20,5 +20,5 @@
     ;; (add-to-list 'default-frame-alist
     ;;              '(font . "Berkeley Mono-16")) ; MacOS
     (add-to-list 'default-frame-alist
-                 '(font . "PragmataPro Mono-13")) ; Windows/Linux
+                 '(font . "PragmataPro Mono-14")) ; Windows/Linux
     )

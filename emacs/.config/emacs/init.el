@@ -164,10 +164,10 @@
   :bind-keymap ("M-'" . surround-keymap))
 
 ;; Calc transient menu
-(use-package casual
+(use-package casual-calc
   :general
   (:keymaps 'calc-mode-map
-            "C-o" 'casual-main-menu
+            "C-o" 'casual-calc-tmenu
             ))
 
 ;; Dired transient menu
@@ -177,10 +177,10 @@
             "C-o" 'casual-dired-tmenu))
 
 ;; Isearch transient menu
-(use-package cc-isearch-menu
+(use-package casual-isearch
   :general
   (:keymaps 'isearch-mode-map
-            "C-o" 'cc-isearch-menu-transient))
+            "C-o" 'casual-isearch-tmenu))
 
 (use-package helpful
   :general
@@ -857,7 +857,7 @@
      (python . t)   ; Enable Python for Babel
      (julia . t)    ; Enable Julia for Babel
      (dot . t)))    ; Enable Graphviz DOT for Babel
-  (setq org-babel-R-command "C:/Progra~1/R/R-4.3.1/bin/x64/R --slave --no-save") ; R path
+  (setq org-babel-R-command "C:/Progra~1/R/R-4.3.3/bin/x64/R --slave --no-save") ; R path
   (setq org-agenda-skip-scheduled-if-done t)
   (setq org-agenda-skip-deadline-if-done t)
   (setq org-agenda-todo-ignore-deadlines t)
