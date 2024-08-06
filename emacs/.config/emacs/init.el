@@ -1055,6 +1055,9 @@
   :custom
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
+  :general
+  (:keymaps 'gptel-mode-map
+            "C-o" 'gptel-menu)
   )
 
 ;; Put the following in ~/.authinfo, with API keys in place of ***
