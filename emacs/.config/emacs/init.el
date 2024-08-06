@@ -132,7 +132,10 @@
             "`" 'insert-pair
             ))
 
-(use-package markdown-mode)
+(use-package markdown-mode
+    :hook
+    (markdown-mode . my-text-remap-mode) ; Use text mode font
+    )
 
 (use-package rainbow-mode)
 

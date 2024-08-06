@@ -113,6 +113,9 @@
    `(magit-section-heading ((,class :foreground ,dark_blue :weight bold)))
    `(magit-branch-local ((,class :foreground ,dark_blue)))
    `(magit-branch-remote ((,class :foreground ,dark_green)))
+   `(markdown-code-face ((,class :inherit font-lock-constant-face)))
+   `(markdown-inline-code-face ((,class :inherit markdown-code-face)))
+   `(markdown-table-face ((,class :inherit default)))
    ))
 
 (provide-theme 'plain)
