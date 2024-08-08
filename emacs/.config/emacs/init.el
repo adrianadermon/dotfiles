@@ -58,8 +58,10 @@
   (column-number-mode t)
 
   :config
-  ;; Use UTF-8 with LF file endings
-  (set-default-coding-systems 'utf-8-unix)
+  ;; Use UTF-8 enconding
+  (set-language-environment 'utf-8)
+  ;; (prefer-coding-system 'utf-8)
+  ;; (set-default-coding-systems 'utf-8-unix)
   ;; Save place in files between sessions
   (save-place-mode)
     ;; Highlight matching parenthesis
