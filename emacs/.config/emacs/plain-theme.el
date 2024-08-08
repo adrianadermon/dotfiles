@@ -91,6 +91,7 @@
    `(org-scheduled-previously ((,class :foreground ,norm :slant italic))) ; Doesn't work for some reason...
    `(org-upcoming-deadline ((,class :foreground ,norm :slant italic)))
    `(org-imminent-deadline ((,class :foreground ,norm :weight bold)))
+   `(org-time-grid ((,class :foreground ,light_gray)))
    `(show-paren-match ((,class :inherit default :background ,light_blue)))
    `(show-paren-mismatch ((,class :inherit default :background ,light_red)))
    `(cfw:face-grid ((,class :foreground ,lighter_gray)))
