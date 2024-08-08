@@ -938,6 +938,15 @@
             "x" 'denote-keywords-remove)
   )
 
+;;;; Consult-denote
+(use-package consult-denote
+  :config
+  (consult-denote-mode)
+  :custom
+  (consult-denote-find-command 'consult-fd)
+  (consult-denote-grep-command 'consult-ripgrep)
+  )
+
 ;;;; Consult-notes
 (use-package consult-notes
   :commands (consult-notes
