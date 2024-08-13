@@ -919,6 +919,7 @@
            "t" 'denote-template
            "r" 'denote-rename-file
            "R" 'denote-rename-file-using-front-matter
+           "k" 'denote-rename-file-keywords
            :keymaps 'org-mode-map
                      "i" 'denote-link
                      "I" 'denote-link-add-links
@@ -933,11 +934,6 @@
             "" '(:ignore t :which-key "Find")
             "f" 'denote-link-find-file
             "b" 'denote-link-find-backlink)
-  (:keymaps 'org-mode-map
-            :prefix "C-c n k"
-            "" '(:ignore t :which-key "Keyword")
-            "a" 'denote-keywords-add
-            "x" 'denote-keywords-remove)
   )
 
 ;;;; Consult-denote
