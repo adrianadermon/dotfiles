@@ -1084,6 +1084,8 @@
     :key gptel-api-key)
   (gptel-make-kagi "Kagi"
     :key gptel-api-key)
+  (gptel-make-gemini "Gemini"
+    :key gptel-api-key)
   (gptel-make-ollama "Ollama"
    :host "localhost:11434"                ;Where it's running
    :models '("mistral:latest" "llama3")            ;Installed models
@@ -1101,6 +1103,7 @@
 ;; machine api.openai.com login apikey password ***
 ;; machine api.anthropic.com login apikey password ***
 ;; machine kagi.com login apikey password ***
+;; machine generativelanguage.googleapis.com login apikey password ***
 
 
 ;;; RSS
