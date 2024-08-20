@@ -187,6 +187,19 @@
   (:keymaps 'isearch-mode-map
             "C-o" 'casual-isearch-tmenu))
 
+;; Regexp builder
+(use-package re-builder
+  :defer t)
+;; Menu
+(use-package casual-re-builder
+  :general
+  (:keymaps 'reb-mode-map
+            "C-o" 'casual-re-builder-tmenu)
+  (:keymaps 'reb-lisp-mode-map
+            "C-o" 'casual-re-builder-tmenu)
+  :after (re-builder))
+
+
 (use-package helpful
   :general
   ("C-h f" 'helpful-callable)
