@@ -1192,9 +1192,11 @@
   )
 
 ;;; Dashboard
-
 ;; To get logos, clone https://github.com/egstatsml/emacs_fancy_logos into home
+(use-package solar
+  :ensure nil)
 (use-package dashboard
+  :after solar
   :config
   (defun dashboard-insert-custom (list-size) ; Show sunrise and sunset
     (defvar my-tz (current-time-zone))
