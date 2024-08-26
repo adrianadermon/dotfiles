@@ -931,13 +931,11 @@
   (denote-sort-keywords t)
   (denote-prompts '(title keywords))
   (denote-date-prompt-use-org-read-date t) ; Pick dates, where relevant, with Org's advanced interface:
-  (denote-file-name-letter-casing ; Allow camelCase for keywords and signatures
-   '((title . downcase)
-     (signature . verbatim)
-     (keywords . verbatim)
-     (t . downcase)))
-  
-  (denote-rename-buffer-format "[D] %t")
+  (denote-file-name-slug-functions ; Allow camelCase for keywords
+   '((title . denote-sluggify-title)
+     (signature . denote-sluggify-signature)
+     (keyword . identity)))
+    (denote-rename-buffer-format "[D] %t")
   :hook (dired-mode . denote-dired-mode-in-directories)
   :general
   (:prefix "C-c n"
