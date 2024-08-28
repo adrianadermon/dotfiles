@@ -64,9 +64,8 @@
   ;; (set-default-coding-systems 'utf-8-unix)
   ;; Save place in files between sessions
   (save-place-mode)
-    ;; Highlight matching parenthesis
+  ;; Highlight matching parenthesis
   (show-paren-mode)
-
   ;; Prevent Extraneous Tabs
   (setq-default indent-tabs-mode nil)
 

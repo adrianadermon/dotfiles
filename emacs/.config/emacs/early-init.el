@@ -13,6 +13,9 @@
 (setq inhibit-startup-echo-area-message t)
 (setq initial-scratch-message nil)
 
+;; Fullscreen on start-up
+(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+
 ;; Set font
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist
