@@ -55,6 +55,7 @@
    `(gnus-header-from ((,class :inherit gnus-header :foreground ,lighter_black)))
    `(gnus-header-subject ((,class :inherit gnus-header :foreground ,lighter_black)))
    `(gnus-header-content ((,class :inherit gnus-header :foreground ,lighter_black :slant italic)))
+   `(completions-common-part ((,class :foreground ,dark_blue)))
    `(orderless-match-face-0 ((,class :foreground ,dark_blue :weight bold)))
    `(orderless-match-face-1 ((,class :foreground ,dark_purple :weight bold)))
    `(orderless-match-face-2 ((,class :foreground ,dark_green :weight bold)))
