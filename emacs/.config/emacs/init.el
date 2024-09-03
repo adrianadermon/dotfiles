@@ -198,7 +198,6 @@
             "C-o" 'casual-re-builder-tmenu)
   :after (re-builder))
 
-
 (use-package helpful
   :general
   ("C-h f" 'helpful-callable)
@@ -916,6 +915,12 @@
             :priority "A"))     
    )
   )
+
+;; Org Agenda transient menu
+(use-package casual-agenda
+  :general
+  (:keymaps 'org-agenda-mode-map
+         "C-o" 'casual-agenda-tmenu))
 
 ;;; Notes
 ;;;; Denote
