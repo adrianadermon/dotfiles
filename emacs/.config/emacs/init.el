@@ -256,7 +256,10 @@
 
 ;; Ensure Emacs can access PATH on MacOS
 (when (memq window-system '(mac ns x))
-  (exec-path-from-shell-initialize))
+  (use-package exec-path-from-shell
+    :config
+    (exec-path-from-shell-initialize))
+  )
 
 ;; PDF viewer
 (use-package pdf-tools
