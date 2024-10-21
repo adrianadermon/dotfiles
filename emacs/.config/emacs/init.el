@@ -140,7 +140,9 @@
 
 (use-package rainbow-mode)
 
-(use-package olivetti)
+(use-package olivetti
+  :general
+  ("C-c o" 'olivetti-mode))
 
 (use-package switch-window
   :custom
@@ -1047,6 +1049,7 @@
            :prefix "C-c"
            "<" 'ess-insert-assign
            ">" 'r-insert-magrittr-pipe
+           "r" '(:ignore t :which-key "R")
            "r s" 'r-summary-at-point
            "r p" 'r-print-at-point
            "r n" 'r-names-at-point
@@ -1119,6 +1122,16 @@
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
   :general
+  (:prefix "C-c g"
+           "" '(:ignore t :which-key "gptel")
+           "g" 'gptel
+           "s" 'gptel-send
+           "m" 'gptel-menu
+           "r" 'gptel-rewrite-menu
+           "a" 'gptel-add
+           "f" 'gptel-add-file
+           "t" 'gptel-org-set-topic
+           "p" 'gptel-org-set-properties)
   (:keymaps 'gptel-mode-map
             "C-o" 'gptel-menu)
   )
