@@ -169,36 +169,35 @@
 (use-package surround
   :bind-keymap ("M-'" . surround-keymap))
 
-;; Calc transient menu
-(use-package casual-calc
-  :general
-  (:keymaps 'calc-mode-map
-            "C-o" 'casual-calc-tmenu
-            ))
-
-;; Dired transient menu
-(use-package casual-dired
-  :general
-  (:keymaps 'dired-mode-map
-            "C-o" 'casual-dired-tmenu))
-
-;; Isearch transient menu
-(use-package casual-isearch
-  :general
-  (:keymaps 'isearch-mode-map
-            "C-o" 'casual-isearch-tmenu))
-
 ;; Regexp builder
 (use-package re-builder
   :defer t)
-;; Menu
-(use-package casual-re-builder
+
+;; Transient menus
+(use-package casual
   :general
+  ;; Org Agenda
+  (:keymaps 'org-agenda-mode-map
+            "C-o" 'casual-agenda-tmenu)
+  ;; Calc
+  (:keymaps 'calc-mode-map
+            "C-o" 'casual-calc-tmenu)
+  (:keymaps 'alc-alg-map
+            "C-o" 'casual-calc-tmenu)
+  ;; Dired
+  (:keymaps 'dired-mode-map
+            "C-o" 'casual-dired-tmenu
+            "s" 'casual-dired-sort-by-tmenu
+            "/" 'casual-dired-search-replace-tmenu)
+  ;; I-search
+  (:keymaps 'isearch-mode-map
+            "C-o" 'casual-isearch-tmenu)
+  ;; Regexp builder
   (:keymaps 'reb-mode-map
             "C-o" 'casual-re-builder-tmenu)
   (:keymaps 'reb-lisp-mode-map
             "C-o" 'casual-re-builder-tmenu)
-  :after (re-builder))
+  )
 
 (use-package helpful
   :general
@@ -920,12 +919,6 @@
             :priority "A"))     
    )
   )
-
-;; Org Agenda transient menu
-(use-package casual-agenda
-  :general
-  (:keymaps 'org-agenda-mode-map
-         "C-o" 'casual-agenda-tmenu))
 
 ;;; Notes
 ;;;; Denote
