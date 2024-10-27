@@ -243,17 +243,17 @@
 
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
-    ;; (set-face-attribute 'default nil :height 150)
-    (setq visible-bell nil)
-    (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ; Transparent titlebar
-    (add-to-list 'default-frame-alist '(ns-appearance . light))
-    (setq ns-use-proxy-icon nil)
-    (setq frame-title-format nil)
-    ;; Use GNU version of ls for dired
-    (setq dired-use-ls-dired t)
-    (setq insert-directory-program "gls")
-    
-    )
+  ;; (set-face-attribute 'default nil :height 150)
+  (setq visible-bell nil)
+  (setq ring-bell-function 'ignore)
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t)) ; Transparent titlebar
+  (add-to-list 'default-frame-alist '(ns-appearance . light))
+  (setq ns-use-proxy-icon nil)
+  (setq frame-title-format nil)
+  ;; Use GNU version of ls for dired
+  (setq dired-use-ls-dired t)
+  (setq insert-directory-program "gls")
+  )
 
 ;; Ensure Emacs can access PATH on MacOS
 (when (memq window-system '(mac ns x))
