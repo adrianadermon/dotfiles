@@ -26,6 +26,34 @@
   :config
   (which-key-mode)
   )
+;;; Treesitter
+(use-package treesit
+  :ensure nil
+  :config
+  ;; Grammars
+  (setopt treesit-language-source-alist
+   '((css "https://github.com/tree-sitter/tree-sitter-css")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (html "https://github.com/tree-sitter/tree-sitter-html")
+     (javascript "https://github.com/tree-sitter/tree-sitter-javascript")
+     (julia "https://github.com/tree-sitter/tree-sitter-julia")
+     (json "https://github.com/tree-sitter/tree-sitter-json")
+     (latex "https://github.com/latex-lsp/tree-sitter-latex")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/tree-sitter-grammars/tree-sitter-markdown")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (r "https://github.com/r-lib/tree-sitter-r")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+     (typst "https://github.com/uben0/tree-sitter-typst")
+     (yaml "https://github.com/tree-sitter-grammars/tree-sitter-yaml")))
+  (add-to-list 'major-mode-remap-alist '(html-mode . html-ts-mode))
+  (add-to-list 'major-mode-remap-alist '(css-mode . css-ts-mode))
+  (add-to-list 'major-mode-remap-alist '(python-mode . python-ts-mode))
+  (add-to-list 'major-mode-remap-alist '(javascript-mode . js-ts-mode))
+  )
+
 ;;; General
 (use-package general)
 
@@ -56,7 +84,7 @@
 
   ;; Show column numbers
   (column-number-mode t)
-
+  
   :config
   ;; Use UTF-8 enconding
   (set-language-environment 'utf-8)
