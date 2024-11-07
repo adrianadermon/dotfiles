@@ -795,7 +795,21 @@
   :config
   (add-to-list 'eglot-server-programs
                '(LaTeX-mode . ("texlab")))
+  (add-to-list 'eglot-server-programs
+               '(julia-mode . ("julia" "-e using LanguageServer; runserver()")))
   ;; (add-to-list 'eglot-stay-out-of 'flymake) ; Prevent Eglot from taking over Flymake
+  :general
+  ("C-c e e" 'eglot)
+  (:prefix "C-c e"
+           "" '(:ignore t :which-key "Eglot")
+           ;; "e" 'eglot
+           :keymaps 'eglot-mode-map
+           "r" 'eglot-rename
+           "f" 'eglot-format
+           "a" 'eglot-code-actions
+           "o" 'eglot-code-action-organize-imports
+           "s" 'eglot-shutdown
+           "x" 'xref-find-definitions)
   )
 
 ;; Enable TempEl to use LSP templates
@@ -1105,6 +1119,9 @@
   :custom
   (conda-anaconda-home "~/AppData/Local/miniconda3")
   )
+;;; Julia
+(use-package julia-mode)
+
 ;;; LLM
 (use-package gptel
   :config
