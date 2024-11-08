@@ -797,7 +797,11 @@
                '(LaTeX-mode . ("texlab")))
   (add-to-list 'eglot-server-programs
                '(julia-mode . ("julia" "-e using LanguageServer; runserver()")))
+  (add-to-list 'eglot-server-programs
+               '(typst-ts-mode . ("tinymist")))
   ;; (add-to-list 'eglot-stay-out-of 'flymake) ; Prevent Eglot from taking over Flymake
+  ;; (setq-default eglot-workspace-configuration ; Use typstyle formatter for tinymist LSP
+  ;;               '(:formatterMode "typstyle")) ; Doesn't work, don't know why 
   :general
   ("C-c e e" 'eglot)
   (:prefix "C-c e"
@@ -1099,6 +1103,12 @@
 
 (use-package ado-mode
   :init (require 'ado-mode))
+
+;;; Typst
+(when (version<= "30" emacs-version)
+  (use-package typst-ts-mode
+    :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
+  ))
 
 ;;; Python
 (use-package python
