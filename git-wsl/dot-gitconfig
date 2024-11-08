@@ -1,0 +1,12 @@
+[user]
+	name = adrianadermon
+	email = adrian.adermon@gmail.com
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+[core]
+	autocrlf = input
+	eol = lf
+[credential]
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe
