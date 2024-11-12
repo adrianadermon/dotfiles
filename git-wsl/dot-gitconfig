@@ -9,6 +9,4 @@
 	autocrlf = input
 	eol = lf
 [credential]
-	helper = wincred
-[credential "https://git.overleaf.com"]
-	provider = generic
+	helper = /mnt/c/Program\\ Files/Git/mingw64/bin/git-credential-manager.exe

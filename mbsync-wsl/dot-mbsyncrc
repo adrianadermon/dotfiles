@@ -1,0 +1,28 @@
+IMAPAccount ifau
+Host mail.uu.se
+User adrad148
+PassCmd "secret-tool lookup password mail-ifau"
+Port 993
+SSLType IMAPS
+SSLVersions TLSv1.2
+AuthMechs PLAIN
+# SystemCertificates no
+# CertificateFile ~/.maildir/certificates/root-certificates.pem
+PipelineDepth 1
+
+IMAPStore ifau-remote
+Account ifau
+
+MaildirStore ifau-local
+SubFolders Verbatim
+Path ~/maildir/ifau/
+Inbox ~/maildir/ifau/INBOX
+
+Channel ifau
+Far :ifau-remote:
+Near :ifau-local:
+Patterns *
+Create Near
+Sync All
+Expunge Both
+SyncState *
