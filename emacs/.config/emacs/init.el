@@ -550,21 +550,19 @@
 (use-package vertico
   :init
   (vertico-mode)
-
+  
   ;; Grow and shrink the Vertico minibuffer
   ;; (setq vertico-resize t)
 
   ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
   ;; (setq vertico-cycle t)
-  )
 
-;; Configure Vertico modes per command or completion category
-(use-package vertico-multiform
-  :after vertico
-  :ensure nil
-  :config
-  (add-to-list 'vertico-multiform-categories '(embark-keybinding grid))
-  (vertico-multiform-mode)
+  ;; Doesn't work on Windows right now - seems like a bug
+  ;; :config
+  ;; (vertico-multiform-mode)
+  ;; :custom
+  ;; (vertico-multiform-categories
+  ;;  '((embark-keybinding grid)))
   )
 
 ;;;; Orderless (minibuffer completion style)
@@ -1104,11 +1102,11 @@
 (use-package ado-mode
   :init (require 'ado-mode))
 
-;;; Typst
-(when (version<= "30" emacs-version)
-  (use-package typst-ts-mode
-    :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
-  ))
+;; Typst
+(use-package typst-ts-mode
+  :if (version<= "30" emacs-version)
+  :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
+  )
 
 ;;; Python
 (use-package python
@@ -1166,8 +1164,15 @@
               gemma-7b-it))
   (gptel-make-ollama "Ollama"
    :host "localhost:11434"                ;Where it's running
-   :models '(mistral:latest
-             llama3)            ;Installed models
+   :models '(mistral
+             mistral-small
+             llama3.2
+             llama3.2:1b
+             gemma2
+             gemma2:27b
+             phi3
+             granite3-dense
+             granite3-moe)            ;Installed models
    :stream t)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   :custom
