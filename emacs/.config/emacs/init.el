@@ -1363,34 +1363,6 @@
      )
    ))
 
-
-(use-package calfw
-  :custom
-  ;; (cfw:render-line-breaker 'cfw:render-line-breaker-simple)
-  (cfw:fchar-junction ?┼)
-  (cfw:fchar-vertical-line ?│)
-  (cfw:fchar-horizontal-line ?─)
-  (cfw:fchar-left-junction ?├)
-  (cfw:fchar-right-junction ?┤)
-  (cfw:fchar-top-junction ?┬)
-  (cfw:fchar-top-left-corner ?┌)
-  (cfw:fchar-top-right-corner ?┐)
-  ;; (cfw:fchar-junction ?╬)
-  ;; (cfw:fchar-vertical-line ?║)
-  ;; (cfw:fchar-horizontal-line ?═)
-  ;; (cfw:fchar-left-junction ?╠)
-  ;; (cfw:fchar-right-junction ?╣)
-  ;; (cfw:fchar-top-junction ?╦)
-  ;; (cfw:fchar-top-left-corner ?╔)
-  ;; (cfw:fchar-top-right-corner ?╗)
-  ;; :custom-face
-  ;; (cfw:face-grid ((t (:foreground "#4D9DE0"))))
-  ;; (cfw:face-select ((t (:foreground "#FFFCF9"
-  ;;                                   :background "#008EC4"))))
-  ;; (cfw:face-today ((t (:foreground "#FFDD4A"
-  ;;                                  :background "#008EC4"))))
-  )
-
 ;; Exchange
 (use-package excorporate
   :custom
@@ -1403,7 +1375,20 @@
 ;; Don't load it
 ;; (load custom-file)
 
-;; Local Variables:
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-vc-selected-packages
+   '((typst-ts-mode :url "https://codeberg.org/meow_king/typst-ts-mode"))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+ ;; Local Variables:
 ;; outline-regexp: ";;; \\|;;;; "
 ;; eval: (outline-minor-mode)
 ;; End:
