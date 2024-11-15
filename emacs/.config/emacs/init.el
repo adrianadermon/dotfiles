@@ -54,6 +54,9 @@
   (add-to-list 'major-mode-remap-alist '(javascript-mode . js-ts-mode))
   )
 
+(use-package yaml-ts-mode
+  :ensure nil)
+
 ;;; General
 (use-package general)
 
