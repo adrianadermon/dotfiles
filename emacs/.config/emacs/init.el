@@ -855,6 +855,7 @@
   :custom
   (org-cite-global-bibliography '("~/Dropbox/references.bib"))
   (org-cite-csl-styles-dir "~/Zotero/styles")
+  (org-cite-csl-locales-dir "~/csl/locales") ; Download from https://github.com/citation-style-language/locales
   (org-cite-insert-processor 'citar)
   (org-cite-follow-processor 'citar)
   (org-cite-activate-processor 'citar)
