@@ -1119,18 +1119,18 @@
   (python-shell-interpreter-args "-i")
   )
 
-;; ;; Handle virtual environments
-;; (use-package pet
-;;   :config
-;;   (add-hook 'python-base-mode-hook 'pet-mode -10))
-
-;; Handle conda environments
-(use-package conda
+;; Handle virtual environments
+(use-package pet
   :config
-  (conda-env-initialize-interactive-shells)
-  :custom
-  (conda-anaconda-home "~/AppData/Local/miniconda3")
-  )
+  (add-hook 'python-base-mode-hook 'pet-mode -10))
+
+;; ;; Handle conda environments
+;; (use-package conda
+;;   :config
+;;   (conda-env-initialize-interactive-shells)
+;;   :custom
+;;   (conda-anaconda-home "~/AppData/Local/miniconda3")
+;;   )
 ;;; Julia
 (use-package julia-mode)
 
