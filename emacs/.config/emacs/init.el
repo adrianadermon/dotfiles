@@ -797,6 +797,8 @@
   (add-to-list 'eglot-server-programs
                '(LaTeX-mode . ("texlab")))
   (add-to-list 'eglot-server-programs
+               '(python-ts-mode . ("pylsp")))
+  (add-to-list 'eglot-server-programs
                '(julia-mode . ("julia" "-e using LanguageServer; runserver()")))
   (add-to-list 'eglot-server-programs
                '(typst-ts-mode . ("tinymist")))
