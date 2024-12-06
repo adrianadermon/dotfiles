@@ -1102,7 +1102,7 @@
            "r t" 'r-structure-at-point)
   :custom
   (inferior-R-args "--no-save --no-restore")
-  (ess-indent-offset 2)
+  (ess-style 'DEFAULT)
   )
 
 (use-package ado-mode
@@ -1190,7 +1190,7 @@
            "g" 'gptel
            "s" 'gptel-send
            "m" 'gptel-menu
-           "r" 'gptel-rewrite-menu
+           "r" 'gptel-rewrite
            "a" 'gptel-add
            "f" 'gptel-add-file
            "t" 'gptel-org-set-topic

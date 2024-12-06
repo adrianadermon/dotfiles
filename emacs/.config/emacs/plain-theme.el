@@ -118,6 +118,9 @@
    `(markdown-code-face ((,class :inherit font-lock-constant-face)))
    `(markdown-inline-code-face ((,class :inherit markdown-code-face)))
    `(markdown-table-face ((,class :inherit default)))
+   `(gptel-context-highlight-face ((,class :background ,lightest_gray)))
+   `(gptel-context-deletion-face ((,class :background "#F5C7B8" :extend t)))
+   `(gptel-rewrite-highlight-face ((,class :background ,light_yellow :extend t)))
    ))
 
 (provide-theme 'plain)
