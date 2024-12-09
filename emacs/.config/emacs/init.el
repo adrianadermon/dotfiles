@@ -1105,6 +1105,17 @@
   (ess-style 'DEFAULT)
   )
 
+;;; Julia
+(use-package julia-ts-mode
+  :mode "\\.jl$")
+
+(use-package vterm)
+
+(use-package julia-repl
+  :hook (julia-mode . julia-repl-mode)
+  :config (julia-repl-set-terminal-backend 'vterm)
+  )
+
 (use-package ado-mode
   :init (require 'ado-mode))
 
