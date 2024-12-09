@@ -118,6 +118,9 @@
    `(markdown-code-face ((,class :inherit font-lock-constant-face)))
    `(markdown-inline-code-face ((,class :inherit markdown-code-face)))
    `(markdown-table-face ((,class :inherit default)))
+   `(jupyter-repl-input-prompt ((,class :foreground ,dark_blue)))
+   `(jupyter-repl-output-prompt ((,class :foreground ,dark_red)))
+   `(jupyter-repl-traceback ((,class :background ,lightest_gray)))
    ))
 
 (provide-theme 'plain)
