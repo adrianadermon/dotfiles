@@ -204,6 +204,11 @@
 (use-package re-builder
   :defer t)
 
+;; Vterm
+(use-package vterm
+  :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
+  )
+
 ;; Transient menus
 (use-package casual
   :general
@@ -1105,11 +1110,12 @@
   (ess-style 'DEFAULT)
   )
 
+;; Rmarkdown, Shiny etc
+(use-package poly-R)
+
 ;;; Julia
 (use-package julia-ts-mode
   :mode "\\.jl$")
-
-(use-package vterm)
 
 (use-package julia-repl
   :hook (julia-mode . julia-repl-mode)
