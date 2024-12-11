@@ -205,6 +205,7 @@
   :defer t)
 
 ;; Vterm
+;; Install cmake, libvterm
 (use-package vterm
   :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
   )
@@ -1114,8 +1115,8 @@
 (use-package poly-R)
 
 ;;; Julia
-(use-package julia-ts-mode
-  :mode "\\.jl$")
+;; (use-package julia-ts-mode
+;;   :mode "\\.jl$")
 
 (use-package julia-repl
   :hook (julia-mode . julia-repl-mode)
