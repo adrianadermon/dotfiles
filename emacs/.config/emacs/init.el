@@ -235,6 +235,11 @@
             "C-o" 'casual-re-builder-tmenu)
   )
 
+(use-package visual-replace
+  :defer nil
+  :config
+  (visual-replace-global-mode 1))
+
 (use-package helpful
   :general
   ("C-h f" 'helpful-callable)

@@ -138,6 +138,8 @@
    `(ansi-color-bright-magenta ((,class :foreground ,light_purple :background ,light_purple)))
    `(ansi-color-black ((,class :foreground ,black :background ,black)))
    `(ansi-color-bright-black ((,class :foreground ,light_black :background ,light_black)))
+   `(match ((,class :background ,light_yellow)))
+   `(visual-replace-delete-match ((,class :foreground ,light_black  :background ,light_red)))
    ))
 
 (provide-theme 'plain)
