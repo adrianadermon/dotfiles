@@ -11,6 +11,12 @@
 (eval-when-compile
   (require 'use-package))
 
+;; Hide warnings from byte compiler
+(add-to-list 'display-buffer-alist
+             '("\\`\\*\\(Warnings\\|Compile-Log\\)\\*\\'"
+               (display-buffer-no-window)
+               (allow-no-window . t)))
+
 ;; Profile startup times
 ;; (setq use-package-compute-statistics t)
 
