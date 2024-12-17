@@ -29,8 +29,7 @@
 
 ;;; Which-key
 (use-package which-key
-  :config
-  (which-key-mode)
+  :hook (after-init . which-key-mode)
   )
 ;;; Treesitter
 (use-package treesit
@@ -313,8 +312,7 @@
 ;; PDF viewer
 (use-package pdf-tools
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
-  :config
-  (pdf-loader-install)
+  :hook (after-init . pdf-loader-install)
   )
     
 ;; Email
@@ -568,15 +566,7 @@
 
 ;;;; Vertico (minibuffer completion UI)
 (use-package vertico
-  :init
-  (vertico-mode)
-  
-  ;; Grow and shrink the Vertico minibuffer
-  ;; (setq vertico-resize t)
-
-  ;; Optionally enable cycling for `vertico-next' and `vertico-previous'.
-  ;; (setq vertico-cycle t)
-
+  :hook (after-init . vertico-mode)
   ;; Doesn't work on Windows right now - seems like a bug
   ;; :config
   ;; (vertico-multiform-mode)
@@ -599,8 +589,7 @@
 
 ;;;; Marginalia (minibuffer annotations)
 (use-package marginalia
-  :config
-  (marginalia-mode))
+  :hook (after-init . marginalia-mode))
 
 ;;;; Embark (minibuffer actions)
 (use-package embark
@@ -697,7 +686,6 @@
 
 ;;;; Consult-dir (insert paths into minibuffer prompts)
 (use-package consult-dir
-  :ensure t
   :bind (("C-x C-d" . consult-dir)
          :map vertico-map
          ("C-x C-d" . consult-dir)
@@ -706,10 +694,10 @@
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
   :demand t
+  :hook
+  (after-init . global-corfu-mode)
+  (after-init . corfu-popupinfo-mode))
   :init
-  (global-corfu-mode)
-  (corfu-popupinfo-mode))
-
 (defun corfu-enable-in-minibuffer ()
   "Enable Corfu in the minibuffer if `completion-at-point' is bound."
   (when (where-is-internal #'completion-at-point (list (current-local-map)))
@@ -1284,8 +1272,7 @@
   )
 
 (use-package elfeed-org
-  :init
-  (elfeed-org)
+  :hook (after-init . elfeed-org)
   :custom
   (rmh-elfeed-org-files (list "~/Dropbox/org/elfeed.org"))
   )
