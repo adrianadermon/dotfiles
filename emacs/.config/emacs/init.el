@@ -55,7 +55,9 @@
   )
 
 (use-package yaml-ts-mode
-  :ensure nil)
+  :ensure nil
+  :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
+  )
 
 ;;; General
 (use-package general)
