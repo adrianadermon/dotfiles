@@ -186,26 +186,32 @@
   :custom
   (switch-window-shortcut-style 'qwerty)
   (switch-window-threshold 3)
-  :bind ("M-o" . switch-window)
-  (:map switch-window-extra-map
-        ("l" . switch-window-mvborder-right)
-        ("h" . switch-window-mvborder-left)
-        ("j" . switch-window-mvborder-down)
-        ("k" . switch-window-mvborder-up)))
+  :general
+  ("M-o" 'switch-window)
+  (:keymaps 'switch-window-extra-map
+        "l" 'switch-window-mvborder-right
+        "h" 'switch-window-mvborder-left
+        "j" 'switch-window-mvborder-down
+        "k" 'switch-window-mvborder-up)
+  )
 
 ;; Visual undo
 (use-package vundo
   :custom (vundo-glyph-alist vundo-unicode-symbols)
-  :bind (:map vundo-mode-map
-              ("l" . vundo-forward)
-              ("h" . vundo-backward)
-              ("j" . vundo-next)
-              ("k" . vundo-previous))
+  :general
+  (:keymaps 'vundo-mode-map
+            "l" 'vundo-forward
+            "h" 'vundo-backward
+            "j" 'vundo-next
+            "k" 'vundo-previous)
   )
 
 ;; Manipulate surrounding pairs
 (use-package surround
-  :bind-keymap ("M-'" . surround-keymap))
+  :bind-keymap ("M-'" . surround-keymap)
+  ;; :general
+  ;; "M-'" '(:keymap surround-keymap :package surround)
+  )
 
 ;; Regexp builder
 (use-package re-builder
@@ -412,9 +418,7 @@
 (use-package jinx
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
   ;; :hook (emacs-startup . global-jinx-mode)
-  :bind (("C-;" . jinx-correct)
-         ;; ("C-:" . jinx-languages)
-         )
+  :general ("C-;" 'jinx-correct)
   :custom
   (jinx-languages "en_US sv_SE") 
   )
@@ -595,10 +599,10 @@
 
 ;;;; Embark (minibuffer actions)
 (use-package embark
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-," . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+  :general
+  ("C-." 'embark-act)         ;; pick some comfortable binding
+  ("C-," 'embark-dwim)        ;; good alternative: M-.
+  ("C-h B" 'embark-bindings) ;; alternative for `describe-bindings'
   :init
 
   ;; Optionally replace the key help with a completing-read interface
@@ -688,10 +692,10 @@
 
 ;;;; Consult-dir (insert paths into minibuffer prompts)
 (use-package consult-dir
-  :bind (("C-x C-d" . consult-dir)
-         :map vertico-map
-         ("C-x C-d" . consult-dir)
-         ("C-x C-j" . consult-dir-jump-file)))
+  :general ("C-x C-d" 'consult-dir)
+  (:keymaps 'vertico-map
+            "C-x C-d" 'consult-dir
+            "C-x C-j" 'consult-dir-jump-file))
 
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
@@ -712,8 +716,9 @@
 ;; Use Dabbrev with Corfu!
 (use-package dabbrev
   ;; Swap M-/ and C-M-/
-  :bind (("M-/" . dabbrev-completion)
-         ("C-M-/" . dabbrev-expand))
+  :general
+  ("M-/" 'dabbrev-completion)
+  ("C-M-/" 'dabbrev-expand)
   ;; Other useful Dabbrev configurations.
   :custom
   (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
@@ -763,9 +768,10 @@
   ;; :custom
   ;; (tempel-trigger-prefix "<")
 
-  :bind (("M-+" . tempel-complete) ;; Alternative tempel-expand
-         ("M-*" . tempel-insert))
-
+  :general
+  ("M-+" 'tempel-complete) ;; Alternative tempel-expand
+  ("M-*" 'tempel-insert)
+  
   :init
 
   ;; Setup completion at point
@@ -858,9 +864,10 @@
 (use-package citar
   :no-require
   :demand t
-  :bind (("C-c z" . citar-insert-citation)
-         :map minibuffer-local-map
-         ("M-b" . citar-insert-preset))
+  :general
+  ("C-c z" 'citar-insert-citation)
+  (:keymaps 'minibuffer-local-map
+            "M-b" 'citar-insert-preset)
   :custom
   (org-cite-global-bibliography '("~/Dropbox/references.bib"))
   (org-cite-csl-styles-dir "~/Zotero/styles")
@@ -907,10 +914,10 @@
 ;;; Org mode
 (use-package org
   :demand t
-  :bind
-  (("C-c l" . org-store-link)
-  ("C-c a" . org-agenda)
-  ("C-c c" . org-capture))
+  :general
+  ("C-c l" 'org-store-link)
+  ("C-c a" 'org-agenda)
+  ("C-c c" 'org-capture)
   :custom
   (org-special-ctrl-a/e t)
   (org-startup-indented t)
