@@ -314,7 +314,7 @@
 ;; PDF viewer
 (use-package pdf-tools
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
-  :hook (after-init . pdf-loader-install)
+  :config (pdf-loader-install)
   )
     
 ;; Email
