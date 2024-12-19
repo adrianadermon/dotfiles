@@ -405,13 +405,8 @@
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
   :custom
   (notmuch-show-logo nil)
-  :hook
-  (notmuch-hello-mode . my-text-remap-mode) ; Use text mode font
-  (notmuch-tree-mode . my-text-remap-mode)
-  (notmuch-tree-outline-mode . my-text-remap-mode)
-  (notmuch-show-mode . my-text-remap-mode)
-  (notmuch-search-mode . my-text-remap-mode)
-  (notmuch-message-mode . my-text-remap-mode)
+  :hook ; Use text mode font
+  ((notmuch-hello-mode notmuch-tree-mode notmuch-tree-outline-mode notmuch-show-mode notmuch-search-mode notmuch-message-mode) . my-text-remap-mode)
   )
 
 ;; Spell-checker
@@ -962,8 +957,7 @@
   (setq org-agenda-todo-ignore-scheduled t)
   :hook
   ;; (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
-  (org-mode . my-text-remap-mode) ; Use text mode font
-  (org-agenda-mode . my-text-remap-mode) ; Use text mode font
+  ((org-mode org-agenda-mode) . my-text-remap-mode) ; Use text mode font
   (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
   )
 
@@ -1276,8 +1270,7 @@
   ;;    )
   ;;  )
   :hook
-  (elfeed-show-mode . my-text-remap-mode)
-  (elfeed-search-mode . my-text-remap-mode)
+  ((elfeed-show-mode elfeed-search-mode) . my-text-remap-mode)
   )
 
 (use-package elfeed-org
