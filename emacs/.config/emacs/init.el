@@ -78,7 +78,7 @@
   
   ;; Use online dictionary
   (dictionary-server "dict.org")
-  
+
   ;; Enable indentation+completion using the TAB key
   (tab-always-indent 'complete)
   ;; TAB cycle if there are only few candidates
@@ -170,6 +170,12 @@
             "'" 'insert-pair
             "`" 'insert-pair
             ))
+
+;; Enable Kagi search with Webjump
+(use-package webjump
+  :config
+  (add-to-list 'webjump-sites '("Kagi search" . [simple-query "kagi.com" "kagi.com/search?q=" ""]))
+  )
 
 (use-package markdown-mode
     :hook
@@ -337,7 +343,7 @@
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
   :config (pdf-loader-install)
   )
-    
+
 ;; Email
 
 ;; OS-specific paths to mu4e
