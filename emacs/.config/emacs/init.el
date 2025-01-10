@@ -263,6 +263,21 @@
   ("C-c h" 'helpful-at-point)
   )
 
+(use-package typst-ts-mode
+  :if (version<= "30" emacs-version)
+  :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
+  )
+
+;; Smooth scrolling
+(use-package ultra-scroll
+  :vc (:url "https://github.com/jdtsmith/ultra-scroll")
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0) 
+  :config
+  (ultra-scroll-mode 1))
+
+
 ;; Weather forecasts
 (use-package biome
   :config
