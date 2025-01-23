@@ -1192,12 +1192,8 @@
     :key gptel-api-key
     :endpoint "/chat/completions"
     :stream t
-    :models '(;; has many more, check perplexity.ai
-              llama-3.1-sonar-small-128k-online
-              llama-3.1-sonar-large-128k-online
-              llama-3.1-sonar-huge-128k-online
-              llama-3.1-sonar-small-128k-chat
-              llama-3.1-sonar-large-128k-chat))
+    :models '(sonar-pro
+              sonar))
   (gptel-make-openai "Groq"
     :host "api.groq.com"
     :endpoint "/openai/v1/chat/completions"
