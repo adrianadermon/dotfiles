@@ -1065,6 +1065,44 @@
   ;; `(("Literature notes" ?l ,(denote-directory))))
   )
 
+;;;; Denote-explore
+(use-package denote-explore
+  :general
+  (:prefix "C-c n e"
+           "" '(:ignore t :which-key "Explore")
+           ;; Visualise denote
+           "n" 'denote-explore-network
+           "r" 'denote-explore-network-regenerate
+           "d" 'denote-explore-barchart-degree
+           "b" 'denote-explore-barchart-backlinks)
+  ;; Statistics
+  (:prefix "C-c n e s"
+           "" '(:ignore t :which-key "Statistics")
+           "n" 'denote-explore-count-notes
+           "k" 'denote-explore-count-keywords
+           "e" 'denote-explore-barchart-filetypes
+           "w" 'denote-explore-barchart-keywords
+           "t" 'denote-explore-barchart-timeline)
+  ;; Random walks
+  (:prefix "C-c n e w"
+           "" '(:ignore t :which-key "Random")
+           "n" 'denote-explore-random-note
+           "r" 'denote-explore-random-regex
+           "l" 'denote-explore-random-link
+           "k" 'denote-explore-random-keyword)
+  ;; Denote Janitor
+  (:prefix "C-c n e j"
+           "" '(:ignore t :which-key "Janitor")
+           "d" 'denote-explore-duplicate-notes
+           "D" 'denote-explore-duplicate-notes-dired
+           "l" 'denote-explore-dead-links
+           "z" 'denote-explore-zero-keywords
+           "s" 'denote-explore-single-keywords
+           "r" 'denote-explore-rename-keywords
+           "y" 'denote-explore-sync-metadata
+           "i" 'denote-explore-isolated-files)
+  )
+
 ;;; LaTeX
 (use-package tex
   :ensure auctex
