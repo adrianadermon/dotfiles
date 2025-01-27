@@ -1361,6 +1361,10 @@
                    (:elements
                     (query . (and news sweden))))
             ))
+    (group (:title . "Fashion")
+           (:elements
+            (query . fashion)
+            ))
     )
     :hook
     (elfeed-summary-mode . my-text-remap-mode)
