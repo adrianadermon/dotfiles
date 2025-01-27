@@ -140,6 +140,8 @@
    `(ansi-color-bright-black ((,class :foreground ,light_black :background ,light_black)))
    `(match ((,class :background ,light_yellow)))
    `(visual-replace-delete-match ((,class :foreground ,light_black  :background ,light_red)))
+   `(dictionary-word-definition-face ((,class :family "Berkeley Mono")))
+   `(dictionary-reference-face ((,class :foreground ,dark_blue)))
    ))
 
 (provide-theme 'plain)

@@ -78,7 +78,7 @@
   
   ;; Use online dictionary
   (dictionary-server "dict.org")
-  
+
   ;; Enable indentation+completion using the TAB key
   (tab-always-indent 'complete)
   ;; TAB cycle if there are only few candidates
@@ -170,6 +170,12 @@
             "'" 'insert-pair
             "`" 'insert-pair
             ))
+
+;; Enable Kagi search with Webjump
+(use-package webjump
+  :config
+  (add-to-list 'webjump-sites '("Kagi search" . [simple-query "kagi.com" "kagi.com/search?q=" ""]))
+  )
 
 (use-package markdown-mode
     :hook
@@ -263,6 +269,21 @@
   ("C-c h" 'helpful-at-point)
   )
 
+(use-package typst-ts-mode
+  :if (version<= "30" emacs-version)
+  :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
+  )
+
+;; Smooth scrolling
+(use-package ultra-scroll
+  :vc (:url "https://github.com/jdtsmith/ultra-scroll")
+  :init
+  (setq scroll-conservatively 101 ; important!
+        scroll-margin 0) 
+  :config
+  (ultra-scroll-mode 1))
+
+
 ;; Weather forecasts
 (use-package biome
   :config
@@ -322,7 +343,7 @@
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
   :config (pdf-loader-install)
   )
-    
+
 ;; Email
 
 ;; OS-specific paths to mu4e
@@ -1044,6 +1065,44 @@
   ;; `(("Literature notes" ?l ,(denote-directory))))
   )
 
+;;;; Denote-explore
+(use-package denote-explore
+  :general
+  (:prefix "C-c n e"
+           "" '(:ignore t :which-key "Explore")
+           ;; Visualise denote
+           "n" 'denote-explore-network
+           "r" 'denote-explore-network-regenerate
+           "d" 'denote-explore-barchart-degree
+           "b" 'denote-explore-barchart-backlinks)
+  ;; Statistics
+  (:prefix "C-c n e s"
+           "" '(:ignore t :which-key "Statistics")
+           "n" 'denote-explore-count-notes
+           "k" 'denote-explore-count-keywords
+           "e" 'denote-explore-barchart-filetypes
+           "w" 'denote-explore-barchart-keywords
+           "t" 'denote-explore-barchart-timeline)
+  ;; Random walks
+  (:prefix "C-c n e w"
+           "" '(:ignore t :which-key "Random")
+           "n" 'denote-explore-random-note
+           "r" 'denote-explore-random-regex
+           "l" 'denote-explore-random-link
+           "k" 'denote-explore-random-keyword)
+  ;; Denote Janitor
+  (:prefix "C-c n e j"
+           "" '(:ignore t :which-key "Janitor")
+           "d" 'denote-explore-duplicate-notes
+           "D" 'denote-explore-duplicate-notes-dired
+           "l" 'denote-explore-dead-links
+           "z" 'denote-explore-zero-keywords
+           "s" 'denote-explore-single-keywords
+           "r" 'denote-explore-rename-keywords
+           "y" 'denote-explore-sync-metadata
+           "i" 'denote-explore-isolated-files)
+  )
+
 ;;; LaTeX
 (use-package tex
   :ensure auctex
@@ -1171,12 +1230,8 @@
     :key gptel-api-key
     :endpoint "/chat/completions"
     :stream t
-    :models '(;; has many more, check perplexity.ai
-              llama-3.1-sonar-small-128k-online
-              llama-3.1-sonar-large-128k-online
-              llama-3.1-sonar-huge-128k-online
-              llama-3.1-sonar-small-128k-chat
-              llama-3.1-sonar-large-128k-chat))
+    :models '(sonar-pro
+              sonar))
   (gptel-make-openai "Groq"
     :host "api.groq.com"
     :endpoint "/openai/v1/chat/completions"
@@ -1305,6 +1360,10 @@
             (group (:title . "Sweden")
                    (:elements
                     (query . (and news sweden))))
+            ))
+    (group (:title . "Fashion")
+           (:elements
+            (query . fashion)
             ))
     )
     :hook
