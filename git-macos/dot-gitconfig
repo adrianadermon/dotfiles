@@ -1,10 +1,10 @@
 [user]
 	name = adrianadermon
 	email = adrian.adermon@gmail.com
+[credential "https://git.overleaf.com"]
+	provider = generic
 [credential]
 	helper = 
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
-[credential "https://git.overleaf.com"]
-	provider = generic

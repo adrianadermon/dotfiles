@@ -19,7 +19,7 @@
 ;; Set font
 (if (eq system-type 'darwin)
     (add-to-list 'default-frame-alist
-                 '(font . "PragmataPro Mono-16")) ; MacOS
+                 '(font . "PragmataPro Mono-18")) ; MacOS
     ;; (add-to-list 'default-frame-alist
     ;;              '(font . "Berkeley Mono-16")) ; MacOS
     (add-to-list 'default-frame-alist
