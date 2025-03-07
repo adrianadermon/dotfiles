@@ -6,10 +6,6 @@
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-(package-initialize)
-
-(eval-when-compile
-  (require 'use-package))
 
 ;; Hide warnings from byte compiler
 (add-to-list 'display-buffer-alist
@@ -26,6 +22,230 @@
 ;;; Install packages automatically
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
+
+;;; Meow
+(use-package meow
+:ensure t
+  :demand t
+  :custom
+  (meow-keypad-leader-dispatch "C-c")
+  (meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
+  (meow-char-thing-table
+   '((?\( . round)
+     (?\) . round)
+     (?\[ . square)
+     (?\] . square)
+     (?{ . curly)
+     (?} . curly)
+     (?s . string)
+     (?e . symbol)
+     (?w . window)
+     (?b . buffer)
+     (?p . paragraph)
+     (?l . line)
+     (?v . visual-line)
+     (?f . defun)
+     (?. . sentence)))
+  (meow-expand-exclude-mode-list nil)
+  :config
+  (add-to-list 'meow-mode-state-list '(mu4e-main-mode . insert)) ; Open Mu4e in insert mode
+  (add-to-list 'meow-mode-state-list '(mu4e-view-mode . motion))
+  (add-to-list 'meow-mode-state-list '(notmuch-hello-mode . motion))
+  (add-to-list 'meow-mode-state-list '(notmuch-search-mode . motion))
+  (add-to-list 'meow-mode-state-list '(notmuch-tree-mode . motion))
+  (add-to-list 'meow-mode-state-list '(notmuch-show-mode . motion))
+  (defun neg-meow-find ()
+    (interactive)
+    (let ((current-prefix-arg -1))
+      (call-interactively 'meow-find)))
+  (defun neg-meow-till ()
+    (interactive)
+    (let ((current-prefix-arg -1))
+      (call-interactively 'meow-till)))
+  (meow-motion-overwrite-define-key
+   '("j" . meow-next)
+   '("k" . meow-prev)
+   '("<escape>" . ignore))
+  (meow-leader-define-key
+   ;; SPC j/k will run the original command in MOTION state.
+   '("j" . "H-j")
+   '("k" . "H-k")
+   ;; Use SPC (0-9) for digit arguments.
+   '("1" . meow-digit-argument)
+   '("2" . meow-digit-argument)
+   '("3" . meow-digit-argument)
+   '("4" . meow-digit-argument)
+   '("5" . meow-digit-argument)
+   '("6" . meow-digit-argument)
+   '("7" . meow-digit-argument)
+   '("8" . meow-digit-argument)
+   '("9" . meow-digit-argument)
+   '("0" . meow-digit-argument)
+   '("/" . meow-keypad-describe-key)
+   '("?" . meow-cheatsheet))
+  (meow-normal-define-key
+   '("0" . meow-expand-0)
+   '("9" . meow-expand-9)
+   '("8" . meow-expand-8)
+   '("7" . meow-expand-7)
+   '("6" . meow-expand-6)
+   '("5" . meow-expand-5)
+   '("4" . meow-expand-4)
+   '("3" . meow-expand-3)
+   '("2" . meow-expand-2)
+   '("1" . meow-expand-1)
+   '("-" . negative-argument)
+   '(";" . meow-reverse)
+   '("," . meow-inner-of-thing)
+   '("." . meow-bounds-of-thing)
+   '("[" . meow-beginning-of-thing)
+   '("]" . meow-end-of-thing)
+   '("a" . meow-append)
+   '("A" . meow-open-below)
+   '("b" . meow-back-word)
+   '("B" . meow-back-symbol)
+   '("c" . meow-change)
+   '("d" . meow-delete)
+   '("D" . meow-backward-delete)
+   '("e" . meow-next-word)
+   '("E" . meow-next-symbol)
+   '("f" . meow-find)
+   '("F" . neg-meow-find)
+   '("g" . meow-cancel-selection)
+   '("G" . meow-grab)
+   '("h" . meow-left)
+   '("H" . meow-left-expand)
+   '("i" . meow-insert)
+   '("I" . meow-open-above)
+   '("j" . meow-next)
+   '("J" . meow-next-expand)
+   '("k" . meow-prev)
+   '("K" . meow-prev-expand)
+   '("l" . meow-right)
+   '("L" . meow-right-expand)
+   '("m" . meow-join)
+   '("n" . meow-search)
+   '("o" . meow-block)
+   '("O" . meow-to-block)
+   '("p" . meow-yank)
+   '("q" . meow-quit)
+   '("Q" . meow-goto-line)
+   '("r" . meow-replace)
+   '("R" . meow-swap-grab)
+   '("s" . meow-kill)
+   '("t" . meow-till)
+   '("T" . neg-meow-till)
+   '("u" . meow-undo)
+   '("U" . meow-undo-in-selection)
+   '("v" . meow-visit)
+   '("w" . meow-mark-word)
+   '("W" . meow-mark-symbol)
+   '("x" . meow-line)
+   '("X" . meow-goto-line)
+   '("y" . meow-save)
+   '("Y" . meow-sync-grab)
+   '("z" . meow-pop-selection)
+   '("'" . repeat)
+   '("<escape>" . ignore)
+   '("}" . forward-sentence)
+   '("{" . backward-sentence)
+   '(">" . forward-paragraph)
+   '("<" . backward-paragraph)
+   '(":" . find-file)
+   '("\"" . consult-buffer)
+   '("=" . move-to-window-line-top-bottom)
+   '("+" . recenter-top-bottom)
+   '("`" . previous-buffer)
+   '("~" . next-buffer)
+   '("P" . meow-clipboard-yank)
+   '("S" . meow-clipboard-save))
+  (when window-system
+    (define-key input-decode-map (kbd "C-[") [control-bracketleft])
+    (define-key meow-insert-state-keymap [control-bracketleft] 'meow-insert-exit))
+  (meow-global-mode 1)
+  :hook
+  (meow-insert-exit . corfu-quit)
+  (meow-insert-exit . tempel-done)
+  )
+
+;;; General
+(use-package general)
+
+;;; Org mode
+(use-package org
+  :demand t
+  :general
+  ("C-c l" 'org-store-link)
+  ("C-c a" 'org-agenda)
+  ("C-c c" 'org-capture)
+  :custom
+  (org-special-ctrl-a/e t)
+  (org-startup-indented t)
+  (org-directory '("~/Dropbox/org/"))
+  (org-agenda-files '("~/Dropbox/org/"))
+  (org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Blandat")
+         "* TODO %?\n  %i\n")))
+  (org-refile-targets '((org-agenda-files . (:maxlevel . 2))))
+  (org-refile-use-outline-path 'file)
+  (org-outline-path-complete-in-steps nil)
+  (org-list-allow-alphabetical t)
+  (org-hide-emphasis-markers t)
+  (org-log-into-drawer t)
+  (org-use-property-inheritance '("EXPORT_OPTIONS"))
+  (org-confirm-babel-evaluate nil)
+  (org-latex-src-block-backend 'engraved) ; Syntax highlighting of code blocks in exports
+  (org-fontify-todo-headline nil)
+  (org-fontify-done-headline nil)
+  (org-agenda-include-diary t)
+  :config
+  (add-to-list 'org-modules 'org-habit t)
+  (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+  (setq org-format-latex-header (concat org-format-latex-header ; Code for Org LaTeX preview
+                                   "\n\\DeclareMathOperator{\\E}{E}
+                                    \\DeclareMathOperator{\\Corr}{Corr}
+                                    \\DeclareMathOperator{\\Cov}{Cov}
+                                    \\DeclareMathOperator{\\Var}{Var}
+                                    \\DeclareMathOperator*{\\argmin}{arg\\,min}
+                                    \\DeclareMathOperator{\\plim}{plim}"))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)        ; Enable R for Babel
+     (python . t)   ; Enable Python for Babel
+     (julia . t)    ; Enable Julia for Babel
+     (dot . t)))    ; Enable Graphviz DOT for Babel
+  (setq org-babel-R-command "C:/Progra~1/R/R-4.3.3/bin/x64/R --slave --no-save") ; R path
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-todo-ignore-deadlines t)
+  (setq org-agenda-todo-ignore-scheduled t)
+  :hook
+  ;; (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
+  ((org-mode org-agenda-mode) . my-text-remap-mode) ; Use text mode font
+  (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
+  )
+
+;; Syntax highlighting of code blocks in org exports
+(use-package engrave-faces)
+
+(use-package graphviz-dot-mode)
+
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+
+(use-package org-super-agenda
+  :hook (org-mode . org-super-agenda-mode)
+  :custom
+  (org-super-agenda-groups
+   '((:name "Important"
+            :priority "A"))     
+   )
+  )
+
+
+
+
 
 ;;; Which-key
 (use-package which-key
@@ -64,10 +284,9 @@
   :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
   )
 
-;;; General
-(use-package general)
 
 (use-package emacs
+  :ensure nil
   :custom
   ;;; Basic setup
   (user-full-name "Adrian Adermon")
@@ -173,6 +392,7 @@
 
 ;; Enable Kagi search with Webjump
 (use-package webjump
+  :ensure nil
   :config
   (add-to-list 'webjump-sites '("Kagi search" . [simple-query "kagi.com" "kagi.com/search?q=" ""]))
   )
@@ -221,13 +441,15 @@
 
 ;; Regexp builder
 (use-package re-builder
+  :ensure nil
   :defer t)
 
 ;; Vterm
 ;; Install cmake, libvterm
-(use-package vterm
-  :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
-  )
+;; PROBLEM: doesn't find cmake, even though it's installed and in path
+;; (use-package vterm
+;;   :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
+;;   )
 
 ;; Transient menus
 (use-package casual
@@ -267,11 +489,6 @@
   ("C-h k" 'helpful-key)
   ("C-h x" 'helpful-command)
   ("C-c h" 'helpful-at-point)
-  )
-
-(use-package typst-ts-mode
-  :if (version<= "30" emacs-version)
-  :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
   )
 
 ;; Smooth scrolling
@@ -421,6 +638,30 @@
   ;; (mu4e-compose-mode . my-text-remap-mode)
   )
 
+(use-package mu4e-transient
+  :ensure nil
+  :general
+  ("C-o" 'mu4e-transient-menu)
+)
+
+
+(use-package consult-mu
+  :vc (:url "https://github.com/armindarvish/consult-mu"
+            :rev :newest)
+  :after (mu4e consult)
+  :custom
+  ;;maximum number of results shown in minibuffer
+  (consult-mu-maxnum 200)
+  ;;show preview when pressing any keys
+  (consult-mu-preview-key 'any)
+  ;;do not mark email as read when previewed
+  (consult-mu-mark-previewed-as-read nil)
+  ;;do not amrk email as read when selected. This is a good starting point to ensure you would not miss important emails marked as read by mistake especially when trying this package out. Later you can change this to t.
+  (consult-mu-mark-viewed-as-read nil)
+  ;; open the message in mu4e-view-buffer when selected.
+  (consult-mu-action #'consult-mu--view-action)
+  )
+
 (use-package notmuch
   :ensure nil
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
@@ -429,6 +670,10 @@
   :hook ; Use text mode font
   ((notmuch-hello-mode notmuch-tree-mode notmuch-tree-outline-mode notmuch-show-mode notmuch-search-mode notmuch-message-mode) . my-text-remap-mode)
   )
+
+(use-package consult-notmuch
+  :vc (:url "https://codeberg.org/jao/consult-notmuch")
+  :after (mu4e consult))
 
 ;; Spell-checker
 (use-package jinx
@@ -441,148 +686,12 @@
 
 
 ;;; Version control
-(use-package magit
-  :defer t)
+(use-package transient)
 
-;;; Meow
-(use-package meow
-  :demand t
-  :custom
-  (meow-keypad-leader-dispatch "C-c")
-  (meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
-  (meow-char-thing-table
-   '((?\( . round)
-     (?\) . round)
-     (?\[ . square)
-     (?\] . square)
-     (?{ . curly)
-     (?} . curly)
-     (?s . string)
-     (?e . symbol)
-     (?w . window)
-     (?b . buffer)
-     (?p . paragraph)
-     (?l . line)
-     (?v . visual-line)
-     (?f . defun)
-     (?. . sentence)))
-  (meow-expand-exclude-mode-list nil)
-  :config
-  (add-to-list 'meow-mode-state-list '(mu4e-main-mode . insert)) ; Open Mu4e in insert mode
-  (add-to-list 'meow-mode-state-list '(mu4e-view-mode . motion))
-  (defun neg-meow-find ()
-    (interactive)
-    (let ((current-prefix-arg -1))
-      (call-interactively 'meow-find)))
-  (defun neg-meow-till ()
-    (interactive)
-    (let ((current-prefix-arg -1))
-      (call-interactively 'meow-till)))
-  (meow-motion-overwrite-define-key
-   '("j" . meow-next)
-   '("k" . meow-prev)
-   '("<escape>" . ignore))
-  (meow-leader-define-key
-   ;; SPC j/k will run the original command in MOTION state.
-   '("j" . "H-j")
-   '("k" . "H-k")
-   ;; Use SPC (0-9) for digit arguments.
-   '("1" . meow-digit-argument)
-   '("2" . meow-digit-argument)
-   '("3" . meow-digit-argument)
-   '("4" . meow-digit-argument)
-   '("5" . meow-digit-argument)
-   '("6" . meow-digit-argument)
-   '("7" . meow-digit-argument)
-   '("8" . meow-digit-argument)
-   '("9" . meow-digit-argument)
-   '("0" . meow-digit-argument)
-   '("/" . meow-keypad-describe-key)
-   '("?" . meow-cheatsheet))
-  (meow-normal-define-key
-   '("0" . meow-expand-0)
-   '("9" . meow-expand-9)
-   '("8" . meow-expand-8)
-   '("7" . meow-expand-7)
-   '("6" . meow-expand-6)
-   '("5" . meow-expand-5)
-   '("4" . meow-expand-4)
-   '("3" . meow-expand-3)
-   '("2" . meow-expand-2)
-   '("1" . meow-expand-1)
-   '("-" . negative-argument)
-   '(";" . meow-reverse)
-   '("," . meow-inner-of-thing)
-   '("." . meow-bounds-of-thing)
-   '("[" . meow-beginning-of-thing)
-   '("]" . meow-end-of-thing)
-   '("a" . meow-append)
-   '("A" . meow-open-below)
-   '("b" . meow-back-word)
-   '("B" . meow-back-symbol)
-   '("c" . meow-change)
-   '("d" . meow-delete)
-   '("D" . meow-backward-delete)
-   '("e" . meow-next-word)
-   '("E" . meow-next-symbol)
-   '("f" . meow-find)
-   '("F" . neg-meow-find)
-   '("g" . meow-cancel-selection)
-   '("G" . meow-grab)
-   '("h" . meow-left)
-   '("H" . meow-left-expand)
-   '("i" . meow-insert)
-   '("I" . meow-open-above)
-   '("j" . meow-next)
-   '("J" . meow-next-expand)
-   '("k" . meow-prev)
-   '("K" . meow-prev-expand)
-   '("l" . meow-right)
-   '("L" . meow-right-expand)
-   '("m" . meow-join)
-   '("n" . meow-search)
-   '("o" . meow-block)
-   '("O" . meow-to-block)
-   '("p" . meow-yank)
-   '("q" . meow-quit)
-   '("Q" . meow-goto-line)
-   '("r" . meow-replace)
-   '("R" . meow-swap-grab)
-   '("s" . meow-kill)
-   '("t" . meow-till)
-   '("T" . neg-meow-till)
-   '("u" . meow-undo)
-   '("U" . meow-undo-in-selection)
-   '("v" . meow-visit)
-   '("w" . meow-mark-word)
-   '("W" . meow-mark-symbol)
-   '("x" . meow-line)
-   '("X" . meow-goto-line)
-   '("y" . meow-save)
-   '("Y" . meow-sync-grab)
-   '("z" . meow-pop-selection)
-   '("'" . repeat)
-   '("<escape>" . ignore)
-   '("}" . forward-sentence)
-   '("{" . backward-sentence)
-   '(">" . forward-paragraph)
-   '("<" . backward-paragraph)
-   '(":" . find-file)
-   '("\"" . consult-buffer)
-   '("=" . move-to-window-line-top-bottom)
-   '("+" . recenter-top-bottom)
-   '("`" . previous-buffer)
-   '("~" . next-buffer)
-   '("P" . meow-clipboard-yank)
-   '("S" . meow-clipboard-save))
-  (when window-system
-    (define-key input-decode-map (kbd "C-[") [control-bracketleft])
-    (define-key meow-insert-state-keymap [control-bracketleft] 'meow-insert-exit))
-  (meow-global-mode 1)
-  :hook
-  (meow-insert-exit . corfu-quit)
-  (meow-insert-exit . tempel-done)
-  )
+(use-package magit
+  :after transient)
+
+
 
 ;;; Completion setup
 
@@ -731,6 +840,7 @@
 
 ;; Use Dabbrev with Corfu!
 (use-package dabbrev
+  :ensure nil
   ;; Swap M-/ and C-M-/
   :general
   ("M-/" 'dabbrev-completion)
@@ -826,14 +936,18 @@
   (add-to-list 'eglot-server-programs
                '(LaTeX-mode . ("texlab")))
   (add-to-list 'eglot-server-programs
-               '(python-ts-mode . ("pylsp")))
+               '(python-ts-mode . ("pylsp" :initializationOptions
+                                   (:pylsp (:plugins (:ruff (:enabled t
+                                                                      :formatEnabled t
+                                                                      )))))))
   (add-to-list 'eglot-server-programs
                '(julia-mode . ("julia" "-e using LanguageServer; runserver()")))
   (add-to-list 'eglot-server-programs
                '(typst-ts-mode . ("tinymist")))
   ;; (add-to-list 'eglot-stay-out-of 'flymake) ; Prevent Eglot from taking over Flymake
-  ;; (setq-default eglot-workspace-configuration ; Use typstyle formatter for tinymist LSP
-  ;;               '(:formatterMode "typstyle")) ; Doesn't work, don't know why 
+  (setq-default eglot-workspace-configuration ; Use typstyle formatter for tinymist LSP
+                '(:formatterMode "typstyle"
+                                 :exportPdf "onSave"))
   :general
   ("C-c e e" 'eglot)
   (:prefix "C-c e"
@@ -926,78 +1040,6 @@
            "f" 'citar-denote-find-citation
            "n" 'citar-denote-find-nocite)
 )
-
-;;; Org mode
-(use-package org
-  :demand t
-  :general
-  ("C-c l" 'org-store-link)
-  ("C-c a" 'org-agenda)
-  ("C-c c" 'org-capture)
-  :custom
-  (org-special-ctrl-a/e t)
-  (org-startup-indented t)
-  (org-directory '("~/Dropbox/org/"))
-  (org-agenda-files '("~/Dropbox/org/"))
-  (org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Blandat")
-         "* TODO %?\n  %i\n")))
-  (org-refile-targets '((org-agenda-files . (:maxlevel . 2))))
-  (org-refile-use-outline-path 'file)
-  (org-outline-path-complete-in-steps nil)
-  (org-list-allow-alphabetical t)
-  (org-hide-emphasis-markers t)
-  (org-log-into-drawer t)
-  (org-use-property-inheritance '("EXPORT_OPTIONS"))
-  (org-confirm-babel-evaluate nil)
-  (org-latex-src-block-backend 'engraved) ; Syntax highlighting of code blocks in exports
-  (org-fontify-todo-headline nil)
-  (org-fontify-done-headline nil)
-  (org-agenda-include-diary t)
-  :config
-  (add-to-list 'org-modules 'org-habit t)
-  (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
-  (setq org-format-latex-header (concat org-format-latex-header ; Code for Org LaTeX preview
-                                   "\n\\DeclareMathOperator{\\E}{E}
-                                    \\DeclareMathOperator{\\Corr}{Corr}
-                                    \\DeclareMathOperator{\\Cov}{Cov}
-                                    \\DeclareMathOperator{\\Var}{Var}
-                                    \\DeclareMathOperator*{\\argmin}{arg\\,min}
-                                    \\DeclareMathOperator{\\plim}{plim}"))
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)        ; Enable R for Babel
-     (python . t)   ; Enable Python for Babel
-     (julia . t)    ; Enable Julia for Babel
-     (dot . t)))    ; Enable Graphviz DOT for Babel
-  (setq org-babel-R-command "C:/Progra~1/R/R-4.3.3/bin/x64/R --slave --no-save") ; R path
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-skip-deadline-if-done t)
-  (setq org-agenda-todo-ignore-deadlines t)
-  (setq org-agenda-todo-ignore-scheduled t)
-  :hook
-  ;; (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
-  ((org-mode org-agenda-mode) . my-text-remap-mode) ; Use text mode font
-  (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
-  )
-
-;; Syntax highlighting of code blocks in org exports
-(use-package engrave-faces)
-
-(use-package graphviz-dot-mode)
-
-(use-package org-appear
-  :hook (org-mode . org-appear-mode))
-
-(use-package org-super-agenda
-  :hook (org-mode . org-super-agenda-mode)
-  :custom
-  (org-super-agenda-groups
-   '((:name "Important"
-            :priority "A"))     
-   )
-  )
 
 ;;; Notes
 ;;;; Denote
@@ -1119,8 +1161,8 @@
   (add-to-list 'TeX-view-program-selection '(output-pdf "SumatraPDF"))
   (add-to-list 'TeX-view-program-selection '(output-pdf "PDF Tools"))
   :hook
-  (LaTeX-mode . turn-on-reftex)
   (LaTeX-mode . turn-on-cdlatex)
+  (LaTeX-mode . turn-on-reftex)
   (LaTeX-mode . my-text-remap-mode) ; Use text mode font
   )
 
@@ -1173,6 +1215,7 @@
   )
 
 ;; Rmarkdown, Shiny etc
+(use-package polymode)
 (use-package poly-R)
 
 ;;; Julia
@@ -1189,15 +1232,15 @@
 
 ;; Typst
 (use-package typst-ts-mode
-  :if (version<= "30" emacs-version)
   :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
   )
 
 ;;; Python
 (use-package python
+  :ensure nil
   :custom
-  (python-shell-interpreter "python")
-  (python-shell-interpreter-args "-i")
+  (python-shell-interpreter "ipython")
+  (python-shell-interpreter-args "--simple-prompt")
   )
 
 ;; Handle virtual environments
@@ -1411,6 +1454,7 @@
 ;;; Calendar
 
 (use-package calendar
+  :ensure nil
   :custom
   (calendar-week-start-day 1) ; Start week on Monday
   (calendar-date-style 'european)
@@ -1455,20 +1499,33 @@
 ;; Don't load it
 ;; (load custom-file)
 
+;; (custom-set-variables
+;;  ;; custom-set-variables was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(package-vc-selected-packages
+;;    '((ultra-scroll :url "https://github.com/jdtsmith/ultra-scroll"))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  )
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-vc-selected-packages
-   '((ultra-scroll :url "https://github.com/jdtsmith/ultra-scroll"))))
+   '((consult-mu :url "https://github.com/armindarvish/consult-mu"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-;; Local Variables:
-;; outline-regexp: ";;; \\|;;;; "
-;; eval: (outline-minor-mode)
-;; End:
+;; ;; Local Variables:
+;; ;; outline-regexp: ";;; \\|;;;; "
+;; ;; eval: (outline-minor-mode)
+;; ;; End:

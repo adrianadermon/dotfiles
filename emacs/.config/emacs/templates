@@ -170,6 +170,15 @@ org-mode
  ":END:"
  )
 
+html-mode
+
+(p "<p>" r> "</p>")
+(div "<div>" n> r> n "</div>")
+(a "<a href=\"" p "\">" p "</a>")
+(h "<h" (s lvl) ">" r "</h" (s lvl) ">")
+(sp "<span>" r> "</span")
+(em "<em>" r> "</em")
+(st "<strong>" r> "</strong>")
 
 ;; Local Variables:
 ;; mode: lisp-data
