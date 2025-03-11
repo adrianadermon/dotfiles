@@ -1040,8 +1040,6 @@
    )
   )
 
-=======
->>>>>>> 84c6da0b6fd70afb6d2b6e5b4192a83023a6e148
 ;;; Notes
 ;;;; Denote
 (use-package denote
