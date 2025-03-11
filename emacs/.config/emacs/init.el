@@ -954,6 +954,8 @@
   (org-fontify-todo-headline nil)
   (org-fontify-done-headline nil)
   (org-agenda-include-diary t)
+  (org-agenda-start-on-weekday nil) ; Start week view from current day
+  (org-agenda-start-day "+0d")
   :config
   (add-to-list 'org-modules 'org-habit t)
   (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
