@@ -149,6 +149,15 @@
    `(visual-replace-delete-match ((t :foreground ,light-black  :background ,light-red)))
    `(dictionary-word-definition-face ((t :family "Berkeley Mono")))
    `(dictionary-reference-face ((t :foreground ,dark-blue)))
+   ;; Transient
+   `(transient-key-exit ((t :foreground ,dark-red :inherit transient-key)))
+   `(transient-key-recurse ((t :foreground ,dark-blue :inherit transient-key)))
+   `(transient-key-stay ((t :foreground ,dark-green :inherit transient-key)))
+   `(transient-key-return ((t :foreground ,dark-yellow :inherit transient-key)))
+   ;; `(transient-key-noop ((t :foreground ,dark-blue :inherit transient-key)))
+   ;; `(transient-key-stack ((t :foreground ,dark-blue :inherit transient-key)))
+   ;; `(transient-enabled-suffix ((t :foreground ,dark-blue)))
+   ;; `(transient-disabled-suffix ((t :foreground ,dark-blue)))
    ))
 
 (provide-theme 'plain)
