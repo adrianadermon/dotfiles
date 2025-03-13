@@ -54,6 +54,7 @@
   (add-to-list 'meow-mode-state-list '(notmuch-search-mode . motion))
   (add-to-list 'meow-mode-state-list '(notmuch-tree-mode . motion))
   (add-to-list 'meow-mode-state-list '(notmuch-show-mode . motion))
+  (add-to-list 'meow-mode-state-list '(chatgpt-shell-prompt-compose-mode . insert))
   (defun neg-meow-find ()
     (interactive)
     (let ((current-prefix-arg -1))
@@ -752,7 +753,7 @@
   :demand t
   :hook
   (after-init . global-corfu-mode)
-  (after-init . corfu-popupinfo-mode))
+  (after-init . corfu-popupinfo-mode)
   :init
 (defun corfu-enable-in-minibuffer ()
   "Enable Corfu in the minibuffer if `completion-at-point' is bound."
@@ -761,7 +762,7 @@
     (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
                 corfu-popupinfo-delay nil)
     (corfu-mode 1)))
-(add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+(add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
 
 ;; Use Dabbrev with Corfu!
 (use-package dabbrev
@@ -1324,6 +1325,19 @@
 ;; machine api.perplexity.ai login apikey password ***
 ;; machine api.groq.com login apikey password ***
 
+(use-package chatgpt-shell
+  :custom
+  (chatgpt-shell-openai-key
+   (auth-source-pick-first-password :host "api.openai.com"))
+  (chatgpt-shell-anthropic-key
+   (auth-source-pick-first-password :host "api.anthropic.com"))
+  (chatgpt-shell-google-key
+   (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
+  (chatgpt-shell-kagi-key
+   (auth-source-pick-first-password :host "kagi.com"))
+  (chatgpt-shell-perplexity-key
+   (auth-source-pick-first-password :host "api.perplexity.ai"))
+  )
 
 ;;; RSS
 (use-package elfeed
