@@ -54,6 +54,7 @@
   (add-to-list 'meow-mode-state-list '(notmuch-search-mode . motion))
   (add-to-list 'meow-mode-state-list '(notmuch-tree-mode . motion))
   (add-to-list 'meow-mode-state-list '(notmuch-show-mode . motion))
+  (add-to-list 'meow-mode-state-list '(chatgpt-shell-prompt-compose-mode . insert))
   (defun neg-meow-find ()
     (interactive)
     (let ((current-prefix-arg -1))
@@ -170,81 +171,6 @@
 
 ;;; General
 (use-package general)
-
-;;; Org mode
-(use-package org
-  :demand t
-  :general
-  ("C-c l" 'org-store-link)
-  ("C-c a" 'org-agenda)
-  ("C-c c" 'org-capture)
-  :custom
-  (org-special-ctrl-a/e t)
-  (org-startup-indented t)
-  (org-directory '("~/Dropbox/org/"))
-  (org-agenda-files '("~/Dropbox/org/"))
-  (org-capture-templates
-      '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Blandat")
-         "* TODO %?\n  %i\n")))
-  (org-refile-targets '((org-agenda-files . (:maxlevel . 2))))
-  (org-refile-use-outline-path 'file)
-  (org-outline-path-complete-in-steps nil)
-  (org-list-allow-alphabetical t)
-  (org-hide-emphasis-markers t)
-  (org-log-into-drawer t)
-  (org-use-property-inheritance '("EXPORT_OPTIONS"))
-  (org-confirm-babel-evaluate nil)
-  (org-latex-src-block-backend 'engraved) ; Syntax highlighting of code blocks in exports
-  (org-fontify-todo-headline nil)
-  (org-fontify-done-headline nil)
-  (org-agenda-include-diary t)
-  :config
-  (add-to-list 'org-modules 'org-habit t)
-  (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
-  (setq org-format-latex-header (concat org-format-latex-header ; Code for Org LaTeX preview
-                                   "\n\\DeclareMathOperator{\\E}{E}
-                                    \\DeclareMathOperator{\\Corr}{Corr}
-                                    \\DeclareMathOperator{\\Cov}{Cov}
-                                    \\DeclareMathOperator{\\Var}{Var}
-                                    \\DeclareMathOperator*{\\argmin}{arg\\,min}
-                                    \\DeclareMathOperator{\\plim}{plim}"))
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   '((R . t)        ; Enable R for Babel
-     (python . t)   ; Enable Python for Babel
-     (julia . t)    ; Enable Julia for Babel
-     (dot . t)))    ; Enable Graphviz DOT for Babel
-  (setq org-babel-R-command "C:/Progra~1/R/R-4.3.3/bin/x64/R --slave --no-save") ; R path
-  (setq org-agenda-skip-scheduled-if-done t)
-  (setq org-agenda-skip-deadline-if-done t)
-  (setq org-agenda-todo-ignore-deadlines t)
-  (setq org-agenda-todo-ignore-scheduled t)
-  :hook
-  ;; (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
-  ((org-mode org-agenda-mode) . my-text-remap-mode) ; Use text mode font
-  (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
-  )
-
-;; Syntax highlighting of code blocks in org exports
-(use-package engrave-faces)
-
-(use-package graphviz-dot-mode)
-
-(use-package org-appear
-  :hook (org-mode . org-appear-mode))
-
-(use-package org-super-agenda
-  :hook (org-mode . org-super-agenda-mode)
-  :custom
-  (org-super-agenda-groups
-   '((:name "Important"
-            :priority "A"))     
-   )
-  )
-
-
-
 
 
 ;;; Which-key
@@ -827,7 +753,7 @@
   :demand t
   :hook
   (after-init . global-corfu-mode)
-  (after-init . corfu-popupinfo-mode))
+  (after-init . corfu-popupinfo-mode)
   :init
 (defun corfu-enable-in-minibuffer ()
   "Enable Corfu in the minibuffer if `completion-at-point' is bound."
@@ -836,7 +762,7 @@
     (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
                 corfu-popupinfo-delay nil)
     (corfu-mode 1)))
-(add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer)
+(add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
 
 ;; Use Dabbrev with Corfu!
 (use-package dabbrev
@@ -1040,6 +966,80 @@
            "f" 'citar-denote-find-citation
            "n" 'citar-denote-find-nocite)
 )
+
+;;; Org mode
+(use-package org
+  :demand t
+  :general
+  ("C-c l" 'org-store-link)
+  ("C-c a" 'org-agenda)
+  ("C-c c" 'org-capture)
+  :custom
+  (org-special-ctrl-a/e t)
+  (org-startup-indented t)
+  (org-directory '("~/Dropbox/org/"))
+  (org-agenda-files '("~/Dropbox/org/"))
+  (org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/Dropbox/org/notes.org" "Blandat")
+         "* TODO %?\n  %i\n")))
+  (org-refile-targets '((org-agenda-files . (:maxlevel . 2))))
+  (org-refile-use-outline-path 'file)
+  (org-outline-path-complete-in-steps nil)
+  (org-list-allow-alphabetical t)
+  (org-hide-emphasis-markers t)
+  (org-log-into-drawer t)
+  (org-use-property-inheritance '("EXPORT_OPTIONS"))
+  (org-confirm-babel-evaluate nil)
+  (org-latex-src-block-backend 'engraved) ; Syntax highlighting of code blocks in exports
+  (org-fontify-todo-headline nil)
+  (org-fontify-done-headline nil)
+  (org-agenda-include-diary t)
+  (org-agenda-start-on-weekday nil) ; Start week view from current day
+  (org-agenda-start-day "+0d")
+  :config
+  (add-to-list 'org-modules 'org-habit t)
+  (add-to-list 'org-latex-packages-alist '("" "mathtools" t))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.2))
+  (setq org-format-latex-header (concat org-format-latex-header ; Code for Org LaTeX preview
+                                   "\n\\DeclareMathOperator{\\E}{E}
+                                    \\DeclareMathOperator{\\Corr}{Corr}
+                                    \\DeclareMathOperator{\\Cov}{Cov}
+                                    \\DeclareMathOperator{\\Var}{Var}
+                                    \\DeclareMathOperator*{\\argmin}{arg\\,min}
+                                    \\DeclareMathOperator{\\plim}{plim}"))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((R . t)        ; Enable R for Babel
+     (python . t)   ; Enable Python for Babel
+     (julia . t)    ; Enable Julia for Babel
+     (dot . t)))    ; Enable Graphviz DOT for Babel
+  (setq org-babel-R-command "C:/Progra~1/R/R-4.3.3/bin/x64/R --slave --no-save") ; R path
+  (setq org-agenda-skip-scheduled-if-done t)
+  (setq org-agenda-skip-deadline-if-done t)
+  (setq org-agenda-todo-ignore-deadlines t)
+  (setq org-agenda-todo-ignore-scheduled t)
+  :hook
+  ;; (org-mode . variable-pitch-mode) ; Enable proportional fonts in Org buffers
+  ((org-mode org-agenda-mode) . my-text-remap-mode) ; Use text mode font
+  (org-mode . turn-on-org-cdlatex) ; Enable CDLaTeX for entering math
+  )
+
+;; Syntax highlighting of code blocks in org exports
+(use-package engrave-faces)
+
+(use-package graphviz-dot-mode)
+
+(use-package org-appear
+  :hook (org-mode . org-appear-mode))
+
+(use-package org-super-agenda
+  :hook (org-mode . org-super-agenda-mode)
+  :custom
+  (org-super-agenda-groups
+   '((:name "Important"
+            :priority "A"))     
+   )
+  )
 
 ;;; Notes
 ;;;; Denote
@@ -1325,6 +1325,19 @@
 ;; machine api.perplexity.ai login apikey password ***
 ;; machine api.groq.com login apikey password ***
 
+(use-package chatgpt-shell
+  :custom
+  (chatgpt-shell-openai-key
+   (auth-source-pick-first-password :host "api.openai.com"))
+  (chatgpt-shell-anthropic-key
+   (auth-source-pick-first-password :host "api.anthropic.com"))
+  (chatgpt-shell-google-key
+   (auth-source-pick-first-password :host "generativelanguage.googleapis.com"))
+  (chatgpt-shell-kagi-key
+   (auth-source-pick-first-password :host "kagi.com"))
+  (chatgpt-shell-perplexity-key
+   (auth-source-pick-first-password :host "api.perplexity.ai"))
+  )
 
 ;;; RSS
 (use-package elfeed
