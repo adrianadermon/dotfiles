@@ -582,7 +582,7 @@
   (mu4e-get-mail-command "mbsync -a")
   (mu4e-confirm-quit nil)
   (mu4e-split-view 'vertical)
-  (mu4e-headers-visible-columns 140)
+  (mu4e-headers-visible-columns 80)
   (mu4e-use-fancy-chars t)
   (mu4e-context-policy 'pick-first)
   (mu4e-compose-context-policy nil)
