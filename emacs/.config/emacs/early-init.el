@@ -25,3 +25,13 @@
     (add-to-list 'default-frame-alist
                  '(font . "PragmataPro Mono-14")) ; Windows/Linux
     )
+;; (set-face-attribute 'variable-pitch nil :family "Adobe Caslon Pro")
+;; (set-face-attribute 'variable-pitch nil :family "Minion Pro")
+;; (set-face-attribute 'variable-pitch nil :family "Helvetica Neue")
+;; (set-face-attribute 'variable-pitch nil :family "Baskerville")
+;; (set-face-attribute 'variable-pitch nil :family "Myriad Pro")
+;; (set-face-attribute 'variable-pitch nil :family "Charter")
+;; (set-face-attribute 'variable-pitch nil :family "Avenir")
+;; (set-face-attribute 'variable-pitch nil :family "Publico Text")
+;; (set-face-attribute 'variable-pitch nil :family "Founders Grotesk Text")
+(set-face-attribute 'variable-pitch nil :family "Graphik")
