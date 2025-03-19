@@ -1235,18 +1235,21 @@
   :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
   )
 
-;;; Python
+;; Python
 (use-package python
   :ensure nil
-  :custom
-  (python-shell-interpreter "ipython")
-  (python-shell-interpreter-args "--simple-prompt")
   )
 
 ;; Handle virtual environments
 (use-package pet
   :config
-  (add-hook 'python-base-mode-hook 'pet-mode -10))
+  (add-hook 'python-base-mode-hook 'pet-mode -10)
+  (add-hook 'python-mode-hook
+            (lambda ()
+              (setq-local python-shell-interpreter (pet-executable-find "ipython")
+                          python-shell-interpreter-args "--simple-prompt"
+                          python-shell-virtualenv-root (pet-virtualenv-root))))
+  )
 
 ;; ;; Handle conda environments
 ;; (use-package conda
@@ -1275,6 +1278,9 @@
     :stream t
     :models '(sonar-pro
               sonar))
+  (gptel-make-deepseek "DeepSeek"
+                       :stream t
+                       :key gptel-api-key)
   (gptel-make-openai "Groq"
     :host "api.groq.com"
     :endpoint "/openai/v1/chat/completions"
@@ -1338,6 +1344,22 @@
   (chatgpt-shell-perplexity-key
    (auth-source-pick-first-password :host "api.perplexity.ai"))
   )
+
+(use-package aider
+  :vc (:url "https://github.com/tninja/aider.el")
+  :config
+  ;; (global-set-key (kbd "C-c g w") 'aider-transient-menu)
+  :custom
+  (aider-args '("--model" "sonnet"))
+  )
+
+(use-package aidermacs
+  ;; :bind (("C-c g l" . aidermacs-transient-menu))
+  :custom
+  ; See the Configuration section below
+  (aidermacs-use-architect-mode t)
+  (aidermacs-default-model "sonnet")
+  (aidermacs-backend 'comint))
 
 ;;; RSS
 (use-package elfeed
@@ -1530,8 +1552,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-vc-selected-packages
-   '((consult-mu :url "https://github.com/armindarvish/consult-mu"))))
+ '(package-vc-selected-packages '((aider :url "https://github.com/tninja/aider.el"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
