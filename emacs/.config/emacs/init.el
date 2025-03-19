@@ -1346,7 +1346,6 @@
   )
 
 (use-package aider
-  :vc (:url "https://github.com/tninja/aider.el")
   :config
   ;; (global-set-key (kbd "C-c g w") 'aider-transient-menu)
   :custom
