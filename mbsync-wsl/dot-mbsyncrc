@@ -22,7 +22,7 @@ Channel ifau
 Far :ifau-remote:
 Near :ifau-local:
 Patterns *
-Create Near
-Sync All
+Create Both
+Sync Full
 Expunge Both
 SyncState *
