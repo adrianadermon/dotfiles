@@ -1421,6 +1421,10 @@
            (:elements
             (query . fashion)
             ))
+    (group (:title . "Emacs")
+           (:elements
+            (query . emacs)
+            ))
     )
     :hook
     (elfeed-summary-mode . my-text-remap-mode)
