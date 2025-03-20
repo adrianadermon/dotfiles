@@ -1041,6 +1041,9 @@
    )
   )
 
+;; Reveal.js export
+(use-package org-re-reveal)
+
 ;;; Notes
 ;;;; Denote
 (use-package denote
