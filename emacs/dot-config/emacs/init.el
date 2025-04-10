@@ -1243,18 +1243,25 @@
 ;; Python
 (use-package python
   :ensure nil
+  :custom
+  (python-shell-interpreter "ipython")
+  (python-shell-interpreter-args "--simple-prompt")
   )
 
-;; Handle virtual environments
-(use-package pet
-  :config
-  (add-hook 'python-base-mode-hook 'pet-mode -10)
-  (add-hook 'python-mode-hook
-            (lambda ()
-              (setq-local python-shell-interpreter (pet-executable-find "ipython")
-                          python-shell-interpreter-args "--simple-prompt"
-                          python-shell-virtualenv-root (pet-virtualenv-root))))
-  )
+;; Direnv support
+(use-package envrc
+  :hook (after-init . envrc-global-mode))
+
+;; ;; Handle virtual environments
+;; (use-package pet
+;;   :config
+;;   (add-hook 'python-base-mode-hook 'pet-mode -10)
+;;   (add-hook 'python-mode-hook
+;;             (lambda ()
+;;               (setq-local python-shell-interpreter (pet-executable-find "ipython")
+;;                           python-shell-interpreter-args "--simple-prompt"
+;;                           python-shell-virtualenv-root (pet-virtualenv-root))))
+;;   )
 
 ;; ;; Handle conda environments
 ;; (use-package conda
