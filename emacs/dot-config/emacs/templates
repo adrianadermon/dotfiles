@@ -200,7 +200,7 @@ html-mode
 ;; Image
 (rimg > "<img data-src=\"" p "\">")
 
-;;
+;; Fragment (in markdown code)
 (rfr "<!-- .element: class=\"fragment\" data-fragment-index=\"" p "\" -->")
 
 ;; Local Variables:
