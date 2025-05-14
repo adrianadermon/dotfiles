@@ -45,9 +45,14 @@
      (?l . line)
      (?v . visual-line)
      (?f . defun)
-     (?. . sentence)))
+     (?. . sentence)
+     (?t . tag)))
   (meow-expand-exclude-mode-list nil)
   :config
+  (meow-thing-register 'tag
+                       '(regexp "<.+>" "</.+>")
+                       '(regexp "<.+>" "</.+>")
+                       )
   (add-to-list 'meow-mode-state-list '(mu4e-main-mode . insert)) ; Open Mu4e in insert mode
   (add-to-list 'meow-mode-state-list '(mu4e-view-mode . motion))
   (add-to-list 'meow-mode-state-list '(notmuch-hello-mode . motion))
