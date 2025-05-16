@@ -180,6 +180,29 @@ html-mode
 (em "<em>" r> "</em")
 (st "<strong>" r> "</strong>")
 
+;; Reveal.js
+
+;; HTML slide
+(rs (ensure-empty-lines) >
+      "<section>" n>
+        "<h2>" p "</h2>" n>
+          r> n>
+      "</section>" >)
+
+;; Markdown slide
+(rsmd (ensure-empty-lines) >
+      "<section data-markdown>" n>
+        "<textarea data-template>" n>
+          r> n>
+        "</textarea>" > n
+      "</section>" >)
+
+;; Image
+(rimg > "<img data-src=\"" p "\">")
+
+;; Fragment (in markdown code)
+(rfr "<!-- .element: class=\"fragment\" data-fragment-index=\"" p "\" -->")
+
 ;; Local Variables:
 ;; mode: lisp-data
 ;; outline-regexp: "[a-z]"
