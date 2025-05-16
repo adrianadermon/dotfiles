@@ -1227,6 +1227,8 @@
 ;; (use-package julia-ts-mode
 ;;   :mode "\\.jl$")
 
+(use-package julia-mode)
+
 (use-package julia-repl
   :hook (julia-mode . julia-repl-mode)
   :config (julia-repl-set-terminal-backend 'vterm)
@@ -1235,12 +1237,12 @@
 (use-package ado-mode
   :init (require 'ado-mode))
 
-;; Typst
+;;; Typst
 (use-package typst-ts-mode
   :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
   )
 
-;; Python
+;;; Python
 (use-package python
   :ensure nil
   )
@@ -1263,9 +1265,9 @@
 ;;   :custom
 ;;   (conda-anaconda-home "~/AppData/Local/miniconda3")
 ;;   )
-;;; Julia
-(use-package julia-mode)
 
+;;; Web development
+(use-package emmet-mode)
 ;;; LLM
 (use-package gptel
   :config
@@ -1561,7 +1563,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-vc-selected-packages
-   '((typst-ts-mode :url "https://codeberg.org/meow_king/typst-ts-mode"))))
+   '((typst-ts-mode :url "https://codeberg.org/meow_king/typst-ts-mode")
+     (consult-mu :url "https://github.com/armindarvish/consult-mu")
+     (ultra-scroll :url "https://github.com/jdtsmith/ultra-scroll"))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
