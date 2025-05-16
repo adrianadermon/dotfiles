@@ -179,6 +179,7 @@ html-mode
 (sp "<span>" r> "</span")
 (em "<em>" r> "</em")
 (st "<strong>" r> "</strong>")
+(sec "<section>" n> r> n> "</section>")
 
 ;; Reveal.js
 
