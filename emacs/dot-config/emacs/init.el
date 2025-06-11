@@ -1010,7 +1010,6 @@
 ;;; Notes
 ;;;; Denote
 (use-package denote
-  :demand t
   :config
   (denote-rename-buffer-mode 1)
   :custom
@@ -1050,6 +1049,10 @@
   :custom
   (consult-denote-find-command 'consult-fd)
   (consult-denote-grep-command 'consult-ripgrep)
+  :bind
+  (:map Notes
+        ("f" . consult-denote-find)
+        ("g" . consult-denote-grep))
   )
 
 ;;;; Consult-notes
