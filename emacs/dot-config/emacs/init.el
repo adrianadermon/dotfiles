@@ -174,10 +174,6 @@
   (meow-insert-exit . tempel-done)
   )
 
-;; ;;; General
-;; (use-package general)
-
-
 ;;; Which-key
 (use-package which-key
   :hook (after-init . which-key-mode)
@@ -884,6 +880,7 @@
 
 ;;;; Citar (bibliography completion)
 (use-package citar
+  :after denote
   :no-require
   :demand t
   :bind (("C-c z" . citar-insert-citation)
@@ -935,7 +932,6 @@
 
 ;;; Org mode
 (use-package org
-  :demand t
   :bind
   (("C-c l" . org-store-link)
    ("C-c a" . org-agenda)
@@ -993,7 +989,8 @@
 ;; Syntax highlighting of code blocks in org exports
 (use-package engrave-faces)
 
-(use-package graphviz-dot-mode)
+(use-package graphviz-dot-mode
+  :defer t)
 
 (use-package org-appear
   :hook (org-mode . org-appear-mode))
@@ -1451,7 +1448,7 @@
   (add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
   (add-to-list 'dashboard-items '(custom) t)
   :custom
-  (dashboard-startup-banner "~/emacs_fancy_logos/gnu_color.svg")
+  (dashboard-startup-banner "~/emacs_fancy_logos-main/gnu_color.svg")
   (dashboard-image-banner-max-width 500)
   (dashboard-center-content t)
   (dashboard-projects-backend 'project-el)
