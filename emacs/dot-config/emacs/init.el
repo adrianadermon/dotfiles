@@ -14,7 +14,7 @@
                (allow-no-window . t)))
 
 ;; Profile startup times
-;; (setq use-package-compute-statistics t)
+(setq use-package-compute-statistics t)
 
 ;; For testing theme
 ;; (add-to-list 'custom-theme-load-path "~/dotfiles/emacs/.config/emacs/")
@@ -174,14 +174,15 @@
   (meow-insert-exit . tempel-done)
   )
 
-;;; General
-(use-package general)
+;; ;;; General
+;; (use-package general)
 
 
 ;;; Which-key
 (use-package which-key
   :hook (after-init . which-key-mode)
   )
+
 ;;; Treesitter
 (use-package treesit
   :ensure nil
@@ -211,6 +212,8 @@
   (add-to-list 'major-mode-remap-alist '(javascript-mode . js-ts-mode))
   (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-ts-mode))
   )
+
+;;; Misc
 
 (use-package yaml-ts-mode
   :ensure nil
@@ -308,20 +311,17 @@
   (tab-bar-mode . (lambda ()
                     (setq tab-bar-close-button nil)
                     (setq tab-bar-new-button nil)))
-
-  :general
   ;; Keybindings for inserting matching delimiters
-  (:keymaps 'global-map
-            :prefix "C-c d"
-            "" '(:ignore t :which-key "Delimiters")
-            "(" 'insert-pair
-            "[" 'insert-pair
-            "{" 'insert-pair
-            "<" 'insert-pair
-            "\"" 'insert-pair
-            "'" 'insert-pair
-            "`" 'insert-pair
-            ))
+  :bind (:prefix "C-c d"
+         :prefix-map Delimiters
+         ("(" . insert-pair)
+         ("[" . insert-pair)
+         ("{" . insert-pair)
+         ("<" . insert-pair)
+         ("\"" . insert-pair)
+         ("' " . insert-pair)
+         ("`" . insert-pair))
+  )
 
 ;; Enable Kagi search with Webjump
 (use-package webjump
@@ -338,38 +338,34 @@
 (use-package rainbow-mode)
 
 (use-package olivetti
-  :general
-  ("C-c o" 'olivetti-mode))
+  :bind ("C-c o" . olivetti-mode))
 
 (use-package switch-window
   :custom
   (switch-window-shortcut-style 'qwerty)
   (switch-window-threshold 3)
-  :general
-  ("M-o" 'switch-window)
-  (:keymaps 'switch-window-extra-map
-        "l" 'switch-window-mvborder-right
-        "h" 'switch-window-mvborder-left
-        "j" 'switch-window-mvborder-down
-        "k" 'switch-window-mvborder-up)
+  :bind ("M-o" . switch-window)
+  (:map switch-window-extra-map
+        ("l" . switch-window-mvborder-right)
+        ("h" . switch-window-mvborder-left)
+        ("j" . switch-window-mvborder-down)
+        ("k" . switch-window-mvborder-up))
   )
 
 ;; Visual undo
 (use-package vundo
   :custom (vundo-glyph-alist vundo-unicode-symbols)
-  :general
-  (:keymaps 'vundo-mode-map
-            "l" 'vundo-forward
-            "h" 'vundo-backward
-            "j" 'vundo-next
-            "k" 'vundo-previous)
+  :bind
+  (:map vundo-mode-map
+        ("l" . vundo-forward)
+        ("h" . vundo-backward)
+        ("j" . vundo-next)
+        ("k" . vundo-previous))
   )
 
 ;; Manipulate surrounding pairs
 (use-package surround
   :bind-keymap ("M-'" . surround-keymap)
-  ;; :general
-  ;; "M-'" '(:keymap surround-keymap :package surround)
   )
 
 ;; Regexp builder
@@ -386,28 +382,28 @@
 
 ;; Transient menus
 (use-package casual
-  :general
-  ;; Org Agenda
-  (:keymaps 'org-agenda-mode-map
-            "C-o" 'casual-agenda-tmenu)
-  ;; Calc
-  (:keymaps 'calc-mode-map
-            "C-o" 'casual-calc-tmenu)
-  (:keymaps 'alc-alg-map
-            "C-o" 'casual-calc-tmenu)
-  ;; Dired
-  (:keymaps 'dired-mode-map
-            "C-o" 'casual-dired-tmenu
-            "s" 'casual-dired-sort-by-tmenu
-            "/" 'casual-dired-search-replace-tmenu)
-  ;; I-search
-  (:keymaps 'isearch-mode-map
-            "C-o" 'casual-isearch-tmenu)
-  ;; Regexp builder
-  (:keymaps 'reb-mode-map
-            "C-o" 'casual-re-builder-tmenu)
-  (:keymaps 'reb-lisp-mode-map
-            "C-o" 'casual-re-builder-tmenu)
+  :bind (
+         ;; Org Agenda
+         :map org-agenda-mode-map
+         ("C-o" . casual-agenda-tmenu)
+         ;; Calc
+         :map calc-mode-map
+         ("C-o" . casual-calc-tmenu)
+         :map alc-alg-map
+         ("C-o" . casual-calc-tmenu)
+         ;; Dired
+         :map dired-mode-map
+         ("C-o" . casual-dired-tmenu)
+         ("s" . casual-dired-sort-by-tmenu)
+         ("/" . casual-dired-search-replace-tmenu)
+         ;; I-search
+         :map isearch-mode-map
+         ("C-o" . casual-isearch-tmenu)
+         ;; Regexp builder
+         :map reb-mode-map
+         ("C-o" . casual-re-builder-tmenu)
+         :map reb-lisp-mode-map
+         ("C-o" . casual-re-builder-tmenu))
   )
 
 (use-package visual-replace
@@ -416,12 +412,12 @@
   (visual-replace-global-mode 1))
 
 (use-package helpful
-  :general
-  ("C-h f" 'helpful-callable)
-  ("C-h v" 'helpful-variable)
-  ("C-h k" 'helpful-key)
-  ("C-h x" 'helpful-command)
-  ("C-c h" 'helpful-at-point)
+  :bind
+  (("C-h f" . helpful-callable)
+   ("C-h v" . helpful-variable)
+   ("C-h k" . helpful-key)
+   ("C-h x" . helpful-command)
+   ("C-c h" . helpful-at-point))
   )
 
 ;; Smooth scrolling
@@ -433,39 +429,6 @@
   :config
   (ultra-scroll-mode 1))
 
-
-;; Weather forecasts
-(use-package biome
-  :config
-  (add-to-list 'biome-presets-alist
-               '("Uppsala 7 day forecast" :normal
-                 ((:name . "Weather Forecast")
-                  (:group . "daily")
-                  (:params
-                   ("forecast_days" . 7)
-                   ("past_days" . 0)
-                   ("timezone" . "Europe/Stockholm")
-                   ("daily" "precipitation_sum" "temperature_2m_max" "temperature_2m_min")
-                   ("longitude" . 17.6389)
-                   ("latitude" . 59.8586)))))
-  (add-to-list 'biome-presets-alist
-               '("Uppsala 2 day hourly forecast" :normal
-                 ((:name . "Weather Forecast")
-                  (:group . "hourly")
-                  (:params
-                   ("hourly" "cloud_cover" "precipitation" "precipitation_probability" "temperature_2m")
-                   ("forecast_days" . 2)
-                   ("past_days" . 0)
-                   ("timezone" . "Europe/Stockholm")
-                   ("longitude" . 17.6389)
-                   ("latitude" . 59.8586)))))
-  ;; invoke with M-x biome-preset
-  :custom
-  (biome-query-coords
-   '(("Uppsala" 59.8586 17.6389)
-     ("Östersund" 63.1767 14.6361)
-     ("Stockholm" 59.3293 18.0686))
-   ))
 
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
@@ -573,8 +536,7 @@
 
 (use-package mu4e-transient
   :ensure nil
-  :general
-  ("C-o" 'mu4e-transient-menu)
+  :bind ("C-o" . mu4e-transient-menu)
 )
 
 
@@ -612,17 +574,21 @@
 (use-package jinx
   :unless (eq system-type 'windows-nt) ; Don't load on Windows
   ;; :hook (emacs-startup . global-jinx-mode)
-  :general ("C-;" 'jinx-correct)
+  :bind ("C-;" . jinx-correct)
   :custom
   (jinx-languages "en_US sv_SE") 
   )
 
+;; Justfile support
+(use-package justl
+  :defer t)
 
 ;;; Version control
 (use-package transient)
 
 (use-package magit
-  :after transient)
+  :after transient
+  :defer t)
 
 
 
@@ -657,17 +623,14 @@
 
 ;;;; Embark (minibuffer actions)
 (use-package embark
-  :general
-  ("C-." 'embark-act)         ;; pick some comfortable binding
-  ("C-," 'embark-dwim)        ;; good alternative: M-.
-  ("C-h B" 'embark-bindings) ;; alternative for `describe-bindings'
+  :bind
+  (("C-." . embark-act)        ;; pick some comfortable binding
+   ("C-," . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :init
-
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
-
   :config
-
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
@@ -678,50 +641,48 @@
 (use-package consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (
-         ([remap Info-search] . consult-info)
-         )
-  :general
-  (:prefix "C-c"
-           "M-x" 'consult-mode-command
-           "h" 'consult-history
-           "k" 'consult-kmacro
-           "m" 'consult-man
-           "i" 'consult-info)
-  (:prefix "C-x"
-           "M-:" 'consult-complex-command     ;; orig. repeat-complex-command
-           "b" 'consult-buffer                ;; orig. switch-to-buffer
-           "4 b" 'consult-buffer-other-window ;; orig. switch-to-buffer-other-window
-           "5 b" 'consult-buffer-other-frame  ;; orig. switch-to-buffer-other-frame
-           "r b" 'consult-bookmark            ;; orig. bookmark-jump
-           "p b" 'consult-project-buffer)      ;; orig. project-switch-to-buffer
-  (:prefix "M-g"
-           "m" 'consult-mark
-           "k" 'consult-global-mark
-           "i" 'consult-imenu
-           "I" 'consult-imenu-multi
-           "o" 'consult-org-heading
-           "s" 'consult-register-store
-           "l" 'consult-register-load
-           "r" 'consult-register)
-  (:prefix "M-s"
-           "d" 'consult-find
-           "f" 'consult-fd
-           "D" 'consult-locate
-           "g" 'consult-grep
-           "G" 'consult-git-grep
-           "r" 'consult-ripgrep
-           "l" 'consult-line
-           "L" 'consult-line-multi
-           "k" 'consult-keep-lines
-           "u" 'consult-focus-lines
-           "e" 'consult-isearch-history)
-  (:keymaps 'isearch-mode-map
-            "M-e" 'consult-isearch-history         ;; orig. isearch-edit-string
-            :prefix "M-s"
-            "e" 'consult-isearch-history       ;; orig. isearch-edit-string
-            "l" 'consult-line                  ;; needed by consult-line to detect isearch
-            "L" 'consult-line-multi)            ;; needed by consult-line to detect isearch
-    ;; The :init configuration is always executed (Not lazy)
+   ([remap Info-search] . consult-info)
+   ("C-c M-x" . consult-mode-command)
+   ("C-c h" . consult-history)
+   ("C-c k" . consult-kmacro)
+   ("C-c m" . consult-man)
+   ("C-c i" . consult-info)
+   ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
+   ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+   ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
+   ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+   ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
+   ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+   :prefix "M-g"
+   :prefix-map consult-goto
+   ("m" . consult-mark)
+   ("k" . consult-global-mark)
+   ("i" . consult-imenu)
+   ("I" . consult-imenu-multi)
+   ("o" . consult-org-heading)
+   ("s" . consult-register-store)
+   ("l" . consult-register-load)
+   ("r" . consult-register)
+   :prefix "M-s"
+   :prefix-map consult-search
+   ("d" . consult-find)
+   ("f" . consult-fd)
+   ("D" . consult-locate)
+   ("g" . consult-grep)
+   ("G" . consult-git-grep)
+   ("r" . consult-ripgrep)
+   ("l" . consult-line)
+   ("L" . consult-line-multi)
+   ("k" . consult-keep-lines)
+   ("u" . consult-focus-lines)
+   ("e" . consult-isearch-history)
+   :map isearch-mode-map
+   ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+   ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+   ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+   ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+   )
+  ;; The :init configuration is always executed (Not lazy)
   :init
     ;; Use Consult to select xref locations with preview
   (setq xref-show-xrefs-function #'consult-xref
@@ -750,10 +711,11 @@
 
 ;;;; Consult-dir (insert paths into minibuffer prompts)
 (use-package consult-dir
-  :general ("C-x C-d" 'consult-dir)
-  (:keymaps 'vertico-map
-            "C-x C-d" 'consult-dir
-            "C-x C-j" 'consult-dir-jump-file))
+  :bind (("C-x C-d" . consult-dir)
+         :map vertico-map
+         ("C-x C-d" . consult-dir)
+         ("C-x C-j" . consult-dir-jump-file))
+  )
 
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
@@ -775,9 +737,9 @@
 (use-package dabbrev
   :ensure nil
   ;; Swap M-/ and C-M-/
-  :general
-  ("M-/" 'dabbrev-completion)
-  ("C-M-/" 'dabbrev-expand)
+  :bind
+  (("M-/" . dabbrev-completion)
+   ("C-M-/" . dabbrev-expand))
   ;; Other useful Dabbrev configurations.
   :custom
   (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
@@ -786,25 +748,24 @@
 (use-package cape
   ;; Bind dedicated completion commands
   ;; Alternative prefix keys: C-c p, M-p, M-+, ...
-  :general
-  (:prefix "C-c p"
-           "" '(nil :which-key "Completion")
-           "p" 'completion-at-point ;; capf
-           "t" 'complete-tag        ;; etags
-           "d" 'cape-dabbrev        ;; or dabbrev-completion
-           "h" 'cape-history
-           "f" 'cape-file
-           "k" 'cape-keyword
-           "s" 'cape-symbol
-           "a" 'cape-abbrev
-           "i" 'cape-ispell
-           "l" 'cape-line
-           "w" 'cape-dict
-           "\\" 'cape-tex
-           "_" 'cape-tex
-           "^" 'cape-tex
-           "&" 'cape-sgml
-           "r" 'cape-rfc1345)
+  :bind (:prefix "C-c p"
+         :prefix-map Completion
+         ("p" . completion-at-point) ;; capf
+         ("t" . complete-tag)        ;; etags
+         ("d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("h" . cape-history)
+         ("f" . cape-file)
+         ("k" . cape-keyword)
+         ("s" . cape-symbol)
+         ("a" . cape-abbrev)
+         ("i" . cape-ispell)
+         ("l" . cape-line)
+         ("w" . cape-dict)
+         ("\\" . cape-tex)
+         ("_" . cape-tex)
+         ("^" . cape-tex)
+         ("&" . cape-sgml)
+         ("r" . cape-rfc1345))
   :init
   ;; Add `completion-at-point-functions', used by `completion-at-point'.
   (add-to-list 'completion-at-point-functions #'cape-file)
@@ -819,20 +780,18 @@
   ;;(add-to-list 'completion-at-point-functions #'cape-dict)
   ;;(add-to-list 'completion-at-point-functions #'cape-symbol)
   ;;(add-to-list 'completion-at-point-functions #'cape-line)
-)
+  )
+
 ;;;; TempEl (template expansion)
 (use-package tempel
   :demand t
   ;; Require trigger prefix before template name when completing.
   ;; :custom
   ;; (tempel-trigger-prefix "<")
-
-  :general
-  ("M-+" 'tempel-complete) ;; Alternative tempel-expand
-  ("M-*" 'tempel-insert)
-  
+  :bind
+  (("M-+" . tempel-complete) ;; Alternative tempel-expand
+   ("M-*" . tempel-insert))
   :init
-
   ;; Setup completion at point
   (defun tempel-setup-capf ()
     ;; Add the Tempel Capf to `completion-at-point-functions'.
@@ -845,10 +804,8 @@
     (setq-local completion-at-point-functions
                 (cons #'tempel-expand
                       completion-at-point-functions)))
-
   (add-hook 'prog-mode-hook 'tempel-setup-capf)
   (add-hook 'text-mode-hook 'tempel-setup-capf)
-
   ;; Optionally make the Tempel templates available to Abbrev,
   ;; either locally or globally. `expand-abbrev' is bound to C-x '.
   ;; (add-hook 'prog-mode-hook #'tempel-abbrev-mode)
@@ -881,18 +838,19 @@
   (setq-default eglot-workspace-configuration ; Use typstyle formatter for tinymist LSP
                 '(:formatterMode "typstyle"
                                  :exportPdf "onSave"))
-  :general
-  ("C-c e e" 'eglot)
-  (:prefix "C-c e"
-           "" '(:ignore t :which-key "Eglot")
-           ;; "e" 'eglot
-           :keymaps 'eglot-mode-map
-           "r" 'eglot-rename
-           "f" 'eglot-format
-           "a" 'eglot-code-actions
-           "o" 'eglot-code-action-organize-imports
-           "s" 'eglot-shutdown
-           "x" 'xref-find-definitions)
+  :bind (
+         ("C-c e e" . eglot)
+         :map eglot-mode-map
+         :prefix "C-c e"
+         :prefix-map Eglot
+         ;; ("e" . eglot)
+         ("r" . eglot-rename)
+         ("f" . eglot-format)
+         ("a" . eglot-code-actions)
+         ("o" . eglot-code-action-organize-imports)
+         ("s" . eglot-shutdown)
+         ("x" . xref-find-definitions)
+         )
   )
 
 ;; Enable TempEl to use LSP templates
@@ -904,10 +862,10 @@
 
 ;;;; Flymake syntax checker
 (use-package flymake
-  :general
-  (:keymaps 'flymake-mode-map
-            "M-n" 'flymake-goto-next-error
-            "M-p" 'flymake-goto-prev-error)
+  :bind
+  (:map flymake-mode-map
+        ("M-n" . flymake-goto-next-error)
+        ("M-p" . flymake-goto-prev-error))
   )
 
 ;; LanguageTool
@@ -927,10 +885,9 @@
 (use-package citar
   :no-require
   :demand t
-  :general
-  ("C-c z" 'citar-insert-citation)
-  (:keymaps 'minibuffer-local-map
-            "M-b" 'citar-insert-preset)
+  :bind (("C-c z" . citar-insert-citation)
+  :map minibuffer-local-map
+  ("M-b" . citar-insert-preset))
   :custom
   (org-cite-global-bibliography '("~/Dropbox/references.bib"))
   (org-cite-csl-styles-dir "~/Zotero/styles")
@@ -961,26 +918,27 @@
   (citar-denote-title-format-authors 2)
   (citar-denote-title-format-andstr "&")
   :config (citar-denote-mode)
-  :general
-  (:prefix "C-c n c"
-           "" '(:ignore t :which-key "References")
-           "c" 'citar-create-note
-           "a" 'citar-denote-add-citekey
-           "x" 'citar-denote-remove-citekey
-           "o" 'citar-denote-open-note
-           "d" 'citar-denote-dwim
-           "r" 'citar-denote-find-reference
-           "f" 'citar-denote-find-citation
-           "n" 'citar-denote-find-nocite)
-)
+  :bind (
+         :map Notes
+         :prefix-map Citar
+         :prefix "c"
+         ("c" . citar-create-note)
+         ("a" . citar-denote-add-citekey)
+         ("x" . citar-denote-remove-citekey)
+         ("o" . citar-denote-open-note)
+         ("d" . citar-denote-dwim)
+         ("r" . citar-denote-find-reference)
+         ("f" . citar-denote-find-citation)
+         ("n" . citar-denote-find-nocite))
+  )
 
 ;;; Org mode
 (use-package org
   :demand t
-  :general
-  ("C-c l" 'org-store-link)
-  ("C-c a" 'org-agenda)
-  ("C-c c" 'org-capture)
+  :bind
+  (("C-c l" . org-store-link)
+   ("C-c a" . org-agenda)
+   ("C-c c" . org-capture))
   :custom
   (org-special-ctrl-a/e t)
   (org-startup-indented t)
@@ -1048,9 +1006,6 @@
    )
   )
 
-;; Reveal.js export
-(use-package org-re-reveal)
-
 ;;; Notes
 ;;;; Denote
 (use-package denote
@@ -1070,29 +1025,22 @@
      (keyword . identity)))
     (denote-rename-buffer-format "[D] %t")
   :hook (dired-mode . denote-dired-mode-in-directories)
-  :general
+  :bind
   (:prefix "C-c n"
-           "" '(:ignore t :which-key "Notes")
-           "n" 'denote
-           "t" 'denote-template
-           "r" 'denote-rename-file
-           "R" 'denote-rename-file-using-front-matter
-           "k" 'denote-rename-file-keywords
-           :keymaps 'org-mode-map
-                     "i" 'denote-link
-                     "I" 'denote-link-add-links
-                     "b" 'denote-link-backlinks
-                     ;; "f f" 'denote-link-find-file
-                     ;; "f b" 'denote-link-find-backlink
-                     ;; "k a" 'denote-keywords-add
-                     ;; "k x" 'denote-keywords-remove
-                     )
-  (:keymaps 'org-mode-map
-            :prefix "C-c n f"
-            "" '(:ignore t :which-key "Find")
-            "f" 'denote-link-find-file
-            "b" 'denote-link-find-backlink)
-  )
+           :prefix-map Notes
+           :prefix-docstring "Notes"
+           ("n" . denote)
+           ("t" . denote-template)
+           ("r" . denote-rename-file)
+           ("R" . denote-rename-file-using-front-matter)
+           ("k" . denote-rename-file-keywords)
+           :map org-mode-map
+           ("C-c n i" . denote-link)
+           ("C-c n I" . denote-link-add-links)
+           ("C-c n b" . denote-link-backlinks)
+           ("C-c n f l" . denote-link-find-link)
+           ("C-c n f b" . denote-link-find-backlink)
+           ))
 
 ;;;; Consult-denote
 (use-package consult-denote
@@ -1109,50 +1057,54 @@
              consult-notes-search-in-all-notes)
   :config
   (consult-notes-denote-mode)
-  :general
-  (:prefix "C-c n"
-           "s" 'consult-notes)
-  ;; :custom
-  ;; (consult-notes-sources
-  ;; `(("Literature notes" ?l ,(denote-directory))))
+  :bind
+  (:map Notes
+  ("s" . consult-notes))
+  :after denote
   )
 
 ;;;; Denote-explore
 (use-package denote-explore
-  :general
-  (:prefix "C-c n e"
-           "" '(:ignore t :which-key "Explore")
-           ;; Visualise denote
-           "n" 'denote-explore-network
-           "r" 'denote-explore-network-regenerate
-           "d" 'denote-explore-barchart-degree
-           "b" 'denote-explore-barchart-backlinks)
-  ;; Statistics
-  (:prefix "C-c n e s"
-           "" '(:ignore t :which-key "Statistics")
-           "n" 'denote-explore-count-notes
-           "k" 'denote-explore-count-keywords
-           "e" 'denote-explore-barchart-filetypes
-           "w" 'denote-explore-barchart-keywords
-           "t" 'denote-explore-barchart-timeline)
-  ;; Random walks
-  (:prefix "C-c n e w"
-           "" '(:ignore t :which-key "Random")
-           "n" 'denote-explore-random-note
-           "r" 'denote-explore-random-regex
-           "l" 'denote-explore-random-link
-           "k" 'denote-explore-random-keyword)
-  ;; Denote Janitor
-  (:prefix "C-c n e j"
-           "" '(:ignore t :which-key "Janitor")
-           "d" 'denote-explore-duplicate-notes
-           "D" 'denote-explore-duplicate-notes-dired
-           "l" 'denote-explore-dead-links
-           "z" 'denote-explore-zero-keywords
-           "s" 'denote-explore-single-keywords
-           "r" 'denote-explore-rename-keywords
-           "y" 'denote-explore-sync-metadata
-           "i" 'denote-explore-isolated-files)
+  :bind
+  (:map Notes
+        ;; Visualise denote
+        :prefix-map Explore
+        :prefix "e"
+        ("n" . denote-explore-network)
+        ("r" . denote-explore-network-regenerate)
+        ("d" . denote-explore-barchart-degree)
+        ("b" . denote-explore-barchart-backlinks)
+        ;; Statistics
+        :map explore
+        :prefix-map statistics
+        :prefix "s"
+        ("n" . denote-explore-count-notes)
+        ("k" . denote-explore-count-keywords)
+        ("e" . denote-explore-barchart-filetypes)
+        ("w" . denote-explore-barchart-keywords)
+        ("t" . denote-explore-barchart-timeline)
+        ;; Random walks
+        :map explore
+        :prefix-map random
+        :prefix "w"
+        ("n" . denote-explore-random-note)
+        ("r" . denote-explore-random-regex)
+        ("l" . denote-explore-random-link)
+        ("k" . denote-explore-random-keyword)
+        ;; Janitor
+        :map explore
+        :prefix-map janitor 
+        :prefix "j"
+        ("d" . denote-explore-duplicate-notes)
+        ("D" . denote-explore-duplicate-notes-dired)
+        ("l" . denote-explore-dead-links)
+        ("z" . denote-explore-zero-keywords)
+        ("s" . denote-explore-single-keywords)
+        ("r" . denote-explore-rename-keywords)
+        ("y" . denote-explore-sync-metadata)
+        ("i" . denote-explore-isolated-files)
+        )
+  :after denote
   )
 
 ;;; LaTeX
@@ -1178,7 +1130,8 @@
 
 ;;; R
 (use-package ess
-  :init (require 'ess-r-mode)
+  ;; :init (require 'ess-r-mode)
+  ;; :mode ("\\.R\\'" . ess-r-mode)
   :config
   (defun r-insert-magrittr-pipe ()
     "Insert '%>%' at point"
@@ -1209,24 +1162,23 @@
     "Show structure of R object at point"
     (interactive)
     (apply-r-func-at-point "str"))
-  :general
-  (:keymap 'ess-r-mode-map
-           :prefix "C-c"
-           "<" 'ess-insert-assign
-           ">" 'r-insert-magrittr-pipe
-           "r" '(:ignore t :which-key "R")
-           "r s" 'r-summary-at-point
-           "r p" 'r-print-at-point
-           "r n" 'r-names-at-point
-           "r t" 'r-structure-at-point)
+  ;; :bind (:map ess-r-mode-map
+  ;;        ("C-c <" . ess-insert-assign)
+  ;;        ("C-c >" . r-insert-magrittr-pipe)
+  ;;        ("C-c r s" . r-summary-at-point)
+  ;;        ("C-c r p" . r-print-at-point)
+  ;;        ("C-c r n" . r-names-at-point)
+  ;;        ("C-c r t" . r-structure-at-point))
   :custom
   (inferior-R-args "--no-save --no-restore")
   (ess-style 'DEFAULT)
   )
 
 ;; Rmarkdown, Shiny etc
-(use-package polymode)
-(use-package poly-R)
+(use-package polymode
+  :defer t)
+(use-package poly-R
+  :defer t)
 
 ;;; Julia
 ;; (use-package julia-ts-mode
@@ -1244,6 +1196,7 @@
 
 ;;; Typst
 (use-package typst-ts-mode
+  :defer t
   :vc (:url "https://codeberg.org/meow_king/typst-ts-mode")
   )
 
@@ -1327,22 +1280,21 @@
   :custom
   (gptel-use-curl nil)
   (gptel-default-mode 'org-mode)
-  :general
-  (:prefix "C-c g"
-           "" '(:ignore t :which-key "gptel")
-           "g" 'gptel
-           "s" 'gptel-send
-           "m" 'gptel-menu
-           "r" 'gptel-rewrite
-           "a" 'gptel-add
-           "f" 'gptel-add-file
-           "t" 'gptel-org-set-topic
-           "p" 'gptel-org-set-properties)
-  (:keymaps 'gptel-mode-map
-            "C-o" 'gptel-menu)
+  :bind (:prefix "C-c g" 
+	 :prefix-map gptel-map
+         ("g" . gptel)
+         ("s" . gptel-send)
+         ("m" . gptel-menu)
+         ("r" . gptel-rewrite)
+         ("a" . gptel-add)
+         ("f" . gptel-add-file)
+         ("t" . gptel-org-set-topic)
+         ("p" . gptel-org-set-properties))
+  :bind (:map gptel-mode-map
+              ("C-o" . gptel-menu))
   )
 
-;; Put the following in ~/.authinfo, with API keys in place of ***
+;; Put the following in ~/.authinfo, with API keys in place of ***      
 ;; machine api.openai.com login apikey password ***
 ;; machine api.anthropic.com login apikey password ***
 ;; machine kagi.com login apikey password ***
@@ -1351,6 +1303,7 @@
 ;; machine api.groq.com login apikey password ***
 
 (use-package chatgpt-shell
+  :defer t
   :custom
   (chatgpt-shell-openai-key
    (auth-source-pick-first-password :host "api.openai.com"))
@@ -1365,6 +1318,7 @@
   )
 
 (use-package aider
+  :defer t
   :config
   ;; (global-set-key (kbd "C-c g w") 'aider-transient-menu)
   :custom
@@ -1372,6 +1326,7 @@
   )
 
 (use-package aidermacs
+  :defer t
   ;; :bind (("C-c g l" . aidermacs-transient-menu))
   :custom
   ; See the Configuration section below
@@ -1546,6 +1501,7 @@
 
 ;; Exchange
 (use-package excorporate
+  :defer t
   :custom
   (excorporate-configuration '("adrian.adermon@ifau.uu.se" . "https://mail.uu.se/EWS/Exchange.asmx"))
   )
