@@ -307,8 +307,18 @@
   (tab-bar-mode . (lambda ()
                     (setq tab-bar-close-button nil)
                     (setq tab-bar-new-button nil)))
-  ;; Keybindings for inserting matching delimiters
-  :bind (:prefix "C-c d"
+  :bind (
+         ;; Windows
+         ("M-o" . other-window)
+         :prefix "C-c w"
+         :prefix-map Windows
+         ("h" . windmove-left)
+         ("j" . windmove-down)
+         ("k" . windmove-up)
+         ("l" . windmove-right)
+         ("d" . delete-window)
+         ;; Keybindings for inserting matching delimiters
+         :prefix "C-c d"
          :prefix-map Delimiters
          ("(" . insert-pair)
          ("[" . insert-pair)
@@ -335,18 +345,6 @@
 
 (use-package olivetti
   :bind ("C-c o" . olivetti-mode))
-
-(use-package switch-window
-  :custom
-  (switch-window-shortcut-style 'qwerty)
-  (switch-window-threshold 3)
-  :bind ("M-o" . switch-window)
-  (:map switch-window-extra-map
-        ("l" . switch-window-mvborder-right)
-        ("h" . switch-window-mvborder-left)
-        ("j" . switch-window-mvborder-down)
-        ("k" . switch-window-mvborder-up))
-  )
 
 ;; Visual undo
 (use-package vundo
