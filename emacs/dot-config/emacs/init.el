@@ -858,7 +858,8 @@
   :after eglot)
 
 ;; Consult interface for LSP workspace/symbols 
-(use-package consult-eglot)
+(use-package consult-eglot
+  :defer t)
 
 ;;;; Flymake syntax checker
 (use-package flymake
@@ -1130,8 +1131,15 @@
 
 ;;; R
 (use-package ess
-  ;; :init (require 'ess-r-mode)
-  ;; :mode ("\\.R\\'" . ess-r-mode)
+  :defer t
+  :custom
+  (inferior-R-args "--no-save --no-restore")
+  (ess-style 'DEFAULT)
+  )
+
+(use-package ess-r-mode
+  :after ess
+  :ensure nil
   :config
   (defun r-insert-magrittr-pipe ()
     "Insert '%>%' at point"
@@ -1162,17 +1170,14 @@
     "Show structure of R object at point"
     (interactive)
     (apply-r-func-at-point "str"))
-  ;; :bind (:map ess-r-mode-map
-  ;;        ("C-c <" . ess-insert-assign)
-  ;;        ("C-c >" . r-insert-magrittr-pipe)
-  ;;        ("C-c r s" . r-summary-at-point)
-  ;;        ("C-c r p" . r-print-at-point)
-  ;;        ("C-c r n" . r-names-at-point)
-  ;;        ("C-c r t" . r-structure-at-point))
-  :custom
-  (inferior-R-args "--no-save --no-restore")
-  (ess-style 'DEFAULT)
-  )
+  :bind (:map ess-r-mode-map
+         ("C-c <" . ess-insert-assign)
+         ("C-c >" . r-insert-magrittr-pipe)
+         ("C-c r s" . r-summary-at-point)
+         ("C-c r p" . r-print-at-point)
+         ("C-c r n" . r-names-at-point)
+         ("C-c r t" . r-structure-at-point))
+)
 
 ;; Rmarkdown, Shiny etc
 (use-package polymode
