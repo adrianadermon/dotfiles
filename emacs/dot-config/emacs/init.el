@@ -13,6 +13,9 @@
                (display-buffer-no-window)
                (allow-no-window . t)))
 
+;; Enable imenu navigation for package declarations
+(setq use-package-enable-imenu-support t)
+
 ;; Profile startup times
 (setq use-package-compute-statistics t)
 
@@ -1277,7 +1280,9 @@
              gemma2:27b
              phi3
              granite3-dense
-             granite3-moe)            ;Installed models
+             granite3-moe
+             deepseek-r1
+             )            ;Installed models
    :stream t)
   (add-hook 'gptel-post-response-functions 'gptel-end-of-response)
   :custom
