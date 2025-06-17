@@ -4,8 +4,8 @@ User adrad148
 # PassCmd "secret-tool lookup password mail-ifau"
 PassCmd "gopass show --password websites/mail-ifau/adrad148"
 Port 993
-SSLType IMAPS
-SSLVersions TLSv1.2
+TLSType IMAPS
+TLSVersions TLSv1.2
 AuthMechs PLAIN
 # SystemCertificates no
 # CertificateFile ~/.maildir/certificates/root-certificates.pem
