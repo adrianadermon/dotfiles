@@ -1,7 +1,8 @@
 IMAPAccount ifau
 Host mail.uu.se
 User adrad148
-PassCmd "secret-tool lookup password mail-ifau"
+# PassCmd "secret-tool lookup password mail-ifau"
+PassCmd "gopass show --password websites/mail-ifau/adrad148"
 Port 993
 SSLType IMAPS
 SSLVersions TLSv1.2
