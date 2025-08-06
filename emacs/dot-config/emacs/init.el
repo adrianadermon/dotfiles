@@ -831,10 +831,14 @@
                '(julia-mode . ("julia" "-e using LanguageServer; runserver()")))
   (add-to-list 'eglot-server-programs
                '(typst-ts-mode . ("tinymist")))
+  (add-to-list 'eglot-server-programs
+               '(org-mode . ("harper-ls" "--stdio")))
   ;; (add-to-list 'eglot-stay-out-of 'flymake) ; Prevent Eglot from taking over Flymake
   (setq-default eglot-workspace-configuration ; Use typstyle formatter for tinymist LSP
-                '(:formatterMode "typstyle"
-                                 :exportPdf "onSave"))
+                '(:tinymist (:formatterMode "typstyle"
+                             :exportPdf "onSave")
+                 :harper-ls (:linters (:SpellCheck :json-false))
+                            ))
   :bind (
          ("C-c e e" . eglot)
          :map eglot-mode-map
