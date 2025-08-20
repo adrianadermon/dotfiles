@@ -1038,10 +1038,10 @@
            ("k" . denote-rename-file-keywords)
            :map org-mode-map
            ("C-c n i" . denote-link)
-           ("C-c n I" . denote-link-add-links)
-           ("C-c n b" . denote-link-backlinks)
-           ("C-c n f l" . denote-link-find-link)
-           ("C-c n f b" . denote-link-find-backlink)
+           ("C-c n I" . denote-add-links)
+           ("C-c n b" . denote-backlinks)
+           ("C-c n f l" . denote-find-link)
+           ("C-c n f b" . denote-find-backlink)
            ))
 
 ;;;; Consult-denote
