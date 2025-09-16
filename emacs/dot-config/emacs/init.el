@@ -714,6 +714,10 @@
          ("C-x C-j" . consult-dir-jump-file))
   )
 
+;;;; Consult-gh (Github interface)
+(use-package consult-gh
+  :after consult)
+
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
   :demand t
