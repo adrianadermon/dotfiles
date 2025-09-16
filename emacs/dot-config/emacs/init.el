@@ -214,6 +214,8 @@
 
 ;;; Misc
 
+(use-package third-time)
+
 (use-package yaml-ts-mode
   :ensure nil
   :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
@@ -1267,6 +1269,16 @@
   (gptel-make-deepseek "DeepSeek"
                        :stream t
                        :key gptel-api-key)
+  (gptel-make-openai "Mistral"
+    :host "api.mistral.ai"
+    :endpoint "/v1/chat/completions"
+    :protocol "https"
+    :key gptel-api-key
+    :models '(mistral-small-latest
+              mistral-medium-latest
+              mistral-large-latest
+              open-mistral-nemo
+              codestral-latest))
   (gptel-make-openai "Groq"
     :host "api.groq.com"
     :endpoint "/openai/v1/chat/completions"
