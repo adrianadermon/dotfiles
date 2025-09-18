@@ -214,6 +214,8 @@
 
 ;;; Misc
 
+(use-package third-time)
+
 (use-package yaml-ts-mode
   :ensure nil
   :if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
@@ -717,6 +719,10 @@
          ("C-x C-j" . consult-dir-jump-file))
   )
 
+;;;; Consult-gh (Github interface)
+(use-package consult-gh
+  :after consult)
+
 ;;;; Corfu (completion-at-point UI)
 (use-package corfu
   :demand t
@@ -1041,10 +1047,10 @@
            ("k" . denote-rename-file-keywords)
            :map org-mode-map
            ("C-c n i" . denote-link)
-           ("C-c n I" . denote-link-add-links)
-           ("C-c n b" . denote-link-backlinks)
-           ("C-c n f l" . denote-link-find-link)
-           ("C-c n f b" . denote-link-find-backlink)
+           ("C-c n I" . denote-add-links)
+           ("C-c n b" . denote-backlinks)
+           ("C-c n f l" . denote-find-link)
+           ("C-c n f b" . denote-find-backlink)
            ))
 
 ;;;; Consult-denote
@@ -1266,6 +1272,16 @@
   (gptel-make-deepseek "DeepSeek"
                        :stream t
                        :key gptel-api-key)
+  (gptel-make-openai "Mistral"
+    :host "api.mistral.ai"
+    :endpoint "/v1/chat/completions"
+    :protocol "https"
+    :key gptel-api-key
+    :models '(mistral-small-latest
+              mistral-medium-latest
+              mistral-large-latest
+              open-mistral-nemo
+              codestral-latest))
   (gptel-make-openai "Groq"
     :host "api.groq.com"
     :endpoint "/openai/v1/chat/completions"
