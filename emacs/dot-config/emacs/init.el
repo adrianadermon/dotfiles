@@ -590,7 +590,10 @@
   :after transient
   :defer t)
 
-
+;;; Containers
+(use-package docker
+  ;; :bind ("C-c d" . docker) ; Already taken
+  )
 
 ;;; Completion setup
 
