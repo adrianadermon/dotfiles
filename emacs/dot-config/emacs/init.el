@@ -214,7 +214,8 @@
 
 ;;; Misc
 
-(use-package third-time)
+(use-package third-time
+    :hook (after-init . third-time-mode))
 
 (use-package yaml-ts-mode
   :ensure nil
