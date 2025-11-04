@@ -251,7 +251,10 @@
 
   ;; Show column numbers
   (column-number-mode t)
-  
+
+  ;; Remove delay when deleting matching pairs
+  (delete-pair-blink-delay 0)
+
   :config
   ;; Use UTF-8 enconding
   (set-language-environment 'utf-8)
@@ -323,7 +326,7 @@
          ("k" . windmove-up)
          ("l" . windmove-right)
          ("d" . delete-window)
-         ;; Keybindings for inserting matching delimiters
+         ;; Keybindings for inserting and deleting matching delimiters
          :prefix "C-c d"
          :prefix-map Delimiters
          ("(" . insert-pair)
@@ -332,7 +335,9 @@
          ("<" . insert-pair)
          ("\"" . insert-pair)
          ("' " . insert-pair)
-         ("`" . insert-pair))
+         ("`" . insert-pair)
+         ("d" . delete-pair)
+         )
   )
 
 ;; Enable Kagi search with Webjump

@@ -4,6 +4,7 @@ fundamental-mode ;; Available everywhere
 
 (today (format-time-string "%Y-%m-%d"))
 
+
 ess-r-mode
 
 (lm "lm(" (p "y") " ~ " (p "x") ", data = " (p "dt") ")")
@@ -46,17 +47,25 @@ ess-r-mode
          "# " (p "Title" title) n n r n n
          "#────────────────────────────────────────────────────────────────────────────────" n)
 
-(asciibox "# ┌─" (make-string (length str) ?─) "─┐" n
-          "# │ " (s str)                       " │" n
-          "# └─" (make-string (length str) ?─) "─┘" n)
+(box "# ┌─" (make-string (length str) ?─) "─┐" n
+     "# │ " (s str)                       " │" n
+     "# └─" (make-string (length str) ?─) "─┘" n
+     :ann "Simple unicode box")
 
 (roundbox "# ╭─" (make-string (length str) ?─) "─╮" n
           "# │ " (s str)                       " │" n
-          "# ╰─" (make-string (length str) ?─) "─╯" n)
+          "# ╰─" (make-string (length str) ?─) "─╯" n
+          :ann "Rounded unicode box")
 
 (dblbox "# ╔═" (make-string (length str) ?═) "═╗" n
         "# ║ " (s str)                       " ║" n
-        "# ╚═" (make-string (length str) ?═) "═╝" n)
+        "# ╚═" (make-string (length str) ?═) "═╝" n
+        :ann "Double-line unicode box")
+
+(boldbox "# ┏━" (make-string (length str) ?━) "━┓" n
+         "# ┃ " (s str)                       " ┃" n
+         "# ┗━" (make-string (length str) ?━) "━┛" n
+         :ann "Bold unicode box")
 
 (line "#────────────────────────────────────────────────────────────────────────────────" n)
 
@@ -64,6 +73,20 @@ ess-r-mode
 
 (fancyline "#╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔╗╔" n
            "#╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝╚╝" n)
+
+;; "─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭"
+;; " ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯"
+
+;; "╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭╮╭"
+;; "╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯╰╯"
+
+;; "╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤"
+;; "╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧"
+
+;; "░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░"
+
+;; "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
+
 
 prog-mode
 
@@ -132,7 +155,8 @@ text-mode
      "--8<---------------cut here---------------end--------------->8---" n)
 (asciibox "+-" (make-string (length str) ?-) "-+" n
           "| " (s str)                       " |" n
-          "+-" (make-string (length str) ?-) "-+" n)
+          "+-" (make-string (length str) ?-) "-+" n
+          :ann "Ascii box")
 (rot13 (p "plain text" text) n "----" n (rot13 text))
 (calc (p "taylor(sin(x),x=0,3)" formula) n "----" n (format "%s" (calc-eval formula)))
 
@@ -151,14 +175,30 @@ c-mode :when (re-search-backward "^\\S-*$" (line-beginning-position) 'noerror)
 
 org-mode
 
-(title "#+title: " p n "#+author: Adrian Adermon" n "#+language: en" n n)
-(quote "#+begin_quote" n> r> n> "#+end_quote")
-(example "#+begin_example" n> r> n> "#+end_example")
+(title "#+title: " p n "#+author: Adrian Adermon" n "#+language: en" n n
+       :ann "Title/author/date"
+       :doc "Insert title, author, and date properties")
+(quote "#+begin_quote" n> r> n> "#+end_quote"
+       :ann "Quote block"
+       :doc "Insert quote block for LaTeX export")
+(example "#+begin_example" n> r> n> "#+end_example"
+         :ann "Example block"
+         :doc "Insert example block for LaTeX export")
 (center "#+begin_center" n> r> n> "#+end_center")
-(comment "#+begin_comment" n> r> n> "#+end_comment")
-(verse "#+begin_verse" n> r> n> "#+end_verse")
-(src "#+begin_src " p n> r> n> "#+end_src" :post (org-edit-src-code))
-(elisp "#+begin_src emacs-lisp" n> r> n "#+end_src" :post (org-edit-src-code))
+(comment "#+begin_comment" n> r> n> "#+end_comment"
+         :ann "Comment block"
+         :doc "Insert comment block")
+(verse "#+begin_verse" n> r> n> "#+end_verse"
+         :ann "Verse block"
+         :doc "Insert verse block for LaTeX export")
+(src "#+begin_src " p n> r> n> "#+end_src"
+     :post (org-edit-src-code)
+     :ann "Code block"
+     :doc "Insert Babel code block")
+(elisp "#+begin_src emacs-lisp" n> r> n "#+end_src"
+       :post (org-edit-src-code)
+       :ann "Elisp code block"
+       :doc "Insert Babel code block for elisp")
 
 (ifau-referee-rapport
  ":PROPERTIES:" n
