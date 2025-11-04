@@ -2,43 +2,51 @@
 
 fundamental-mode ;; Available everywhere
 
-(today (format-time-string "%Y-%m-%d"))
+(today (format-time-string "%Y-%m-%d")
+       :ann "Today's date")
 
 
+;; R
+;; ─────────────────────────────────────────────────────────────────────────────
 ess-r-mode
 
-(lm "lm(" (p "y") " ~ " (p "x") ", data = " (p "dt") ")")
+(lm "lm(" (p "y") " ~ " (p "x") ", data = " (p "dt") ")"
+    :ann "Linear regression model")
 
-;; ggplot scatter plot
 (point "ggplot(" (p "dt") ", aes(x = " (p "x") ", y = " (p "y") "))" n
-	"+ geom_point()" >)
+       "+ geom_point()" >
+       :ann "ggplot2 scatter plot")
 
-(wf "write_fst(" (p "dt") ", \"" (p "filename") ".fst\", compress = 100)")
+(wf "write_fst(" (p "dt") ", \"" (p "filename") ".fst\", compress = 100)"
+    :ann "Write FST file")
 
-(rf (p "dt") "<- read_fst(\"" (p "filename") "\", as.data.table = TRUE)")
+(rf (p "dt") "<- read_fst(\"" (p "filename") "\", as.data.table = TRUE)"
+    :ann "Read FST file")
 
-(dtab (p "dt") "[, .N, by = " (p "variable") "]")
+(dtab (p "dt") "[, .N, by = " (p "variable") "]"
+      :ann "DT frequency table")
 
-(dsum (p "dt") "[, summary(" (p "variable") ")]")
+(dsum (p "dt") "[, summary(" (p "variable") ")]"
+      :ann "DT summary statistics")
 
-;; Drop columns from data.table
-(ddrop (p "Columns to drop: " cols noinsert) (p "dt") "[, c(\"" (string-replace " " "\", \"" cols) "\") := NULL]")
+(ddrop (p "Columns to drop: " cols noinsert) (p "dt") "[, c(\"" (string-replace " " "\", \"" cols) "\") := NULL]"
+       :ann "Drop columns from DT")
 
-;; Wrap terms in character vector
-(vec (p "Elements: " words noinsert) "c(\"" (string-replace " " "\", \"" words) "\")")
+(vec (p "Elements: " words noinsert) "c(\"" (string-replace " " "\", \"" words) "\")"
+     :ann "Wrap terms in character vector")
 
-;; Drop duplicates on variable
 (dupdrop  (p "dt") " <- " (p "dt" dt) "[!duplicated(" (s dt) ", by = " (p "id" id) ") &" n
-   "!duplicated(" (s dt) ", by = " (s id) ", fromLast = TRUE)]" >)
+          "!duplicated(" (s dt) ", by = " (s id) ", fromLast = TRUE)]" >
+          :ann "Drop duplicates on single variable")
 
-;; Drop duplicates on variables
 (dupdropvec (p "ID columns: " id noinsert)
             (p "dt") " <- " (p "dt" dt) "[!duplicated(" (s dt) ", by = c(\"" (string-replace " " "\", \"" id) "\")) &" n
-   "!duplicated(" (s dt) ", by = c(\"" (string-replace " " "\", \"" id) "\"), fromLast = TRUE)]" >)
+            "!duplicated(" (s dt) ", by = c(\"" (string-replace " " "\", \"" id) "\"), fromLast = TRUE)]" >
+            :ann "Drop duplicates on multiple variables")
 
-;; Keep only duplicates on variables
 (dupkeep (p "dt") " <- " (p "dt" dt) "[duplicated(" (s dt) ", by = " (p "id" id) ") |" n
-   "duplicated(" (s dt) ", by = " (s id) ", fromLast = TRUE)]" >)
+         "duplicated(" (s dt) ", by = " (s id) ", fromLast = TRUE)]" >
+         :ann "Keep only duplicates on variables")
 
 
 
@@ -88,6 +96,8 @@ ess-r-mode
 ;; "▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"
 
 
+;; Programming
+;; ─────────────────────────────────────────────────────────────────────────────
 prog-mode
 
 (fixme (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "FIXME ")
@@ -95,6 +105,8 @@ prog-mode
 (bug (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "BUG ")
 (hack (if (derived-mode-p 'emacs-lisp-mode) ";; " comment-start) "HACK ")
 
+;; LaTeX
+;; ─────────────────────────────────────────────────────────────────────────────
 latex-mode
 
 (begin "\\begin{" (s env) "}" r> n> "\\end{" (s env) "}")
@@ -106,6 +118,9 @@ lisp-mode emacs-lisp-mode ;; Specify multiple modes
 
 (lambda "(lambda (" p ")" n> r> ")")
 
+
+;; Elisp
+;; ─────────────────────────────────────────────────────────────────────────────
 emacs-lisp-mode
 
 (autoload ";;;###autoload")
@@ -139,6 +154,9 @@ emacs-lisp-mode
 (provide "(provide '" (file-name-base (or (buffer-file-name) (buffer-name))) ")" n
          ";;; " (file-name-nondirectory (or (buffer-file-name) (buffer-name))) " ends here" n)
 
+
+;; Eshell
+;; ─────────────────────────────────────────────────────────────────────────────
 eshell-mode
 
 (for "for " (p "i") " in " p " { " q " }")
@@ -149,6 +167,9 @@ eshell-mode
 (unl "unless { " p " } { " q " }")
 (unle "unless { " p " } { " p " } { " q " }")
 
+
+;; Text
+;; ─────────────────────────────────────────────────────────────────────────────
 text-mode
 
 (cut "--8<---------------cut here---------------start------------->8---" n r n
@@ -160,19 +181,9 @@ text-mode
 (rot13 (p "plain text" text) n "----" n (rot13 text))
 (calc (p "taylor(sin(x),x=0,3)" formula) n "----" n (format "%s" (calc-eval formula)))
 
-rst-mode
 
-(title (make-string (length title) ?=) n (p "Title: " title) n (make-string (length title) ?=) n)
-
-java-mode
-
-(class "public class " (p (file-name-base (or (buffer-file-name) (buffer-name)))) " {" n> r> n "}")
-
-c-mode :when (re-search-backward "^\\S-*$" (line-beginning-position) 'noerror)
-
-(inc "#include <" (p (concat (file-name-base (or (buffer-file-name) (buffer-name))) ".h")) ">")
-(incc "#include \"" (p (concat (file-name-base (or (buffer-file-name) (buffer-name))) ".h")) "\"")
-
+;; Org
+;; ─────────────────────────────────────────────────────────────────────────────
 org-mode
 
 (title "#+title: " p n "#+author: Adrian Adermon" n "#+language: en" n n
@@ -210,6 +221,8 @@ org-mode
  ":END:"
  )
 
+;; HTML
+;; ─────────────────────────────────────────────────────────────────────────────
 html-mode
 
 (p "<p>" r> "</p>")
