@@ -239,8 +239,10 @@
   (tab-always-indent 'complete)
   ;; TAB cycle if there are only few candidates
   (completion-cycle-threshold 3)
-    ;; Enable TAB for outline minor mode
+  ;; Enable TAB for outline minor mode
   (outline-minor-mode-cycle t)
+  ;; Hide commands in M-x which do not apply to the current mode.
+  (read-extended-command-predicate #'command-completion-default-include-p)
   
   ;; Use Ripgrep for regexp search
   (xref-search-program 'ripgrep)
@@ -729,15 +731,7 @@
   :hook
   (after-init . global-corfu-mode)
   (after-init . corfu-popupinfo-mode)
-  :init
-(defun corfu-enable-in-minibuffer ()
-  "Enable Corfu in the minibuffer if `completion-at-point' is bound."
-  (when (where-is-internal #'completion-at-point (list (current-local-map)))
-    ;; (setq-local corfu-auto nil) ;; Enable/disable auto completion
-    (setq-local corfu-echo-delay nil ;; Disable automatic echo and popup
-                corfu-popupinfo-delay nil)
-    (corfu-mode 1)))
-(add-hook 'minibuffer-setup-hook #'corfu-enable-in-minibuffer))
+)
 
 ;; Use Dabbrev with Corfu!
 (use-package dabbrev
@@ -746,9 +740,12 @@
   :bind
   (("M-/" . dabbrev-completion)
    ("C-M-/" . dabbrev-expand))
-  ;; Other useful Dabbrev configurations.
-  :custom
-  (dabbrev-ignored-buffer-regexps '("\\.\\(?:pdf\\|jpe?g\\|png\\)\\'")))
+  :config
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'authinfo-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode))
 
 ;;;; Cape (completion-at-point extensions)
 (use-package cape
