@@ -214,7 +214,8 @@
 
 ;;; Misc
 
-(use-package third-time)
+(use-package third-time
+    :hook (after-init . third-time-mode))
 
 (use-package yaml-ts-mode
   :ensure nil
@@ -252,7 +253,10 @@
 
   ;; Show column numbers
   (column-number-mode t)
-  
+
+  ;; Remove delay when deleting matching pairs
+  (delete-pair-blink-delay 0)
+
   :config
   ;; Use UTF-8 enconding
   (set-language-environment 'utf-8)
@@ -324,7 +328,7 @@
          ("k" . windmove-up)
          ("l" . windmove-right)
          ("d" . delete-window)
-         ;; Keybindings for inserting matching delimiters
+         ;; Keybindings for inserting and deleting matching delimiters
          :prefix "C-c d"
          :prefix-map Delimiters
          ("(" . insert-pair)
@@ -333,7 +337,9 @@
          ("<" . insert-pair)
          ("\"" . insert-pair)
          ("' " . insert-pair)
-         ("`" . insert-pair))
+         ("`" . insert-pair)
+         ("d" . delete-pair)
+         )
   )
 
 ;; Enable Kagi search with Webjump
@@ -423,13 +429,11 @@
 
 ;; Smooth scrolling
 (use-package ultra-scroll
-  :vc (:url "https://github.com/jdtsmith/ultra-scroll")
-  :init
-  (setq scroll-conservatively 101 ; important!
-        scroll-margin 0) 
-  :config
-  (ultra-scroll-mode 1))
-
+  :custom
+  (scroll-conservatively 101) ; important!
+  (scroll-margin 0) 
+  :hook (after-init . ultra-scroll-mode)
+  )
 
 ;; MacOS specific settings
 (when (eq system-type 'darwin)
